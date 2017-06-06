@@ -56,10 +56,14 @@ class jvarcadeViewProfile extends JViewLegacy {
 		if (isset($counts[$user_id])) {
 			$this->totalHighScores = $counts[$user_id];
 		}else
-		$this->totalHighScores = 0;
+			$this->totalHighScores = 0;
 		
 		//Leaderboard
-		$this->lbPos = $model->getLbPos($user_id);
+		$leaderboard = $model->getLeaderboard(0);
+		$leaderboard = json_decode(json_encode($leaderboard), true);
+		$place = array_search($user_id, array_column($leaderboard, 'userid'));
+		$this->lbPos = (in_array($place, array(0,1,2)) ? '<img src="' . JVA_IMAGES_SITEPATH . 'icons/medal_' . ($place+1) . '.gif" border="0" alt="" />'  : $place+1);
+		$this->lbPoints = $leaderboard[$place]['points'];
 		
 		//Gamersafe Achievements
 		$achievements = $model->getUserAchievements($user_id);
@@ -78,6 +82,7 @@ class jvarcadeViewProfile extends JViewLegacy {
 		$title = JText::_('COM_JVARCADE_PROFILE_TITLE') . ' - ' . $this->userToProfile->username;
 		$pathway->addItem($title);
 		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
+		
 		
 		parent::display($tpl);
 	}

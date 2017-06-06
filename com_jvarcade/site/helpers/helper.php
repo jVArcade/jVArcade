@@ -228,10 +228,10 @@ class jvaHelper {
 					);
 			$context = stream_context_create($opts);
 			
-			$response = json_decode(file_get_contents('https://api.github.com/repos/jvitals/jvarcade/releases/latest' , false, $context), true);
+			$response = json_decode(file_get_contents('https://api.github.com/repos/jVArcade/jVArcade/releases/latest' , false, $context), true);
 			$version= $response['tag_name'];
 			
-			$message = "The latest release of jVArcade(" . $version . ") is now available on GitHub! <a href='https://github.com/jVitals/jVarcade/releases/download/" . $version . "/jVArcade-" . $version . "-unzip-first.zip'> Download Here</a>";
+			$message = "The latest release of jVArcade(" . $version . ") is now available on GitHub! <a href=" . $response['assets'][0]['browser_download_url'] . "> Download Here</a>";
 			$version_info = $version . ':' . $message;
 			$fp = @fopen($tmpfile, "wb");
 			if ($fp) {
@@ -275,53 +275,6 @@ class jvaHelper {
 		return true;
 	}
 	
-	public static function createGsFeed() {
-		$config = JFactory::getConfig();
-		$tmp_path = $config->get('tmp_path');
-		$filename = 'gsfeed.php';
-		$tmpfile = $tmp_path . '/' . $filename;
-	
-		$dorequest = false;
-		$filefound = false;
-	
-		if (is_file($tmpfile)) {
-			$filefound = true;
-			if ((filemtime($tmpfile) + (60 * 60 * 24)) < time()) {
-				// only once per day
-				$dorequest = true;
-			}
-		}
-	
-		if (!$filefound) $dorequest = true;
-	
-		if ($dorequest) {
-	
-			$http = JHttpFactory::getHttp();
-			$response = $http->get('http://flashgamedistribution.com/feed?type=mochi&gpp=32&feed=phpcode', array(), 90);
-			$response = $response->body;
-	
-	
-	
-			$fp = @fopen($tmpfile, "wb");
-			if ($fp) {
-				@flock($fp, LOCK_EX);
-				$len = strlen($response);
-				@fwrite($fp, $response, $len);
-				@flock($fp, LOCK_UN);
-				@fclose($fp);
-				$written = true;
-			}
-			// Data integrity check
-			if ($written && (file_get_contents($tmpfile))) {
-				// nothing to do
-			} else {
-				unlink($tmpfile);
-			}
-		}
-	
-		return (is_file($tmpfile) ? $tmpfile : $default_file);
-	}
-	
 	public static function showAvatar($userid) {
 	
 		static $jva_avatars;
@@ -348,8 +301,8 @@ class jvaHelper {
 				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_avatar = $js_user->getThumbAvatar();
-			//AltaUserPoints
-			}/*elseif ((int)$config->scorelink ==3) {
+			//AlphaUserPoints
+			} elseif ((int)$config->scorelink ==3) {
 				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
@@ -358,7 +311,7 @@ class jvaHelper {
 					echo $avatar;
 				}
 				
-			}*/ elseif ((int)$config->scorelink == 0) {
+			} elseif ((int)$config->scorelink == 0) {
 				
 				if ((int)$userid == 0) {
 					$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
@@ -412,7 +365,7 @@ class jvaHelper {
 			// Guest
 			if ((int)$userid == 0) {
 				$_name = $config->guest_name;
-			//Alta User Points
+			//Alpha User Points
 			} elseif (((int)$config->scorelink == 3) && is_file(JPATH_SITE . '/components/com_altauserpoints/helper.php')) {
 				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
@@ -550,7 +503,7 @@ class jvarcadeHtml {
 				for ($i = 0, $n = count($options); $i < $n; $i++) {
 					$options[$i]->text = str_repeat('- ',$options[$i]->level).$options[$i]->text;
 				}
-				array_unshift($options, JHtml::_('select.option', 0, 'Guest'));
+				//array_unshift($options, JHtml::_('select.option', 0, 'Guest'));
 				$ret = JHtml::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected ));
 			
 			

@@ -651,11 +651,11 @@ class jvarcadeController extends JControllerLegacy {
 						
 						// SAVE THE SCORE
 						if ($updatescore) {
-							// fire onPUAScoreSaved event if first score/champion or no champion and the game does not take part in any contest. 
+							// fire onPUAScoreSaved event if no champion and the game does not take part in any contest
 							$trigger = (!$isNewChampion || $isNewChampion) && (!$contest_result[0]);
-							
 							// actual saving
-							$res = $scores_model->saveScore($game_id, $game_title, $userid, $username, $score, $userhighestscore, $trigger);
+							 $res = $scores_model->saveScore($game_id, $game_title, $userid, $username, $score, $userhighestscore, $trigger);
+							
 						}
 
 						// SAVE THE SCORE FOR ALL THE CONTEST THAT THE GAME TAKES PART IN

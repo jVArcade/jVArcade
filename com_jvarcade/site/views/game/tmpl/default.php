@@ -59,34 +59,6 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 		<?php endif; ?>
 
-		<!-- GamerSafe Integration -->
-		
-		<?php if ((int)$this->game['gsafe'] == 1):?>
-		<script language="JavaScript" type="text/javascript">
-		<!--
-		function setupGamerSafeBridge() {
-			var bridgeConfig = {
-				user: "<?php echo ($this->user->id ? $this->user->id : '0'); ?>",
-				game: "<?php echo $this->game['gamename']; ?>",
-				callback: "onBridgeMessage" 				
-			};
-			return bridgeConfig;
-		}
-		
-		function onBridgeMessage(message) {
-            switch(message.message) {
-                case "achievement_awarded":
-                    jQuery(document).ready(function() {jQuery.jva.achAward('<?php echo $this->game['title']; ?>','<?php echo $this->game['id'];?>', message.title, message.description, message.icon_url, message.point_value);});
-                    break;
-                case "scoreboard_entry":
-                    jQuery(document).ready(function() {jQuery.jva.bridgeScore('<?php echo $this->game['gamename']; ?>', message.score, <?php echo (int)$this->game['ajaxscore']; ?>);});
-                    break;
-            }
-        }
-
-		// -->
-			</script>
-		<?php endif; ?>
 			<?php if (!(int)$this->game['ajaxscore']) : ?>
 			<form method="post" action="<?php echo JRoute::_(JURI::root() . 'newscore.php') ?>" id="bridge_helper_form" style="display: none;">
 				<input type="hidden" name="score" value="" id="bridge_helper_form_score" />
@@ -143,13 +115,13 @@ defined('_JEXEC') or die('Restricted access');
 					<param name="devicefont" value="false" />
 					<param name="salign" value="" />
 					<param name="allowScriptAccess" value="always" />
-				<!--<![endif]-->
+				<!--[endif]-->
 					<a href="http://www.adobe.com/go/getflash">
 						<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
 					</a>
 				<!--[if !IE]>-->
 				</object>
-				<!--<![endif]-->
+				<!--[endif]-->
 			</object>
 			
 

@@ -108,6 +108,8 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 				$dispatcher = JEventDispatcher::getInstance();
 				// trigger the contest score event
 				$dispatcher->trigger('onPUAScoreSaved', array($game_id, $game_title, $userid, $username, $score));
+				
+			
 			}
 		}
 		
@@ -355,7 +357,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 					}
 					
 					if ($this->dbo->execute() && $goodscore) {
-						$dispatcher->trigger('onPUAScoreSaved', array($game_id, $game_title, $userid, $username, $score, $contest_id, $contest_name));
+						$dispatcher->trigger('onPUAContestScoreSaved', array($game_id, $game_title, $userid, $username, $score, $contest_id, $contest_name));
 						$this->setUpdateLeaderBoard($contest_id);
 						// ADD TO MSG QUEUE INFO THAT SCORE WAS SAVED FOR THIS CONTEST
 						$app->enqueueMessage(JText::sprintf('COM_JVARCADE_SCORE_SAVED_FOR_CONTEST', $contest_name, $current_score));
@@ -386,13 +388,13 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 		$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 		if (!is_file($path)) {
 			touch($path);
-			file_put_contents($path, mktime()); 
+			file_put_contents($path, time()); 
 		}
 	}
 	
 	public function checkUpdateLeaderBoard($contest_id = 0) {
 		$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
-		if (is_file($path) && (((int)file_get_contents($path) + ((int)$this->config->updatelb*60)) < mktime())) {
+		if (is_file($path) && (((int)file_get_contents($path) + ((int)$this->config->updatelb*60)) < time())) {
 			return true;
 		}
 		return false;

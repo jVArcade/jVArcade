@@ -697,9 +697,16 @@ button.close {
 	height: 175px;
 	float: left;
 }
-.info-area{
-	float: left;
+.info-area {
+    float: left;
+    background: url("img/header_bar_bg.png") repeat-x scroll 0 0 #003399;
+    border-radius: 5px;
+    color: white;
+    width: 77%;
+    padding-left: 3px;
+    margin-left: 5px;
 }
+
 .user-online{
 	text-align: center;
 }

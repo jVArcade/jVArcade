@@ -70,6 +70,16 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 		return $this->dbo->loadRow();
 	}
 	
+	public function getLeaderboard($contest_id = 0) {
+			$sql = 'SELECT l.*, u.name, u.username FROM #__jvarcade_leaderboard l LEFT JOIN #__users u ON l.userid = u.id
+				WHERE l.contestid = ' . (int)$contest_id . '
+					AND ((l.userid IS NOT NULL AND u.id IS NOT NULL)
+						OR (l.userid = 0 AND u.id IS NULL))
+				ORDER BY l.points DESC';
+			$this->dbo->setQuery($sql);
+			return $this->dbo->loadObjectList();
+	}
+	
 
 }
 

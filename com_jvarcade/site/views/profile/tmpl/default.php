@@ -52,8 +52,8 @@ jQuery(document).ready(function($) {
 			<h4><?php echo JText::_('COM_JVARCADE_USERNAME') . $this->userToProfile->username; ?></h4>
 			<h4>Scores: <?php echo $this->totalScores; ?></h4>
 			<h4>High Scores: <?php echo $this->totalHighScores; ?></h4>
-			<h4>Leaderboard Position: <?php echo $this->lbPos['id']; ?></h4>
-			<h4>Leaderboard Points: <?php echo $this->lbPos['points']; ?></h4>
+			<h4>Leaderboard Position: <?php echo $this->lbPos; ?></h4>
+			<h4>Leaderboard Points: <?php echo $this->lbPoints; ?></h4>
 			</div>
 	</div>
 
@@ -87,7 +87,7 @@ jQuery(document).ready(function($) {
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $score['imagename'];?>" height="50px" width="50px" class="hasTooltip" data-original-title="<strong><?php echo $score['title']; ?></strong>">
 					</a>
 					</td>
-					<td><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $score['id'], false); ?>" class="hasTooltip" data-original-title="<strong><?php echo $score['description']; ?></strong>">
+					<td><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $score['id'], false); ?>" class="hasTooltip" data-original-title="<strong><?php echo $score['title']; ?></strong></br><?php echo $score['description']; ?>">
 						<b><?php echo jvaHelper::truncate(stripslashes($score['title']), (int)$this->config->truncate_title); ?></b></a></td>
 					<td><b><?php echo rtrim(rtrim(number_format($score['score'],2), '0'), '.'); ?></b>
 					</tr>
