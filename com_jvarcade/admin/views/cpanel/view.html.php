@@ -94,11 +94,6 @@ class jvarcadeViewCpanel extends JViewLegacy {
 				'icon' => 'contests.png',
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),
-			'RSS' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=rss'),
-				'icon' => 'rss.png',
-				'label' => JText::_('COM_JVARCADE_RSS')
-			),
 			'SUPPORT' => array(
 				'link' => 'http://www.jvitals.com/support/support-forum/default-forum/14-jvarcade.html',
 				'icon' => 'user_48.png',

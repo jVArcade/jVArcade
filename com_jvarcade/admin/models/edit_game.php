@@ -67,7 +67,6 @@ class jvarcadeModelEdit_game extends JModelLegacy {
 				'window' => 'int',
 				'contentratingid' => 'int',
 				'ajaxscore' => 'int',
-				'gsafe' => 'int',
 				'published' => 'int',
 		));
 		$post['description'] = $this->filterobj->clean((string)$post['description'], 'html');
@@ -94,7 +93,6 @@ class jvarcadeModelEdit_game extends JModelLegacy {
 				" . $this->dbo->quoteName('window') . " = " . $this->dbo->Quote((int)$post['window']) . ",
 				" . $this->dbo->quoteName('contentratingid') . " = " . $this->dbo->Quote((int)$post['contentratingid']) . ",
 				" . $this->dbo->quoteName('ajaxscore') . " = " . $this->dbo->Quote((int)$post['ajaxscore']) . ",
-				" . $this->dbo->quoteName('gsafe') . " = " . $this->dbo->Quote((int)$post['gsafe']) . "
 			WHERE " . $this->dbo->quoteName('id') . " = " . (int)$post['id'];
 			$this->dbo->setQuery($query);
 			if (!$this->dbo->execute()) $this->getDBerr();
@@ -109,7 +107,7 @@ class jvarcadeModelEdit_game extends JModelLegacy {
 					$this->dbo->Quote((int)$post['height']) . "," . $this->dbo->Quote((int)$post['width']) . "," . $this->dbo->Quote((int)$post['numplayed']) . "," .
 					$this->dbo->Quote($post['background']) . "," . $this->dbo->Quote((int)$post['published']) . "," . $this->dbo->Quote((int)$post['reverse_score']) . "," .
 					$this->dbo->Quote((int)$post['scoring']) . "," . $this->dbo->Quote((int)$post['folderid']) . "," . $this->dbo->Quote((int)$post['window']) . "," .
-					$this->dbo->Quote((int)$post['contentratingid']) . "," . $this->dbo->Quote((int)$post['ajaxscore']) . "," . $this->dbo->Quote((int)$post['gsafe']) . ")";
+					$this->dbo->Quote((int)$post['contentratingid']) . "," . $this->dbo->Quote((int)$post['ajaxscore']) . ")";
 			$this->dbo->setQuery($query);
 			if (!$this->dbo->execute()) $this->getDBerr();
 			$gameid = (int)$this->dbo->insertid();
