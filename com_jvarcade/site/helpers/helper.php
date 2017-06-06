@@ -303,11 +303,11 @@ class jvaHelper {
 				$_avatar = $js_user->getThumbAvatar();
 			//AlphaUserPoints
 			} elseif ((int)$config->scorelink ==3) {
-				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
+				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$avatar = AlphaUserPointsHelper:: getAupAvatar( $userid, 0, '50', '50', '', '' );
+					$avatar = AltaUserPointsHelper:: getAupAvatar( $userid, 0, '50', '50', '', '' );
 					echo $avatar;
 				}
 				
@@ -366,12 +366,12 @@ class jvaHelper {
 			if ((int)$userid == 0) {
 				$_name = $config->guest_name;
 			//Alpha User Points
-			} elseif (((int)$config->scorelink == 3) && is_file(JPATH_SITE . '/components/com_alphauserpoints/helper.php')) {
-				$api_AUP = JPATH_SITE . '/components/com_alphauserpoints/helper.php';
+			} elseif (((int)$config->scorelink == 3) && is_file(JPATH_SITE . '/components/com_altauserpoints/helper.php')) {
+				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$linktoAUPprofil = AlphaUserPointsHelper::getAupLinkToProfil($userid, (int)$config->aup_itemid);
+					$linktoAUPprofil = AltaUserPointsHelper::getAupLinkToProfil($userid, (int)$config->aup_itemid);
 					$_name = '<a href="' . $linktoAUPprofil . '">' . $username . '</a>';
 				}
 			//Community Builder
