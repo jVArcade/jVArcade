@@ -5,23 +5,6 @@
 			jQuery('#rate1').rating(JVA_AJAX_RATING_URL + game_id, {maxvalue:5,increment:.5,curvalue:current_vote});
 		},
 
-		bridgeScore: function(gname, score, ajaxscore) {
-			if (ajaxscore == 1) {
-				jQuery.post('/newscore.php', {
-					"gname": gname,
-					"score": score,
-					"ajaxscore": ajaxscore
-				}, function(data) {
-					if (data) {
-						alert(data);
-					}
-				});
-			} else {
-				document.getElementById('bridge_helper_form_score').value = score;
-				document.getElementById('bridge_helper_form_gname').value = gname;
-				document.getElementById('bridge_helper_form').submit();
-			}
-		},
 
 		showTags: function(id, status, Itemid) {
 			jQuery.post(JVA_AJAX_URL, {
@@ -51,22 +34,6 @@
 				if (parseInt(data) == 1) {
 					jQuery.jva.showTags(id, 1, Itemid);
 				}
-			});
-		},
-		
-		achAward: function(gtitle, gid, title, desc, icon, pts) {
-			jQuery.post(JVA_AJAX_URL, {
-				"option": "com_jvarcade",
-				"task": "achaward",
-				"format": "raw",
-				"tmpl": "component",
-				"gtitle": gtitle,
-				"gid": gid,
-				"achtitle": title,
-				"achdesc": desc,
-				"achicon": icon,
-				"pts": pts
-				
 			});
 		},
 		

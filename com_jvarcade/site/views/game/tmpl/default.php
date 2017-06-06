@@ -58,13 +58,6 @@ defined('_JEXEC') or die('Restricted access');
 			</script>
 			</div>
 		<?php endif; ?>
-
-			<?php if (!(int)$this->game['ajaxscore']) : ?>
-			<form method="post" action="<?php echo JRoute::_(JURI::root() . 'newscore.php') ?>" id="bridge_helper_form" style="display: none;">
-				<input type="hidden" name="score" value="" id="bridge_helper_form_score" />
-				<input type="hidden" name="gname" value="" id="bridge_helper_form_gname" />
-			</form>
-			<?php endif; ?>
 		
 		
 
