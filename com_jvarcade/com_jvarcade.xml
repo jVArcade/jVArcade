@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
+<extension type="component" version="3.4" method="upgrade">
+	<name>jVArcade</name>
+	<version>2.14</version>
+	<copyright>(C) All rights reserved. 2011-2016 jVitals.com</copyright>
+	<creationDate>12 Mar 2016</creationDate>
+	<author>jVitals Team</author>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>admin@jvitals.com</authorEmail>
+	<authorUrl>http://www.jvitals.com</authorUrl>
+	<description>A Joomla Arcade Component</description>
+	<scriptfile>install.script.php</scriptfile>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install.jvarcade.sql</file>
+			<file driver="mysql">install.jvarcade.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">uninstall.jvarcade.sql</file>
+			<file driver="mysql">uninstall.jvarcade.sql</file>
+		</sql>
+	</uninstall>
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>jvarcade.php</filename>
+		<filename>controller.php</filename>
+		<filename>router.php</filename>
+		<folder>controllers</folder>
+		<folder>css</folder>
+		<folder>games</folder>
+		<folder>images</folder>
+		<folder>include</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<folder>helpers</folder>
+	</files>
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB.com_jvarcade.ini</language>
+		<language tag="fi-FI">fi-FI.com_jvarcade.ini</language>
+		<language tag="fr-FR">fr-FR.com_jvarcade.ini</language>
+		<language tag="ru-RU">ru-RU.com_jvarcade.ini</language>
+	</languages>
+	<administration>
+		<menu link="option=com_jvarcade&amp;view=cpanel">COM_JVARCADE</menu>
+		<submenu>
+			<menu link="option=com_jvarcade&amp;task=cpanel">COM_JVARCADE_CPANEL</menu>
+			<menu link="option=com_jvarcade&amp;task=settings">COM_JVARCADE_SETTINGS</menu>
+			<menu link="option=com_jvarcade&amp;task=manage_scores">COM_JVARCADE_MANAGE_SCORES</menu>
+			<menu link="option=com_jvarcade&amp;task=manage_folders">COM_JVARCADE_MANAGE_FOLDERS</menu>
+			<menu link="option=com_jvarcade&amp;task=manage_games">COM_JVARCADE_MANAGE_GAMES</menu>
+			<menu link="option=com_jvarcade&amp;task=game_upload">COM_JVARCADE_UPLOAD_ARCHIVE</menu>
+			<menu link="option=com_jvarcade&amp;task=maintenance">COM_JVARCADE_MAINTENANCE</menu>
+			<menu link="option=com_jvarcade&amp;task=content_ratings">COM_JVARCADE_CONTENT_RATINGS</menu>
+			<menu link="option=com_jvarcade&amp;task=contests">COM_JVARCADE_CONTESTS</menu>
+			<menu link="option=com_jvarcade&amp;task=rss">COM_JVARCADE_RSS</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>access.xml</filename>
+			<filename>jvarcade.php</filename>
+			<filename>changelog.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>sidebar.php</filename>
+			<filename>model.php</filename>
+			<filename>install.jvarcade.sql</filename>
+			<filename>uninstall.jvarcade.sql</filename>
+			<folder>css</folder>
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>language</folder>
+			<folder>install</folder>
+			<folder>controllers</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.ini</language>
+			<language tag="en-GB">/language/en-GB/en-GB.com_jvarcade.sys.ini</language>
+			<language tag="ru-RU">/language/ru-RU/ru-RU.com_jvarcade.ini</language>
+			<language tag="ru-RU">/language/ru-RU/ru-RU.com_jvarcade.sys.ini</language>
+			<language tag="fi-FI">/language/fi-FI/fi-FI.com_jvarcade.ini</language>
+			<language tag="fi-FI">/language/fi-FI/fi-FI.com_jvarcade.sys.ini</language>
+		</languages>
+	</administration>
+	<media destination="com_jvarcade" folder="media/com_jvarcade">
+	<folder>js</folder>
+	</media>
+</extension>
