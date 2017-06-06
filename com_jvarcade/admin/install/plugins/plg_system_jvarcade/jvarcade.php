@@ -21,7 +21,7 @@ class plgSystemJvarcade extends JPlugin {
 	var $url = '';
 	var $u = '';
 	
-	function plgSystemJvarcade(&$subject, $config) {
+	function __construct(&$subject, $config) {
 		parent::__construct($subject, $config);
 	}
 
@@ -40,16 +40,6 @@ class plgSystemJvarcade extends JPlugin {
 			if (!file_exists(JPATH_ROOT . DS . $filename)) {
 				file_put_contents(JPATH_ROOT . DS . $filename, $content);
 			}
-		}
-		
-		
-		/* MOCHI CROSSDOMAIN XML */
-		
-		
-		// This file is used by Mochi games.
-		if (strpos($_SERVER['REQUEST_URI'], 'crossdomain.xml') !== false) {
-			header('Location: ' . JURI::root(true) . '/crossdomain.xml');
-			jexit();
 		}
 		
 		

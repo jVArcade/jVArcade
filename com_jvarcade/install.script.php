@@ -16,20 +16,17 @@ jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
 jimport('joomla.archive.archive');
 		
-class com_jvarcadeInstallerScript {		
-		
+class com_jvarcadeInstallerScript {			
 		function preflight($type, $parent) {
-			
-	
-			
-			
+
 			
 		}//End Preflight
 		
 		
 		function install($parent) {
+			$app = JFactory::getApplication();
 			$install = '<div style="align:left;">';
-			require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
+			require_once JPATH_ROOT . '/components/com_jvarcade/include/define.php';
 			$backendPath = JPATH_ROOT . '/administrator/components/com_jvarcade/';
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
 			$table = '#__jvarcade_settings';
@@ -124,7 +121,7 @@ class com_jvarcadeInstallerScript {
 			JPATH_ROOT . '/arcade/gamedata/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
 			JPATH_ROOT . '/newscore.php' => '<?php require_once \'./index.php\';',
 			JPATH_ROOT . '/arcade.php' => '<?php require_once \'./index.php\';',
-			JPATH_ROOT . '/crossdomain.xml' => '<?xml version="1.0"?>' . "\n" . '<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">' . "\n" . '<cross-domain-policy>' . "\n\t" . '<allow-access-from domain="www.mochiads.com" />' . "\n\t" . '<allow-access-from domain="x.mochiads.com" />' . "\n\t" . '<allow-access-from domain="xs.mochiads.com" />' . "\n" . '</cross-domain-policy>' . "\n",
+			
 		);
 		foreach ($copyfiles as $filename => $content) {
 			if(JFile::exists($filename)) @JFile::delete($filename);
@@ -133,6 +130,69 @@ class com_jvarcadeInstallerScript {
 		
 		echo $install;
 		echo "</div><br /><br /><br />";
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_system_jvarcade';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='jvarcade' AND folder='system'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade System plugin installed and enabled successfully','message');
+		} else $error++;
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_search_jvarcade';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='jvarcade' AND folder='search'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Search plugin installed and enabled successfully','message');
+		} else $error++;
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_atari';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='atari' AND folder='jvarcade'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Atari2600 Emulator plugin installed and enabled successfully','message');
+		} else $error++;
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_c64';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='c64' AND folder='jvarcade'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Commodore 64 emulator plugin installed and enabled successfully','message');
+		} else $error++;
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_gameboy';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='gameboy' AND folder='jvarcade'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Nintendo Gameboy emulator plugin installed and enabled successfully','message');
+		} else $error++;
+		
+		$plugin_installer = new JInstaller;
+		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_nes';
+		if( $plugin_installer->install( $file_origin ) )
+		{	
+			$q = "UPDATE #__extensions SET  enabled='1' WHERE `element`='nes' AND folder='jvarcade'";
+			$db->setQuery( $q );
+			$db->execute();				
+			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Nintendo Nes and Famicom emulator plugin installed and enabled successfully','message');
+		} else $error++;
+		
+			
+			
 	}//end install function
 	
 	function update($parent) {
