@@ -29,7 +29,7 @@ define('COM_JVARCADE_TIMEZONE', $config->timezone);
 
 $document = JFactory::getDocument();
 $document->addStyleSheet(JUri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
-echo JHtml::_('bootstrap.loadCss');
+
 // Javascript includes and declarations
 JHtml::_('jquery.framework');
 JHtml::script('com_jvarcade/jquery.jva.js', false, true);
@@ -69,7 +69,7 @@ $document->addScriptDeclaration($jsconstants);
 
 // check for new version 
 jvaHelper::checkForNewVersion();
-jvaHelper::createGsFeed();
+
 
 $controller = JControllerLegacy::getInstance('jvarcade');
 $controller->execute(JFactory::getApplication()->input->get('task'));

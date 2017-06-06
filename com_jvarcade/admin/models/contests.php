@@ -73,8 +73,6 @@ class jvarcadeModelContests extends JModelList {
 			if (is_array($ids) && count($ids)) {
 				$this->dbo->setQuery("DELETE FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $ids) . ")");
 				$this->dbo->execute();
-				$this->dbo->setQuery("DELETE FROM #__jvarcade_leaderboarddetail WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $ids) . ")");
-				$this->dbo->execute();
 			}
 		}
 	

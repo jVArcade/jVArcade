@@ -20,6 +20,7 @@ class jvarcadeModelEdit_contest extends JModelLegacy {
 		parent::__construct();
 		$this->dbo = JFactory::getDBO();
 		$this->app = JFactory::getApplication();
+		$this->dispatcher = JEventDispatcher::getInstance();
 		global $option;
 	
 	
@@ -109,13 +110,17 @@ class jvarcadeModelEdit_contest extends JModelLegacy {
 					$uploaderr = JText::sprintf('COM_JVARCADE_UPLOAD_ERROR_MOVING', $imgfile['name']);
 				}
 			}
-			if ($uploaderr) $app->enqueueMessage($uploaderr, 'notice');
+			if ($uploaderr) $this->app->enqueueMessage($uploaderr, 'notice');
 		}
 	
 		if ($task == 'applycontest') {
 			$url = 'index.php?option=com_jvarcade&task=edit_contest&id=' . (int)$contestid;
 		} else {
 			$url = 'index.php?option=com_jvarcade&task=contests';
+		}
+		
+		if (!(int)$post['id'] && (int)$post['published']) {
+			$this->dispatcher->trigger('onPUAContestStarted', array($contestid, $post['name'], $post['startdatetime'], $post['enddatetime']));
 		}
 	
 		$this->app->enqueueMessage(JText::_('COM_JVARCADE_CONTESTS_SAVE_SUCCESS'));

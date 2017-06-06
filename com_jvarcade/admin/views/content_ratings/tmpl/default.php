@@ -47,7 +47,7 @@ $listDirn = $this->escape($this->filter_order_Dir);
 						<td style="text-align: center;"><?php echo $row->id; ?></td>
 						<td style="text-align: center;"><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=edit_contentrating&id=' . $row->id); ?>"><?php echo $row->name; ?></a></td>
 						<td style="text-align: center;"><?php echo $imgwarntag; ?></td>
-						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $row->published, $i, 'contentrating'); ?></td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $row->published, $i, 'content_ratings.contentrating'); ?></td>
 					</tr>
 			<?php endforeach;?>
 			<?php endif;?>

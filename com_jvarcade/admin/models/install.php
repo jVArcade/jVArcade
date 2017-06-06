@@ -18,12 +18,14 @@ class jvarcadeModelInstall extends JModelLegacy {
 	private $db;
 	private $app;
 	private $config;
+	private $dispatcher;
 	
 	public function __construct() {
 		parent::__construct();
 		$this->db = JFactory::getDBO();
 		$this->app = JFactory::getApplication();
 		$this->config = JFactory::getConfig();
+		$this->dispatcher = JDispatcher::getInstance();
 	}
 	
 	public function doAcctualInstall($pkg) {
@@ -105,11 +107,11 @@ class jvarcadeModelInstall extends JModelLegacy {
 							  "(" . $this->db->quoteName('gamename') . ", " . $this->db->quoteName('title') . ", " . $this->db->quoteName('description') . ", " . 
 									$this->db->quoteName('height') . ", " . $this->db->quoteName('width') . ", " . $this->db->quoteName('filename') . ", " . $this->db->quoteName('imagename') . ", " . 
 									$this->db->quoteName('background') . ", " . $this->db->quoteName('published') . ", " . $this->db->quoteName('reverse_score') . ", " . 
-									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ", " .  $this->db->quoteName('gsafe'). ") " .
+									$this->db->quoteName('scoring') . ", " . $this->db->quoteName('folderid') . ") " .
 							"VALUES (" . $this->db->Quote($config['name']) . "," . $this->db->Quote($config['title']) . "," . $this->db->Quote($config['description']) . "," . 
 										$this->db->Quote((int)$config['height']) . "," . $this->db->Quote((int)$config['width']) . "," . $this->db->Quote($config['newfilename']) . "," . $this->db->Quote($config['newimagename']) . "," . 
 										$this->db->Quote($config['background']) . "," . $this->db->Quote((int)$published) . "," . $this->db->Quote((int)$config['reverse_score']) . "," . 
-										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . "," . $this->db->Quote((int)$config['gsafe']) . ")"
+										$this->db->Quote((int)$config['scoring']) . "," . $this->db->Quote((int)$folderid) . ")"
 					);
 					if(!$this->db->execute()) {
 						$errormsg[] = $config['name'] . ': ' . $this->db->getErrorMsg();
@@ -151,7 +153,8 @@ class jvarcadeModelInstall extends JModelLegacy {
 		if ($pkg['packagefile'] && is_file($pkg['packagefile'])) JFile::delete($pkg['packagefile']);
 		if ($pkg['extractdir'] && is_dir($package['extractdir'])) JFolder::delete($pkg['extractdir']);
 		
-		// Redirect and show messages
+		// Redirect, show messages and trigger event
+		$this->dispatcher->trigger('onPUANewGame', array($config['title'], $config['description'], $config['newimagename'], (int)$folderid));
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
 		$msg_type = count($errormsg) ? 'error' : 'message';
 		$this->app->enqueueMessage($msg, $msg_type);

@@ -39,7 +39,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CONTESTS'), 'jvacontests');
 		JToolBarHelper::editList('contests.editcontest', JText::_('COM_JVARCADE_CONTESTS_EDIT'));
 		JToolBarHelper::addNew('add_contest', JText::_('COM_JVARCADE_CONTESTS_ADD'));
-		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTESTS_ASK_DELETE'), 'deleteContest', JText::_('COM_JVARCADE_CONTESTS_DELETE'));
+		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_CONTESTS_ASK_DELETE'), 'contests.deletecontest', JText::_('COM_JVARCADE_CONTESTS_DELETE'));
 		JToolBarHelper::publishList('contests.contestPublish', JText::_('COM_JVARCADE_CONTESTS_PUBLISH'));
 		JToolBarHelper::unpublishList('contests.contestUnpublish', JText::_('COM_JVARCADE_CONTESTS_UNPUBLISH'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());

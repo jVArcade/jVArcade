@@ -11,7 +11,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('faves', '1', 'general', 10, 'yesno', 'COM_JVARCADE_OPTDESC_FAVES'),
 			('display_onlysingleurl', '1', 'general', 11, 'yesno', 'COM_JVARCADE_OPTDESC_DISPLAY_ONLYSINGLEURL'),
 			('tagcloud', '1', 'general', 12, 'yesno', 'COM_JVARCADE_OPTDESC_TAGCLOUD'),
-			('TagPerms', '0,1,2,3,4,5,6,7,8,9', 'general', 13, 'multiselect', 'COM_JVARCADE_OPTDESC_TAGPERMS'),
+			('TagPerms', '1,2,3,4,5,6,7,8,9', 'general', 13, 'multiselect', 'COM_JVARCADE_OPTDESC_TAGPERMS'),
 			('TagLimit', '0', 'general', 14, 'text', 'COM_JVARCADE_OPTDESC_TAGLIMIT'),
 			('updatelb', '15', 'general', 15, 'text', 'COM_JVARCADE_OPTDESC_UPDATELB'),
 			('max_faves', '10', 'general', 16, 'text', 'COM_JVARCADE_OPTDESC_MAX_FAVES'),
@@ -19,7 +19,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('test_popup', '0', 'general', 18, 'yesno', 'COM_JVARCADE_OPTDESC_TEST_POPUP'),
 			('window', '1', 'general', 19, 'select', 'COM_JVARCADE_OPTDESC_WINDOW'),
 			('enable_dload', '1', 'general', 20, 'yesno', 'COM_JVARCADE_OPTDESC_ENABLE_DLOAD'),
-			('DloadPerms', '0,1,2,3,4,5,6,7,8,9', 'general', 21, 'multiselect', 'COM_JVARCADE_OPTDESC_DLOADPERMS'),
+			('DloadPerms', '1,2,3,4,5,6,7,8,9', 'general', 21, 'multiselect', 'COM_JVARCADE_OPTDESC_DLOADPERMS'),
 			('comments', '0', 'integration', 1, 'radio', 'COM_JVARCADE_OPTDESC_COMMENTS'),
 			('scorelink', '0', 'integration', 2, 'radio', 'COM_JVARCADE_OPTDESC_SCORELINK'),
 			('show_avatar', '1', 'integration', 3, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_AVATAR'),
@@ -51,8 +51,7 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('alias_leaderboard', '', 'frontend', 24, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_LEADERBOARD'),
 			('alias_favourite', '', 'frontend', 25, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_FAVOURITE'),
 			('alias_random', '', 'frontend', 26, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_RANDOM'),
-			('show_usernames', '1', 'frontend', 27, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_USERNAMES'),
-			('load_jquery', '1', 'frontend', 28, 'yesno', 'COM_JVARCADE_OPTDESC_LOAD_JQUERY');
+			('show_usernames', '1', 'frontend', 27, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_USERNAMES');
 			
 INSERT INTO `#__jvarcade_folders` (`name`,`description`,`published`,`imagename`,`viewpermissions`) VALUES 
 	('Classic Games','This is a sample folder.  You can use it if you like, or remove it.','1','folder.gif','0,1,2,3,4,5,6,7,8,9');

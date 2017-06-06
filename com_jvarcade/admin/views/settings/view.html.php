@@ -46,7 +46,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 		$this->editor_params = $editor_params;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_SETTINGS'), 'jvasettings');
-		JToolBarHelper::custom('settingssave', 'save.png', 'save.png', JText::_('COM_JVARCADE_SAVE_SETTINGS'), false, false);
+		JToolBarHelper::apply('settingssave', JText::_('COM_JVARCADE_SAVE_SETTINGS'));
 		jvarcadeToolbarHelper::addSubmenu($this->getName());
 		$this->addSidebar('settings');
 
@@ -132,7 +132,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 					JHtml::_( 'select.option', 0, 'None' ),
 					JHtml::_( 'select.option', 1, 'JomSocial' ),
 					JHtml::_( 'select.option', 2, 'Community Builder' ),
-					JHtml::_( 'select.option', 3, 'Alta User Points'),
+					JHtml::_( 'select.option', 3, 'Alpha User Points'),
 				);
 				$result = JHtml::_('jvarcade.html.radiolist', $opts, $arr['optname'], null, 'value', 'text', trim($arr['value']), $arr['optname']);
 				break;

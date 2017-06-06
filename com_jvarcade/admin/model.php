@@ -594,7 +594,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		if ($dorequest) {
 			
 			$http = JHttpFactory::getHttp();
-			$response = $http->get('https://rawgit.com/jVitals/jVarcade/master/com_jvarcade/admin/changelog.xml', array(), 90);
+			$response = $http->get('https://rawgit.com/jVArcade/jVArcade/master/com_jvarcade/admin/changelog.xml', array(), 90);
 			$response = $response->body;
 			
 			

@@ -51,7 +51,7 @@ $listDirn = $this->escape($this->filter_order_Dir);
 						<td style="text-align: center;"><?php echo jvaHelper::formatDate($row->startdatetime); ?></td>
 						<td style="text-align: center;"><?php echo jvaHelper::formatDate($row->enddatetime); ?></td>
 						<td style="text-align: center;"><?php echo $row->maxplaycount; ?></td>
-						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $row->published, $i, 'contest'); ?></td>
+						<td style="text-align: center;"><?php echo JHtml::_('jgrid.published', $row->published, $i, 'contests.contest'); ?></td>
 					</tr>
 			<?php endforeach;?>
 			<?php endif;?>
