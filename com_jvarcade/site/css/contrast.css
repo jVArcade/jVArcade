@@ -28,6 +28,67 @@ border: 0 none;
 	float: left;
 	margin: 0;
 }
+/***************************
+* Menu Related
+****************************/
+#puarcade_wrapper li img{
+	float:left;
+	margin-right: 4px;
+}
+
+#puarcade_wrapper .navbar-inner {
+	min-height: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /*background-color: #003399;
+    background-image: -moz-linear-gradient(top,#ffffff,#003399);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffffff),to(#003399));
+    background-image: -webkit-linear-gradient(top,#ffffff,#003399);
+    background-image: -o-linear-gradient(top,#ffffff,#003399);
+    background-image: linear-gradient(to bottom,#ffffff,#003399);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#003399', GradientType=0);*/
+    border: 0px solid #d4d4d4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.065);
+    *zoom: 1: ;
+    background: url("img/profile_menu.png") repeat-y scroll 0 0 #202020;
+}
+#puarcade_wrapper .navbar .nav > li > a {
+    float: none;
+    padding: 2px 15px 2px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+}
+#puarcade_wrapper .navbar .nav > li > a:focus {
+    outline: 0px solid #5e9ed6;
+}
+#puarcade_wrapper .nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: underline;
+    color: #6cb1c2;
+    transition: all 0.2s linear;
+}
+@media (max-width: 768px) {
+	
+	#puarcade_wrapper .navbar .nav > li > a {
+    float: none;
+    padding: 2px 15px 2px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+    font-size: 10px;
+	}
+	#puarcade_wrapper .nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: underline;
+    color: #6cb1c2;
+    transition: all 0.2s linear;
+	}
+}
 /*For IE6 Compatibility */
 #puarcade_wrapper {
 	/* float: left;*/
