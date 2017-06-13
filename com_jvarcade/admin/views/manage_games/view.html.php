@@ -38,8 +38,8 @@ class jvarcadeViewManage_games extends JViewLegacy {
 		
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_GAMES'), 'jvagames');
-		JToolBarHelper::editList('manage_games.editGame', JText::_('COM_JVARCADE_GAMES_EDIT'));
 		JToolBarHelper::addNew('add_game', JText::_('COM_JVARCADE_GAMES_ADD'));
+		JToolBarHelper::editList('manage_games.editGame', JText::_('COM_JVARCADE_GAMES_EDIT'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_GAMES_ASK_DELETE'), 'manage_games.deletegame', JText::_('COM_JVARCADE_GAMES_DELETE'));
 		JToolBarHelper::publishList('manage_games.gamePublish', JText::_('COM_JVARCADE_GAMES_PUBLISH'));
 		JToolBarHelper::unpublishList('manage_games.gameUnPublish', JText::_('COM_JVARCADE_GAMES_UNPUBLISH'));

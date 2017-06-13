@@ -38,8 +38,8 @@ class jvarcadeViewManage_folders extends JViewLegacy {
 		$this->permnames = $model->getAcl();
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_MANAGE_FOLDERS'), 'jvafolders');
-		JToolBarHelper::editList('manage_folders.editFolder', JText::_('COM_JVARCADE_FOLDERS_EDIT'));
 		JToolBarHelper::addNew('add_folder', JText::_('COM_JVARCADE_FOLDERS_ADD'));
+		JToolBarHelper::editList('manage_folders.editFolder', JText::_('COM_JVARCADE_FOLDERS_EDIT'));
 		JToolBarHelper::deleteList(JText::_('COM_JVARCADE_FOLDERS_ASK_DELETE'), 'manage_folders.deletefolder', JText::_('COM_JVARCADE_FOLDERS_DELETE'));
 		JToolBarHelper::publishList('manage_folders.folderPublish', JText::_('COM_JVARCADE_FOLDERS_PUBLISH'));
 		JToolBarHelper::unpublishList('manage_folders.folderUnPublish', JText::_('COM_JVARCADE_FOLDERS_UNPUBLISH'));
