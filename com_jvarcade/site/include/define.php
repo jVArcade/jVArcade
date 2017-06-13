@@ -33,8 +33,3 @@ define('JVA_VERSION', '2.14');
 $JVersion = new JVersion();
 $version = $JVersion->getShortVersion();
 @define('JVA_JOOMLA_VERSION', $version);
-if (version_compare($version, '3.2.0', 'ge')) {
-	@define('JVA_COMPATIBLE_MODE', '16');
-} else {
-	@define('JVA_COMPATIBLE_MODE', '15');
-}

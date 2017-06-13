@@ -186,7 +186,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	
 	public function getContestsByGame($game_id) {
 		
-		$level = (JVA_COMPATIBLE_MODE == '15') ? $this->user->gid  : implode(',', $this->user->groups);
+		$level = implode(',', $this->user->groups);
 		
 		$sql = 'SELECT c.*, COALESCE(cs.attemptnum,0) as attemptnum, COALESCE(cs.score,0) as score, COALESCE(cs.id,0) as has_score, COALESCE(cm.userid,0) AS userid ' .
 				' FROM #__jvarcade_contest as c' . 

@@ -88,9 +88,7 @@ class jvarcadeViewGame extends JViewLegacy {
 		
 		// Comments
 		$db	= JFactory::getDbo();
-		$sql = JVA_COMPATIBLE_MODE == '15' 
-				? "SELECT `option`, enabled FROM #__components WHERE parent = 0 AND `option` IN ('com_comment', 'com_jcomments', 'com_jacomment')"
-				: "SELECT element as `option`, enabled FROM #__extensions WHERE `type` = 'component' AND element IN ('com_comment', 'com_jcomments', 'com_jacomment')";
+		$sql = "SELECT element as `option`, enabled FROM #__extensions WHERE `type` = 'component' AND element IN ('com_comment', 'com_jcomments', 'com_jacomment')";
 		$db->setQuery($sql);
 		$this->comment_data = $db->loadAssocList('option');
 		

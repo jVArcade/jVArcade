@@ -20,30 +20,6 @@ class jvaHelper {
 			return '';
 		}
 		
-		if (JVA_COMPATIBLE_MODE == '15') { // warning - no Daylight Saving Time here
-		
-			$date_format = self::convertToStrftimeFormat(COM_JVARCADE_DATE_FORMAT);
-			$time_format = self::convertToStrftimeFormat(COM_JVARCADE_TIME_FORMAT);
-			
-			$srv_tz = (int)(date('Z')/60/60);
-			$user_tz = (int)COM_JVARCADE_TIMEZONE;
-			
-			$date = JFactory::getDate($input, $srv_tz);
-			$date->setOffset($user_tz);
-			
-			$date_string = $date->toFormat($date_format);
-			$time_string = $date->toFormat($time_format);
-			
-			$today = JFactory::getDate(date('Y-m-d H:i:s'), $srv_tz);
-			$today->setOffset($user_tz);
-			$today_string = $today->toFormat($date_format);
-			
-			$yesterday = JFactory::getDate(date('Y-m-d H:i:s', mktime(date('H'), date('i'), date('s'), date("m")  , date("d")-1, date("Y"))), $srv_tz);
-			$yesterday->setOffset($user_tz);
-			$yesterday_string = $yesterday->toFormat($date_format);
-			
-		} else {
-		
 			$date_format = COM_JVARCADE_DATE_FORMAT;
 			$time_format = COM_JVARCADE_TIME_FORMAT;
 			
@@ -56,15 +32,14 @@ class jvaHelper {
 			$date_string = $date->format($date_format, true);
 			$time_string = $date->format($time_format, true);
 			
-			$today = JFactory::getDate(date('Y-m-d H:i:s'), $srv_tz);
+			$today = JFactory::getDate(date('d-m-Y H:i:s'), $srv_tz);
 			$today->setTimezone($user_tz);
 			$today_string = $today->format($date_format, true);
 			
-			$yesterday = JFactory::getDate(date('Y-m-d H:i:s', mktime(date('H'), date('i'), date('s'), date("m")  , date("d")-1, date("Y"))), $srv_tz);
+			$yesterday = JFactory::getDate(date('d-m-Y H:i:s', mktime(date('H'), date('i'), date('s'), date("m")  , date("d")-1, date("Y"))), $srv_tz);
 			$yesterday->setTimezone($user_tz);
 			$yesterday_string = $yesterday->format($date_format, true);
 			
-		}
 		
 		if ($date_string == $today_string) {
 			$date_string = JText::_('COM_JVARCADE_TODAY');
@@ -96,16 +71,16 @@ class jvaHelper {
 	}
 	
 	public static function isSuperAdmin(&$user) {
-		if (JVA_COMPATIBLE_MODE == '16') {
-			if ($user->authorise('core.admin')) return true;
+		if ($user->authorise('core.admin')) {
+			return true;	
 		} else {
-			if ($user->usertype == 'Super Administrator') return true;
+			return false;
 		}
-		return false;
+		
 	}
 	
 	public static function userGroups(&$user) {
-		$groups = JVA_COMPATIBLE_MODE == '16' ? array_values($user->groups) : array($user->gid);
+		$groups = array_values($user->groups);
 		if (!count($groups)) $groups = array(0);
 		return $groups;
 	}
@@ -199,7 +174,7 @@ class jvaHelper {
 		return $errors[$num];
 	}
 	
-	public static function checkForNewVersion() {
+	public static function checkForNewVersion($modrequest = false) {
 		$config = JFactory::getConfig();
 		$tmp_path = $config->get('tmp_path');
 		$filename = 'jva-version-compare.txt';
@@ -270,7 +245,9 @@ class jvaHelper {
 		$sessionQueue = $session->get('application.queue');
 		if ($info && (!is_array($sessionQueue) || !in_array(array('message' => $info, 'type' => 'notice'), $sessionQueue))) {
 			$app = JFactory::getApplication();
-			$app->enqueueMessage($info, 'notice');
+			if (!$modrequest){
+				$app->enqueueMessage($info, 'notice');
+			}
 		}
 		return true;
 	}
@@ -442,18 +419,15 @@ class jvaHelper {
 class jvarcadeHtml {
 
 	public static function booleanlist ($name, $attributes, $value, $yes, $no, $id) {
-		if (JVA_COMPATIBLE_MODE == '16') {
+		
 			return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id)) . '</fieldset>';
-		} else {
-			return '';
-		}
+		
 	}
 
 	public static function radiolist ($item, $name, $attributes, $name1, $name2, $value, $id) {
-		if (JVA_COMPATIBLE_MODE == '16') {
+		
 			return '<fieldset id="' . $name . '"  class="radio">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id)) . '</fieldset>';
-		} else {
-		}
+		
 	}
 	
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $sort_url, $new_direction = 'asc', $task = null) {

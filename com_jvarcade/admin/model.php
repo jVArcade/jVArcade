@@ -93,12 +93,9 @@ class jvarcadeModelCommon extends JModelLegacy {
 			$obj->timezone = ((int)$my->guest ? $app->getCfg('offset') : $my->getParam('timezone', $app->getCfg('offset')));
 			
 			// DIFF BETWEEN SERVER AND USER TIMEZONE - date already contains the server timezone offset so we subtract it
-			if (JVA_COMPATIBLE_MODE == '15') {
-				$obj->tz_diff = ($obj->timezone*3600 - date('Z'))/3600;
-			} else {
-				$dateTimeZone = new DateTimeZone($obj->timezone);
-				$obj->tz_diff = ($dateTimeZone->getOffset(new DateTime("now", $dateTimeZone)) - (int)date('Z'))/3600;
-			}
+			$dateTimeZone = new DateTimeZone($obj->timezone);
+			$obj->tz_diff = ($dateTimeZone->getOffset(new DateTime("now", $dateTimeZone)) - (int)date('Z'))/3600;
+			
 			
 			$this->confobj = $loadedconf = $obj;
 			return (boolean)$this->confobj;

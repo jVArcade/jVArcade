@@ -39,7 +39,7 @@ $listDirn = $this->escape($this->filter_order_Dir);
 			if (!empty($this->items)):
 				foreach ($this->items as $i => $row):
 					$checked = JHTML::_('grid.id', $i, $row->id, false, 'cid');
-					$imgwarntag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/icon-16-notice-note.png', '', array('border' => 0), true) : JHTML::_('image.administrator', 'warning.png', '../includes/js/ThemeOffice/');
+					$imgwarntag = JHTML::_('image','admin/icon-16-notice-note.png', '', array('border' => 0), true);
 					$imgwarntag = ((int)$row->warningrequired ? $imgwarntag : '');
 			?>
 					<tr class="<?php echo "row$i"; ?>">
