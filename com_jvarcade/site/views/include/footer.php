@@ -16,6 +16,6 @@ defined('_JEXEC') or die;
 ?>
 
 	<div id="pu_footer" style="clear: both;">
-		<br /> Powered by <a href="http://www.jvarcade.com" target="_blank" alt="Please refer to credits for further details">jVArcade</a>
+		<br /> Powered by <a href="http://jvarcade.com" target="_blank" alt="Please refer to credits for further details">jVArcade</a>
 	</div>
 	
