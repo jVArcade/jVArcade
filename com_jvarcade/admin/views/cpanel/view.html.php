@@ -95,7 +95,7 @@ class jvarcadeViewCpanel extends JViewLegacy {
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),
 			'SUPPORT' => array(
-				'link' => 'http://www.jvitals.com/support/support-forum/default-forum/14-jvarcade.html',
+				'link' => 'http://jvarcade.com/forum/jvarcade-support',
 				'icon' => 'user_48.png',
 				'label' => JText::_('COM_JVARCADE_SUPPORT'),
 				'target' => '_blank'
