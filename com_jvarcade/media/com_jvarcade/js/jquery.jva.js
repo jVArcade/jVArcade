@@ -5,7 +5,6 @@
 			jQuery('#rate1').rating(JVA_AJAX_RATING_URL + game_id, {maxvalue:5,increment:.5,curvalue:current_vote});
 		},
 
-
 		showTags: function(id, status, Itemid) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
