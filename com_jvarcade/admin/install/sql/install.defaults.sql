@@ -51,7 +51,9 @@ INSERT INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`desc
 			('alias_leaderboard', '', 'frontend', 24, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_LEADERBOARD'),
 			('alias_favourite', '', 'frontend', 25, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_FAVOURITE'),
 			('alias_random', '', 'frontend', 26, 'text', 'COM_JVARCADE_OPTDESC_ALIAS_RANDOM'),
-			('show_usernames', '1', 'frontend', 27, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_USERNAMES');
+			('show_usernames', '1', 'frontend', 27, 'yesno', 'COM_JVARCADE_OPTDESC_SHOW_USERNAMES'),
+			('profile_scores', '5', 'profile', 28, 'text', 'COM_JVARCADE_OPTDESC_PROFILE_SCORES'),
+			('profile_faves', '5', 'profile', 29, 'text', 'COM_JVARCADE_OPTDESC_PROFILE_FAVES');
 			
 INSERT INTO `#__jvarcade_folders` (`name`,`description`,`published`,`imagename`,`viewpermissions`) VALUES 
 	('Classic Games','This is a sample folder.  You can use it if you like, or remove it.','1','folder.gif','0,1,2,3,4,5,6,7,8,9');
