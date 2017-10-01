@@ -15,33 +15,29 @@ defined('_JEXEC') or die('Restricted access');
 
 class jvarcadeModelProfile extends jvarcadeModelCommon {
 	
-	
-	public function saveAchievement($user_id, $gid, $gtitle, $achtitle, $achdesc, $achicon, $pts) {
-		$query = 'INSERT IGNORE INTO #__jvarcade_achievements (userid, gameid, gametitle, title, description, icon_url, points) VALUES ('. $this->dbo->Quote((int)$user_id) .','. $this->dbo->Quote((int)$gid) .',
-				'. $this->dbo->Quote($gtitle) .','. $this->dbo->Quote($achtitle) .','. $this->dbo->Quote($achdesc) .','. $this->dbo->Quote($achicon) .','. $this->dbo->Quote((int)$pts) .')';
-		$this->dbo->setQuery($query);
-		$this->dbo->execute();
-		$dispatcher = JEventDispatcher::getInstance();
-		// trigger the achievement saved event
-		$dispatcher->trigger('onJVAAchievementSaved', array($user_id, $gid, $gtitle, $achtitle, $achdesc, $achicon, $pts));
-	}
-	
-	public function getUserAchievements($user_id) {
-		$query = 'SELECT * FROM #__jvarcade_achievements WHERE userid =' . $user_id . ' ORDER BY id DESC LIMIT 5';
-		$this->dbo->setQuery($query);
-		$user_achieve = $this->dbo->loadAssocList();
-		return $user_achieve;
-	}
-	
-	public function getUserScores($user_id, $limit='') {
+	public function getUserScores($user_id) {
 		$query = 'SELECT b.score, b.date, c.title, c.imagename, c.description, c.id FROM #__jvarcade AS b, #__jvarcade_games AS c WHERE b.userid ='
-				 . $user_id .' AND b.gameid = c.id ORDER BY b.date DESC ' . $limit;
+				. $user_id .' AND b.gameid = c.id ORDER BY b.date DESC LIMIT ' . $this->config->profile_scores;
 		$this->dbo->setQuery($query);
 		$user_scores = $this->dbo->loadAssocList();
 		return $user_scores;
 	}
 	
-	public function getLatestScores() {
+	public function getProfileFavourites($user_id) {
+	    $query = 'SELECT SQL_CALC_FOUND_ROWS g.*, g.id as game_id, g.description as game_desc, c.imagename as rating_image, c.name as rating_name, c.description as rating_desc ' .
+	   	    ' FROM #__jvarcade_games g ' .
+	   	    ' LEFT JOIN #__jvarcade_contentrating c' .
+	   	    '	ON g.contentratingid = c.id' .
+	   	    ' JOIN #__jvarcade_faves f' .
+	   	    '	ON g.id = f.gid AND f.userid = ' . $this->dbo->Quote($user_id) .
+	   	    ' WHERE g.' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
+	   	    ' ORDER BY game_id DESC LIMIT ' . $this->config->profile_faves;
+	    $this->dbo->setQuery($query);
+	    $faves = $this->dbo->loadAssocList();
+	    return $faves;
+	}
+	
+	public function getScores() {
 		$query = 'SELECT SQL_CALC_FOUND_ROWS p.*, g.id as gameid, g.gamename, g.title, g.imagename, g.scoring, g.reverse_score, u.id as userid, u.username, u.name
 				FROM #__jvarcade p
 					LEFT JOIN #__jvarcade_games g ON p.gameid = g.id

@@ -20,7 +20,7 @@ require_once (dirname(__FILE__) . '/model.php');
 require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
-$model = JModelLegacy::getInstance('common', 'jvarcadeModel');
+$model =  new jvarcadeModelCommon();
 $config = $model->getConfObj();
 
 define('COM_JVARCADE_DATE_FORMAT', $config->date_format);

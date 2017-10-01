@@ -9,16 +9,20 @@
  */
 
 
-defined('_JEXEC') or die;?>
+defined('_JEXEC') or die;
+JHtml::_('stylesheet', 'template.css', array('version' => 'auto', 'relative' => true));
+?>
 
-<div id="j-main-container" class="span12">
-<div id="j-sidebar-container" class="span2">
+
+<div class="row-fluid">
+<div class="span2">
 <?php echo jvaHelper::showProfileAvatar($this->user_id); ?>
 </div>
 
-	<div class="avatar-form" style="padding-left: 200px">
-				<div class="span6">
+	<div class="span10">
+				
 					<h4><?php echo JText::_('COM_JVARCADE_UPLOAD_AVATAR_LEDGEND'); ?></h4>
+					<h4><?php echo JText::_('COM_JVARCADE_UPLOAD_AVATAR_DIMS'); ?></h4>
 					<hr>
 				
 				
@@ -27,7 +31,8 @@ defined('_JEXEC') or die;?>
 						<button class="btn btn-primary" type="submit" ><?php echo JText::_('COM_JVARCADE_UPLOAD_AVATAR_MODAL_TITLE');?></button>
 						<input type="hidden" name="id" value="<?php echo $this->user_id; ?>" />
 					</form>
-				</div>
+				
 				
 	</div>
 </div>
+

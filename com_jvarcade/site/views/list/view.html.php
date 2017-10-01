@@ -21,6 +21,7 @@ class jvarcadeViewList extends JViewLegacy {
 		$pathway = $mainframe->getPathway();
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
+		$pro_user = JFactory::getUser($mainframe->input->get('uid') ?: null);
 		$task = $mainframe->input->get('task');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
@@ -80,8 +81,8 @@ class jvarcadeViewList extends JViewLegacy {
 				$title = JText::_('COM_JVARCADE_NEWEST_GAMES');
 				break;
 			case 'favourite':
-				$games = $model->getFavouriteGames();
-				$title = JText::_('COM_JVARCADE_MY_FAVORITES');
+			    $games = $mainframe->input->get('uid') ? $model->getFavouriteGames($pro_user->id) : $model->getFavouriteGames($user->id);
+				$title = $mainframe->input->get('uid') ? JText::_ ($pro_user->username . ' Favourites') : JText::_('COM_JVARCADE_MY_FAVORITES');
 				break;
 			case 'folder':
 				$folder_id = (int)$mainframe->input->get('id');

@@ -176,7 +176,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $obj->height,
 			'author' => $obj->developer,
 			'background' => '',
-			'gsafe' => 0,
 			'scoring' => 1,
 			'reverse_score' => 0,
 		);
@@ -204,19 +203,12 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $arr['height'],
 			'author' => $arr['author'],
 			'background' => '#' . $arr['bgcolor'],
-			'gsafe' => 0,
 			'scoring' => 1,
 			'reverse_score' => ((int)$arr['gameType'] == 2 ? 1: 0),
 		);
 	}
 	
 	public function parseConfigPnflashtxt($dir) {
-		if (file_exists($dir . '/contents.txt')) {
-			$gsafe_detect = 1;
-		}
-		else {
-			$gsafe_detect = 0;
-		}
 		$files = JFolder::files($dir, '\.txt', false, false, array('.svn', 'CVS', '.DS_Store', '__MACOSX', 'contents.txt'));
 		$config = $dir . '/' . $files[0];
 		$string = file_get_contents($config);
@@ -250,7 +242,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => (int)$game_height,
 			'author' => $game_author,
 			'background' => $game_bgcolor,
-			'gsafe' => $gsafe_detect,
 			'scoring' => 1,
 			'reverse_score' => ($game_type == 'Highest Score Wins' ? 1: 0),
 		);
@@ -280,7 +271,6 @@ class jvarcadeModelInstall extends JModelLegacy {
 			'height' => $arr['gheight'],
 			'author' => '',
 			'background' => '#' . $arr['bgcolor'],
-			'gsafe' => $arr['gsafe'],
 			'scoring' => 1,
 			'reverse_score' => 0,
 		);

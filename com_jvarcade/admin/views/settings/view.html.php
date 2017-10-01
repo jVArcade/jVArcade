@@ -28,7 +28,7 @@ class jvarcadeViewSettings extends JViewLegacy {
 		$this->task = $this->get($task);
 		
 		$confdb = $model->getConf();
-		$conf = array('general' => array(), 'integration' => array(), 'frontend' => array());
+		$conf = array('general' => array(), 'integration' => array(), 'frontend' => array(), 'profile' => array());
 		foreach ($confdb as $obj) {
 			$conf[$obj['group']][] = array(
 				'optname' => $obj['optname'],

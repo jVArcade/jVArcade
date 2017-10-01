@@ -28,6 +28,14 @@ class jvarcadeControllerUploadavatar extends JControllerLegacy {
 			exit;
 		}
 		
+		list($imgwith, $imgheight) = @getimagesize($upload['tmp_name']);
+		
+		if (($imgwith > 256 || $imgheight > 256)) {
+			$app->enqueueMessage(JText::_('COM_JVARCADE_UPLOAD_AVATAR_DIMS'), 'Error');
+			$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
+			exit;
+		}
+		
 		$imgSearch = glob('images/jvarcade/images/avatars/' .$userid. '.*');
 		if (isset($imgSearch[0])) {
 			JFile::delete($imgSearch[0]);

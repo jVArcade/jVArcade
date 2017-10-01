@@ -6,13 +6,13 @@
 	<state>
 		<name>COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER</name>
 		<description><![CDATA[COM_JVARCADE_VIEW_FOLDER_LAYOUT_FOLDER_DESC]]></description>
-		<url addpath="/administrator/components/com_jvarcade/elements">
+		<url>
 			<param name="task" type="hidden" default="folder" />
-			<param name="id" type="jvafolderlist" label="COM_JVARCADE_VIEW_FOLDER_NAME" size="15" description="COM_JVARCADE_VIEW_FOLDER_NAME_DESC" />
+			<param name="id" type="folders" label="COM_JVARCADE_VIEW_FOLDER_NAME" size="15" description="COM_JVARCADE_VIEW_FOLDER_NAME_DESC" />
 		</url>
 	</state>
 	<!-- Add fields to the request variables for the layout. -->
-	<fields addfieldpath="/administrator/components/com_jvarcade/elements" name="request">
+	<fields name="request">
 		<fieldset name="request">
 			<field name="task" type="text"
 				default="folder"
@@ -21,12 +21,12 @@
 				required="true"
 				readonly="true"
 			/>
-			<field name="id" type="jvafolderlist"
+			<field name="id" type="folders"
 				description="COM_JVARCADE_VIEW_FOLDER_NAME_DESC"
 				extension="com_jvarcade"
 				label="COM_JVARCADE_VIEW_FOLDER_NAME"
 				required="true"
-				addfieldpath="/administrator/components/com_jvarcade/fields"
+				addfieldpath="/administrator/components/com_jvarcade/models/fields"
 				size="15"
 			/>
 		</fieldset>

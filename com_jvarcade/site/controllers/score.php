@@ -30,7 +30,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 		parent::__construct();
 		$this->global_conf = JFactory::getConfig();
 		$this->db = JFactory::getDBO();
-		$conf = jvarcadeModelCommon::getInst();
+		$conf = new jvarcadeModelCommon();
 		$this->config = $conf->getConf();
 	}
 	

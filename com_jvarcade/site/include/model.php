@@ -13,7 +13,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeModelCommon extends JModelLegacy {
+class jvarcadeModelCommon extends JModelList {
 
 	protected $config = null;
 	protected $global_conf = null;
@@ -41,20 +41,6 @@ class jvarcadeModelCommon extends JModelLegacy {
  
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
-	}
-
-	public static function getInst() {
-		static $instance;
-		
-		if (!isset( $instance )) {
-			$instance = null;
-		}
-		if (empty($instance)) {
-			$c = __CLASS__;
-			$instance = new $c;
-		}
-		
-		return $instance;
 	}
 	
 	public function getTotal() {

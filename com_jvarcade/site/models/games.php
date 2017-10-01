@@ -227,14 +227,14 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
         return true; 
     }
 
-	public function getFavouriteGames() {
+	public function getFavouriteGames($userid) {
 		if (!$this->games) {
-			$this->_loadFavouriteGames();
+			$this->_loadFavouriteGames($userid);
 		}
 		return $this->games;
 	}	
 
-	private function _loadFavouriteGames() {	
+	private function _loadFavouriteGames($userid) {	
 		if (!$this->games) {
 
 			if ($this->orderby) {
@@ -248,7 +248,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 					' LEFT JOIN #__jvarcade_contentrating c' . 
 					'	ON g.contentratingid = c.id' . 
 					' JOIN #__jvarcade_faves f' . 
-					'	ON g.id = f.gid AND f.userid = ' . $this->dbo->Quote($this->user->get('id')) . 
+					'	ON g.id = f.gid AND f.userid = ' . $this->dbo->Quote($userid) . 
 					' WHERE g.' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 					$orderby;
 			$this->dbo->setQuery($sql, $this->getState('limitstart'), $this->getState('limit'));

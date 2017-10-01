@@ -16,6 +16,7 @@ class jvarcadeViewProfile extends JViewLegacy {
 	public function display($tpl=null) {
 		$app = JFactory::getApplication();
 		$model = $this->getModel();
+		$games_model = $this->getModel('Games');
 		$pathway = $app->getPathway();
 		$doc = JFactory::getDocument();
 		
@@ -25,16 +26,18 @@ class jvarcadeViewProfile extends JViewLegacy {
 
 		$currentUser = JFactory::getUser();
 		$this->user = $currentUser;
+		
+		$can_dload = $games_model->canDloadPerms($currentUser);
+		$this->can_dload = $can_dload;
 
 		//Score Related
-		$userLatestScores = $model->getUserScores($user_id, $limit='LIMIT 5');
+		$userLatestScores = $model->getUserScores($user_id);
 		$this->userLatestScores = $userLatestScores;
-		$totalScores = $model->getUserScores($user_id);
 		$this->totalScores = count($userLatestScores);
 		
-		$latestScores = $model->getLatestScores();
+		$scores = $model->getScores();
 		$highscores = array();
-		foreach ($latestScores as $score) {
+		foreach ($scores as $score) {
 			if (!isset($highscores[$score['gameid']])) $highscores[$score['gameid']] = array();
 			// get high scores
 			if (!count($highscores[$score['gameid']])) {
@@ -65,10 +68,6 @@ class jvarcadeViewProfile extends JViewLegacy {
 		$this->lbPos = (in_array($place, array(0,1,2)) ? '<img src="' . JVA_IMAGES_SITEPATH . 'icons/medal_' . ($place+1) . '.gif" border="0" alt="" />'  : $place+1);
 		$this->lbPoints = $leaderboard[$place]['points'];
 		
-		//Gamersafe Achievements
-		$achievements = $model->getUserAchievements($user_id);
-		$this->achs = $achievements;
-		
 		//Online
 		$useronline = false;
 		$check = $model->checkOnline($user_id);
@@ -78,6 +77,27 @@ class jvarcadeViewProfile extends JViewLegacy {
 		$this->useronline = $useronline;
 		
 		$this->config = $this->config;
+		
+		$this->faves = $model->getProfileFavourites($userToProfile->id);
+		foreach ($this->faves as $key => $game) {
+			
+			// get high scores
+			if ($game['scoring']) {
+				$games[$key]['highscore'] = array();
+				if ($game['scoring']) {
+					$highscore = $model->getHighestScore($game['id'], $game['reverse_score']);
+					$highscore['score'] =  round($highscore['score'], 2);
+					if (!isset($highscore['userid']) || !(int)$highscore['userid']) {
+						$highscore['username'] = $this->config->guest_name;
+					} elseif(!(int)$this->config->show_usernames) {
+						$highscore['username'] = $highscore['name'];
+					}
+				}
+				
+				// add the games data to the game array
+				$this->faves[$key]['highscore'] = $highscore;
+			}
+		}
 		
 		$title = JText::_('COM_JVARCADE_PROFILE_TITLE') . ' - ' . $this->userToProfile->username;
 		$pathway->addItem($title);

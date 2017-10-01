@@ -59,8 +59,8 @@ border: 0 none;
     background: url("img/profile_menu.png") repeat-y scroll 0 0 #71A8BC;
 }
 #puarcade_wrapper .navbar .nav > li > a {
-    float: none;
-    padding: 2px 15px 2px;
+    float: right;
+    padding: 2px 20px 2px 2px;
     color: #fff;
     text-decoration: none;
     text-shadow: none;
@@ -100,7 +100,7 @@ border: 0 none;
 /* For the "PUArcade by... links
 at the bottom of most pages */
 #pu_footer {
-	width: 97%;
+	/*width: 97%;*/
 	text-align: center;
 	font-size: small;
 	font-family: Verdana;
@@ -744,16 +744,24 @@ button.close {
 	position: relative;
 	padding: 5px 5px;
 	height: 220px;
-	margin: 5px;
+	margin: 10px auto 25px auto;
+	width: 80%;
 }
 .avatar-clickarea{
 	width: 140px;
 	height: 175px;
 	float: left;
 }
-.info-area{
-	float: left;
+.info-area {
+    float: left;
+    background: url("img/header_bar_bg.png") repeat-x scroll 0 0 #71A8BC;
+    border-radius: 5px;
+    color: white;
+    width: 84%;
+    padding-left: 3px;
+    margin-left: 5px;
 }
 .user-online{
 	text-align: center;
+	margin-top: 10px;
 }

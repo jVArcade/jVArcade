@@ -77,15 +77,26 @@ class JvarcadeRouter implements JComponentRouterInterface {
 			unset($query['id']);
 		}
 		
-		if (($task == 'profile') && isset($query['id'])) {
-			$id = (int)$query['id'];
+		if (($task == 'profile') && isset($query['uid'])) {
+			$id = (int)$query['uid'];
 			$sql = 'SELECT username from #__users WHERE id =' . $id;
 			$this->dbo->setQuery($sql);
 			$name = $this->dbo->loadResult();
 			$name = $name ? $this->makeAlias($name) : '';
-			$name = $name ? 'id:' . $id . ':' . $name : 'id:' . $id;
+			$name = $name ? 'uid:' . $id . ':' . $name : 'uid:' . $id;
 			$segments[] = $name;
-			unset($query['id']);
+			unset($query['uid']);
+		}
+		
+		if (($task == 'favourite') && isset($query['uid'])) {
+		    $id = (int)$query['uid'];
+		    $sql = 'SELECT username from #__users WHERE id =' . $id;
+		    $this->dbo->setQuery($sql);
+		    $name = $this->dbo->loadResult();
+		    $name = $name ? $this->makeAlias($name) : '';
+		    $name = $name ? 'uid:' . $id . ':' . $name : 'uid:' . $id;
+		    $segments[] = $name;
+		    unset($query['uid']);
 		}
 		
 		if ($task == 'showtag') {
@@ -120,6 +131,7 @@ class JvarcadeRouter implements JComponentRouterInterface {
 	public function parse(&$segments) {
 		$vars = array();
 		$segment_id = '';
+		$segment_uid = '';
 		$segment_tag = '';
 		$segment_start = '';
 		$segment_ord = '';
@@ -129,7 +141,7 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		
 		if (isset($segments[0])) {
 			// the first case is when we access a joomla menu and the first segment is not the task
-			if (strpos($segments[0], 'id:') !== false || strpos($segments[0], 'tag:') !== false || strpos($segments[0], 'start:') !== false || strpos($segments[0], 'ord:') !== false || strpos($segments[0], 'dir:') !== false) {
+		    if (strpos($segments[0], 'id:') !== false || strpos($segments[0], 'uid:') !== false || strpos($segments[0], 'tag:') !== false || strpos($segments[0], 'start:') !== false || strpos($segments[0], 'ord:') !== false || strpos($segments[0], 'dir:') !== false) {
 				$vars['task'] = $this->getMenuQuery('task', 'home');
 			} else { 
 				$vars['task'] = (is_array($aliases) && count($aliases) && isset($aliases[$segments[0]])) ? $aliases[$segments[0]] : $segments[0];
@@ -139,6 +151,9 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		foreach($segments as $segment) {
 			if (strpos($segment, 'id:') !== false) {
 				$segment_id = $segment;
+			}
+			if (strpos($segment, 'uid:') !== false) {
+			    $segment_uid = $segment;
 			}
 			if (strpos($segment, 'tag:') !== false) {
 				$segment_tag = $segment;
@@ -160,6 +175,10 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		if ($segment_id) {
 			$id = explode(':', $segment_id);
 			$vars['id'] = (int)$id[1];
+		}
+		if ($segment_uid) {
+		    $id = explode(':', $segment_uid);
+		    $vars['uid'] = (int)$id[1];
 		}
 
 		if ($segment_tag) {

@@ -255,7 +255,7 @@ class jvaHelper {
 	public static function showAvatar($userid) {
 	
 		static $jva_avatars;
-		$model = jvarcadeModelCommon::getInst();
+		$model = new jvarcadeModelCommon();
 		$config = $model->getConf();
 		
 		if (!($jva_avatars && is_array($jva_avatars) && count($jva_avatars) && array_key_exists((int)$userid, $jva_avatars))) {
@@ -322,7 +322,7 @@ class jvaHelper {
 			$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
 		}
 		
-		$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" align="middle" width="140px" height="175px"/>' : '' ;
+		$_avatar = $_avatar ? '<img src="' . $_avatar . '" border="0" align="middle" />' : '' ;
 		$jva_avatars[(int)$userid] = $_avatar;
 				
 	
@@ -332,7 +332,7 @@ class jvaHelper {
 	public static function userlink($userid, $username) {
 	
 		static $jva_userlinks;
-		$model = jvarcadeModelCommon::getInst();
+		$model = new jvarcadeModelCommon();
 		$config = $model->getConf();
 		
 		if (!($jva_userlinks && is_array($jva_userlinks) && count($jva_userlinks) && array_key_exists((int)$userid, $jva_userlinks))) {
@@ -361,7 +361,7 @@ class jvaHelper {
 				$_name = '<a href="' . CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$userid) . '">' . $js_user->getDisplayName() . '</a>';
 			// No integration
 			} else {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&id=' . (int)$userid) . '">' . $username . '</a>';
+				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&uid=' . (int)$userid) . '">' . $username . '</a>';
 			}
 			
 			$jva_userlinks[(int)$userid] = $_name;

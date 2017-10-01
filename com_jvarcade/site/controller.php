@@ -24,17 +24,9 @@ class jvarcadeController extends JControllerLegacy {
 		parent::__construct();
 		$this->global_conf = JFactory::getConfig();
 		$this->db = JFactory::getDBO();
-		$conf = jvarcadeModelCommon::getInst();
+		$conf = new jvarcadeModelCommon();
 		$this->config = $conf->getConf();
 	}
-	/*
-	public function keepalive() {
-		$session = JFactory::getSession();
-		$session->set('keepalive', time(), 'jvarcade');
-		echo $session->get('keepalive', 0, 'jvarcade');
-		exit;
-	}
-	*/
 
 	public function home ($cachable = false, $urlparams = false) {
 		$document = JFactory::getDocument();
@@ -53,8 +45,10 @@ class jvarcadeController extends JControllerLegacy {
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Profile');
+		$games_model = $this->getModel('Games');
 		$view = $this->getView('profile', $viewType);
 		$view->setModel($model, true);
+		$view->setModel($games_model);
 		$view->setLayout('default');
 		$view->set('config', $this->config);
 		$view->display();
@@ -361,7 +355,7 @@ class jvarcadeController extends JControllerLegacy {
 	public function downloadgame($gdata=''){
 		$app = JFactory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, gsafe, author FROM #__jvarcade_games WHERE id =' . $game_id);
+		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
 		$gd_folder = './arcade/gamedata/'.$gdata['gamename'].'';
 			
@@ -382,7 +376,6 @@ class jvarcadeController extends JControllerLegacy {
 					. 'gheight => "'. $gdata['height'] .'",' . "\n"
 					. 'gwidth => "'. $gdata['width'] .'",' . "\n"
 					. 'author => "'. $gdata['author'] .'",' . "\n"
-					. 'gsafe  => "'. $gdata['gsafe'] .'",' . "\n"
 					. 'bgcolor => "'. $gdata['background'] .'",' . "\n"
 					. ');?>';
 			fwrite($fh, $data);

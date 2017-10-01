@@ -20,7 +20,7 @@ require_once ('model.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
 // Load jVArcade configuration
-$conf = jvarcadeModelCommon::getInst();
+$conf = new jvarcadeModelCommon();
 $config = $conf->getConf();
 
 // define time/date formats
