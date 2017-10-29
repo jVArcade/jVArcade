@@ -136,7 +136,7 @@
 				"game_ids": game_ids,
 				"contest_ids": contest_ids.join(',')
 			}, function(data) {
-				if (window.parent.document.location.href.indexOf('edit_game') != -1) {
+				if (window.parent.document.location.href.indexOf('game') != -1) {
 					window.parent.jQuery.jva.showGameContests(game_ids);
 					window.parent.jQuery('#contestForGame').modal('hide');
 				} else if (data) {
@@ -159,7 +159,7 @@
 				"game_ids": game_ids.join(','),
 				"contest_ids": contest_id
 			}, function(data) {
-				if (window.parent.document.location.href.indexOf('edit_contest') != -1) {
+				if (window.parent.document.location.href.indexOf('contest') != -1) {
 					window.parent.jQuery.jva.showContestGames(contest_id);
 					window.parent.jQuery('#gameForContest').modal('hide');
 				} else if (data) {
@@ -171,7 +171,7 @@
 		showContestGames: function(contest_id) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
-				"task": "showcontestgames",
+				"view": "showcontestgames",
 				"tmpl": "component",
 				"format": "raw",
 				"contest_id": contest_id
@@ -185,7 +185,7 @@
 		showGameContests: function(game_id) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
-				"task": "showgamecontests",
+				"view": "showgamecontests",
 				"tmpl": "component",
 				"format": "raw",
 				"game_id": game_id
