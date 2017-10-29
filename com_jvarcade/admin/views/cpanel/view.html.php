@@ -12,18 +12,18 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeViewCpanel extends JViewLegacy {
+class jvarcadeViewCpanel extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication('site');
+		$mainframe = Joomla\CMS\Factory::getApplication('site');
 		$model = $this->getModel();
 		
 		$task = $mainframe->input->get('task', 'cpanel');
 		$this->task = $task;
 		
 		// config
-		$config = $model->getConfObj();
+		$config = $model->getConf();
 		$this->config = $config;
 		
 		// stats
@@ -39,12 +39,12 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		
 		
 		// plugin checks
-		$sysplg_installed = JPluginHelper::isEnabled('system', 'jvarcade');
+		$sysplg_installed = Joomla\CMS\Plugin\PluginHelper::isEnabled('system', 'jvarcade');
 		$this->sysplg_installed = $sysplg_installed;
 		if (!$sysplg_installed) {
 			$mainframe->enqueueMessage(JText::_('COM_JVARCADE_PLUGINS_WARNING'), 'error');
 		}
-		$plugins = JPluginHelper::getPlugin('jvarcade');
+		$plugins = Joomla\CMS\Plugin\PluginHelper::getPlugin('jvarcade');
 		$this->plugins = $plugins;
 		
 		// changelog
@@ -52,45 +52,41 @@ class jvarcadeViewCpanel extends JViewLegacy {
 		$this->changelog = $changelog;
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CPANEL'), 'jvacpanel');
+		JToolbarHelper::preferences('com_jvarcade', '' , '' ,  'Settings');
 		
 		$dashboard_buttons = array (
-			'SETTINGS' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=settings'),
-				'icon' => 'config.png',
-				'label' => JText::_('COM_JVARCADE_SETTINGS')
-			),
 			'MANAGE_SCORES' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=manage_scores'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores'),
 				'icon' => 'doc_48.png',
 				'label' => JText::_('COM_JVARCADE_MANAGE_SCORES')
 			),
 			'MANAGE_FOLDERS' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=manage_folders'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folders'),
 				'icon' => 'folder.png',
 				'label' => JText::_('COM_JVARCADE_MANAGE_FOLDERS')
 			),
 			'MANAGE_GAMES' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=manage_games'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=games'),
 				'icon' => 'games2.png',
 				'label' => JText::_('COM_JVARCADE_MANAGE_GAMES')
 			),
 			'UPLOAD_ARCHIVE' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=game_upload'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game_upload'),
 				'icon' => 'upload_zip.png',
 				'label' => JText::_('COM_JVARCADE_UPLOAD_ARCHIVE')
 			),
 			'MAINTENANCE' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=maintenance'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=maintenance'),
 				'icon' => 'maintenance.png',
 				'label' => JText::_('COM_JVARCADE_MAINTENANCE')
 			),
 			'CONTENT_RATINGS' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=content_ratings'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contentratings'),
 				'icon' => 'content_rating.png',
 				'label' => JText::_('COM_JVARCADE_CONTENT_RATINGS')
 			),
 			'CONTESTS' => array(
-				'link' => JRoute::_('index.php?option=com_jvarcade&task=contests'),
+				'link' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contests'),
 				'icon' => 'contests.png',
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),

@@ -13,11 +13,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeViewManage_scores extends JViewLegacy {
+class jvarcadeViewManage_scores extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 	
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
@@ -30,9 +30,7 @@ class jvarcadeViewManage_scores extends JViewLegacy {
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode('<br />', $errors));
-		
-			return false;
+		    throw new Exception(implode("\n", $errors), 500);
 		}
 		
 		

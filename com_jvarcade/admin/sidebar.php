@@ -17,31 +17,28 @@ class jvarcadeToolbarHelper {
 	public static function addSubmenu($vName = 'cpanel') {
 	
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_CPANEL'), 'index.php?option=com_jvarcade&task=cpanel', $vName == 'cpanel');
+		JText::_('COM_JVARCADE_CPANEL'), 'index.php?option=com_jvarcade&view=cpanel', $vName == 'cpanel');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_SETTINGS'), 'index.php?option=com_jvarcade&task=settings', $vName == 'settings');
+		JText::_('COM_JVARCADE_MANAGE_SCORES'), 'index.php?option=com_jvarcade&view=scores', $vName == 'scores');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_MANAGE_SCORES'), 'index.php?option=com_jvarcade&task=manage_scores', $vName == 'manage_scores');
+		JText::_('COM_JVARCADE_MANAGE_FOLDERS'), 'index.php?option=com_jvarcade&view=folders', $vName == 'folders');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_MANAGE_FOLDERS'), 'index.php?option=com_jvarcade&task=manage_folders', $vName == 'manage_folders');
+		JText::_('COM_JVARCADE_MANAGE_GAMES'), 'index.php?option=com_jvarcade&view=games', $vName == 'games');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_MANAGE_GAMES'), 'index.php?option=com_jvarcade&task=manage_games', $vName == 'manage_games');
+		JText::_('COM_JVARCADE_UPLOAD_ARCHIVE'), 'index.php?option=com_jvarcade&view=game_upload', $vName == 'game_upload');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_UPLOAD_ARCHIVE'), 'index.php?option=com_jvarcade&task=game_upload', $vName == 'game_upload');
+		JText::_('COM_JVARCADE_MAINTENANCE'), 'index.php?option=com_jvarcade&view=maintenance', $vName == 'maintenance');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_MAINTENANCE'), 'index.php?option=com_jvarcade&task=maintenance', $vName == 'maintenance');
+		JText::_('COM_JVARCADE_CONTENT_RATINGS'), 'index.php?option=com_jvarcade&view=contentratings', $vName == 'content_ratings');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_CONTENT_RATINGS'), 'index.php?option=com_jvarcade&task=content_ratings', $vName == 'content_ratings');
-		
-		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_CONTESTS'), 'index.php?option=com_jvarcade&task=contests', $vName == 'contests');
+		JText::_('COM_JVARCADE_CONTESTS'), 'index.php?option=com_jvarcade&view=contests', $vName == 'contests');
 		
 		JHtmlSidebar::addEntry(
 		JText::_('COM_JVARCADE_SUPPORT'), 'http://jvarcade.com/forum/jvarcade-support', $vName == 'support');

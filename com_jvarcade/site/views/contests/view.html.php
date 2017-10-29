@@ -28,7 +28,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		$Itemid = $mainframe->input->get('Itemid');
 		$this->Itemid = $Itemid;
 		$model = $this->getModel();
-		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
+		$sort_url = 'index.php?option=com_jvarcade&view=' . $task;
 		
 		// Table ordering
 		
@@ -57,7 +57,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		$this->contests = $contests;
 		
 		$pathway->addItem($title);
-		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
+		$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $title);
 		$this->tabletitle = $title;
 		$this->sort_url = $sort_url;
 

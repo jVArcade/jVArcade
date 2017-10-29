@@ -66,7 +66,7 @@ class jvarcadeViewScores extends JViewLegacy {
 		if(!(int)$this->table_only) {
 			$pathway->addItem($game['title'], JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id']));
 			$pathway->addItem(JText::_('COM_JVARCADE_SCORES'));
-			$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $game['title'] . ' ' . JText::_('COM_JVARCADE_SCORES'));
+			$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $game['title'] . ' ' . JText::_('COM_JVARCADE_SCORES'));
 			$doc->setDescription(strip_tags($game['description']));
 		}
 		

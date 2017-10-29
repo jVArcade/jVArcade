@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th width="20"><?php echo JHtml::_('grid.checkall'); ?></th>
+			<th width="20"><?php echo Joomla\CMS\HTML\HTMLHelper::_('grid.checkall'); ?></th>
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_CONTESTS_ID'); ?></th>
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_CONTESTS_NAME'); ?></th>
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_CONTESTS_START'); ?></th>
@@ -33,12 +33,12 @@ defined('_JEXEC') or die('Restricted access');
 		$i = 0;
 		if (is_array($this->contests)) {
 			foreach ($this->contests as $k => $obj) {
-				$imgtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/publish_x.png', '', array('border' => 0), true) : JHTML::_('image.administrator', 'publish_x.png', '/images/');
+				$imgtag = Joomla\CMS\HTML\HTMLHelper::_('image','admin/publish_x.png', '', array('border' => 0), true);
 		?>
 				<tr class="<?php echo "row$i"; ?>">
-					<td style="text-align: center;"><?php echo JHTML::_('grid.id', $k, $obj->id, false, 'cid'); ?></td>
+					<td style="text-align: center;"><?php echo Joomla\CMS\HTML\HTMLHelper::_('grid.id', $k, $obj->id, false, 'cid'); ?></td>
 					<td style="text-align: center;"><?php echo $obj->id; ?></td>
-					<td style="text-align: center;"><a target="_blank" href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=editcontest&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
+					<td style="text-align: center;"><a target="_blank" href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contest&layout=edit&id=' . $obj->id); ?>"><?php echo $obj->name; ?></a></td>
 					<td style="text-align: center;"><?php echo jvaHelper::formatDate($obj->startdatetime); ?></td>
 					<td style="text-align: center;"><?php echo jvaHelper::formatDate($obj->enddatetime); ?></td>
 					<td style="text-align: center;"><?php echo $obj->islimitedtoslots; ?></td>

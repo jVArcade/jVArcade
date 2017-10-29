@@ -18,7 +18,7 @@ $i = '';
 	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); ?>
 	
-	<?php if ($this->config->foldercols > 1) : ?>
+	<?php if ($this->config->get('foldercols') > 1) : ?>
 		<?php $i = 1; ?>
 		<div class="jva_foldercols" border="0" width="100%">
 			<div class="jva_column_wrap">
@@ -27,19 +27,19 @@ $i = '';
 	<?php if (is_array($this->folders) && count($this->folders)) : ?>
 	<?php foreach ($this->folders as $folder) : ?>
 	
-		<?php if ($this->config->foldercols > 1) : ?>
-			<div class="jva_columns" style="width:<?php echo round(100/$this->config->foldercols); ?>%;">
+		<?php if ($this->config->get('foldercols') > 1) : ?>
+			<div class="jva_columns" style="width:<?php echo round(100/$this->config->get('foldercols')); ?>%;">
 		<?php endif; ?>
 		
 		<div class="pua_folder">
 			<div class="pua_folder_description">
 				<div class="pua_folder_description_left">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . ($folder['imagename'] ? 'folders/' . $folder['imagename'] : 'cpanel/folder.png') ; ?>" border="0" alt="" />
 					</a> 
 				</div>
 				<div class="pua_folder_description_right">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 						<b><?php echo stripslashes($folder['name']); ?></b>
 					</a>
 					<br />
@@ -52,21 +52,21 @@ $i = '';
 			<?php foreach ($folder['games'] as $game) : ?>
 				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
-				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false) ?>
+				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&view=game&id=' . $game['id'], false) ?>
 					<a href="<?php echo $game_url; ?>">
-						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
+						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->get('truncate_title')); ?>
 					</a>
 					<a href="<?php echo $game_url; ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
 					</a>					
 				
-				<?php if ($this->config->showscoresinfolders == 1) : ?>
+				<?php if ($this->config->get('showscoresinfolders') == 1) : ?>
 					
 				<?php if (array_key_exists('highscore', $game)) : ?>
 				<?php if (count($game['highscore']) && (int)$game['highscore']['score']) : ?>
 						<h4><?php echo JText::_('COM_JVARCADE_HIGH_SCORE') ?> : <?php echo $game['highscore']['score'] ?></h4>
 						<h4><?php echo $game['highscore']['username'] ?></h4>
-						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
+						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
 				<?php else : ?>
 						<h4><?php echo JText::_('COM_JVARCADE_NO_SCORES') ?></h4>
 				<?php endif; ?>
@@ -82,7 +82,7 @@ $i = '';
 			<div class="pu_AllGames">
 				<?php if (is_array($this->games_count) && count($this->games_count) && isset($this->games_count[$folder['id']])) : ?>
 				<br/>
-				<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
+				<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 					<?php echo JText::sprintf('COM_JVARCADE_SEE_ALL_GAMES_IN_FOLDER', $this->games_count[$folder['id']]['count']); ?>
 				</a>
 				&raquo;&nbsp;
@@ -94,16 +94,16 @@ $i = '';
 			<div class="pu_AllGames">
 					<span style="margin-left: 0.5em;padding-left: 0.75em;"><?php echo JText::_('COM_JVARCADE_SUBFOLDERS'); ?></span>
 					<?php $tmp = array();foreach ($this->all_folders[$folder['id']] as $subfolder) : ?>
-						<?php $tmp[] = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $subfolder['id']) . '">' . $subfolder['name'] . '</a>'; ?>
+						<?php $tmp[] = '<a href="' . JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $subfolder['id']) . '">' . $subfolder['name'] . '</a>'; ?>
 					<?php endforeach; ?>
 					<?php echo implode(', ', $tmp); ?>
 			</div>
 			<?php endif; ?>
 		</div>
 		
-		<?php if ($this->config->foldercols > 1) : ?>
+		<?php if ($this->config->get('foldercols') > 1) : ?>
 			</div>
-			<?php if(!($i%(int)$this->config->foldercols)) : ?>
+			<?php if(!($i%(int)$this->config->get('foldercols'))) : ?>
 			<div></div>
 			<?php endif; ?>
 			<?php $i++; ?>
@@ -114,12 +114,12 @@ $i = '';
 		<?php echo JText::_('COM_JVARCADE_NO_GAMES'); ?>
 	<?php endif; ?>
 	
-	<?php if ($this->config->foldercols > 1) : ?>
+	<?php if ($this->config->get('foldercols') > 1) : ?>
 		</div>
 	<?php endif; ?>
 
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
-	<?php if ($this->config->foldercols > 1) : ?>
+	<?php if ($this->config->get('foldercols') > 1) : ?>
 		</div>
 	<?php endif; ?>
 </div>

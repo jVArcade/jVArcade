@@ -81,7 +81,7 @@ jQuery(document).ready(function($) {
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $score['imagename'];?>" height="50px" width="50px" class="hasTooltip" data-original-title="<strong><?php echo $score['title']; ?></strong>">
 					</a></td>
 					<td><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $score['id'], false); ?>" class="hasTooltip" data-original-title="<strong><?php echo $score['title']; ?></strong></br><?php echo $score['description']; ?>">
-						<b><?php echo jvaHelper::truncate(stripslashes($score['title']), (int)$this->config->truncate_title); ?></b></a></td>
+						<b><?php echo jvaHelper::truncate(stripslashes($score['title']), (int)$this->config->get('truncate_title')); ?></b></a></td>
 					<td width="25%" style="text-align: center;"><?php echo rtrim(rtrim(number_format($score['score'],2), '0'), '.'); ?></td>
 				</tr>
 					<?php endforeach;?>
@@ -107,12 +107,12 @@ jQuery(document).ready(function($) {
 						<th width="14%" style="text-align: center;">
 							<b><?php echo JText::_('COM_JVARCADE_HIGH_SCORE'); ?></b>
 						</th>
-						<?php if ($this->config->contentrating == 1) : ?>
+						<?php if ($this->config->get('contentrating') == 1) : ?>
 						<th width="7%" style="text-align: center;">
 							<?php echo JText::_('COM_JVARCADE_CONTENT'); ?>
 						</th>
 						<?php endif; ?>
-               			 <?php if ($this->config->enable_dload == 1 && $this->can_dload) : ?>
+               			 <?php if ($this->config->get('enable_dload') == 1 && $this->can_dload) : ?>
                			<th width="6%" style="text-align: center;"><b>Download</b>
                			</th>
                			<?php endif ?>
@@ -134,7 +134,7 @@ jQuery(document).ready(function($) {
 				</td>
 				<td width="20%">
 					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game['id'], false); ?>" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong></br><?php echo html_entity_decode($game['game_desc'], ENT_QUOTES, 'UTF-8'); ?>">
-						<b><?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?></b>
+						<b><?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->get('truncate_title')); ?></b>
 					</a>
 					<br /><?php //echo html_entity_decode($game['game_desc'], ENT_QUOTES, 'UTF-8'); ?>
 				</td>
@@ -156,14 +156,14 @@ jQuery(document).ready(function($) {
 					<?php endif; ?>
 					</center>
 				</td>
-				<?php if ($this->config->contentrating == 1) : ?>
+				<?php if ($this->config->get('contentrating') == 1) : ?>
 				<td width="10%">
 					<?php if ($game['rating_image']) : ?>
 					<center><img src="<?php echo JVA_IMAGES_SITEPATH . 'contentrating/' . $game['rating_image']; ?>" alt="<?php echo $game['rating_desc']; ?>"  title="<?php echo $game['rating_desc']; ?>" /></center>
 					<?php endif; ?>
 				</td>
 				<?php endif; ?>
-                <?php if ($this->config->enable_dload == 1 && $this->can_dload) : ?>
+                <?php if ($this->config->get('enable_dload') == 1 && $this->can_dload) : ?>
                 <td width="8%"><center><a href="javascript:void(0)" onclick="jQuery.jva.downloadGame(<?php echo $game['id']; ?>); return false;"><img src="<?php echo JVA_IMAGES_SITEPATH; ?>dl.png" /></a></td><?php endif; ?>
 			</tr>
 					<?php endforeach;?>

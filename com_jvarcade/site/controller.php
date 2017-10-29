@@ -14,7 +14,7 @@
 defined('_JEXEC') or die;
 
 
-class jvarcadeController extends JControllerLegacy {
+class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 	private $global_conf = null;
 	private $db = null;
 	private $config = null;
@@ -22,19 +22,19 @@ class jvarcadeController extends JControllerLegacy {
 
 	public function __construct() {
 		parent::__construct();
-		$this->global_conf = JFactory::getConfig();
-		$this->db = JFactory::getDBO();
+		$this->global_conf = Joomla\CMS\Factory::getConfig();
+		$this->db = Joomla\CMS\Factory::getDBO();
 		$conf = new jvarcadeModelCommon();
 		$this->config = $conf->getConf();
 	}
 
 	public function home ($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
 		$view = $this->getView('home', $viewType);
 		$view->setModel($model, true);
-		$layout = (strlen($this->config->homepage_view) && $this->config->homepage_view && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->homepage_view . '.php')) ? $this->config->homepage_view : 'default' ;
+		$layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
 		$view->setLayout($layout);
 		$view->set('config', $this->config);
 		$view->set('layout', $layout);
@@ -42,7 +42,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function profile($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Profile');
 		$games_model = $this->getModel('Games');
@@ -55,7 +55,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function uploadavatar($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$view = $this->getView('uploadavatar', $viewType);
 		$view->setLayout('default');
@@ -89,21 +89,21 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 	public function listgames($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
 		$view = $this->getView('list', $viewType);
 		$view->setModel($model, true);
 		$view->setLayout('default');
 		$view->set('config', $this->config);
-		$layout = (strlen($this->config->homepage_view) && $this->config->homepage_view && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->homepage_view . '.php')) ? $this->config->homepage_view : 'default' ;
+		$layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
 		$view->set('layout', $layout);
 		$view->display();
 		
 	}
 
 	public function contests($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
 		$view = $this->getView('contests', $viewType);
@@ -114,7 +114,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 
 	public function contestdetail($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
 		$view = $this->getView('contestdetail', $viewType);
@@ -125,20 +125,20 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function contestregister() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$id = (int)$app->input->get('id');
 		$type = (int)$app->input->get('type');
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		$user_id = (int)$user->id;
 		$model = $this->getModel('Scores');
 		$model->ContestMembership($id, $user_id, $type);
-		$app->redirect(JRoute::_('index.php?option=com_jvarcade&task=contestdetail&id=' . $id, false));
+		$app->redirect(Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $id, false));
 	}
 	
 	// GAME PAGE RELATED
 	
 	public function game($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
 		$scores_model = $this->getModel('Scores');
@@ -148,7 +148,7 @@ class jvarcadeController extends JControllerLegacy {
 		$view->set('scores_model', $scores_model);
 		$view->set('config', $this->config);
 		
-		if ((int)$this->config->scoreundergame) {
+		if ((int)$this->config->get('scoreundergame')) {
 			ob_start();
 			$this->scores(false, false, true);
 			$scores_table = ob_get_clean();
@@ -159,7 +159,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function gametags($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Games');
 		$view = $this->getView('gametags', $viewType);
@@ -170,8 +170,8 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function savetag() {
-		$app = JFactory::getApplication();
-		$user = JFactory::getUser();
+		$app = Joomla\CMS\Factory::getApplication();
+		$user = Joomla\CMS\Factory::getUser();
 		$model = $this->getModel('Games');
 		$id = (int)$app->input->get('id');
 		
@@ -196,14 +196,14 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function achaward() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$gid = $app->input->getString('gid', '');
 		$gtitle = $app->input->getString('gtitle', '');
 		$achtitle = $app->input->getString('achtitle', '');
 		$achdesc = $app->input->getString('achdesc', '');
 		$achicon = $app->input->getString('achicon', '');
 		$pts = $app->input->getInt('pts', 0);
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		$model = $this->getModel('Profile');
 		if ($user->id) {
 			$model->saveAchievement($user->id, $gid, $gtitle, $achtitle, $achdesc, $achicon, $pts);
@@ -211,9 +211,9 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function savefave() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		$model = $this->getModel('Games');
 		$res = '';
 		if ($user->id) {
@@ -229,9 +229,9 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function delfave() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		$model = $this->getModel('Games');
 
 		if ($user->id) {
@@ -248,10 +248,10 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function rategame() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_id = (int)$app->input->get('gid');
 		$rating = (float)$app->input->get('rating');
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		
 		$this->db->setQuery('SELECT COALESCE(count(*), 0) as count, COALESCE(total_votes, 0) as total_votes, COALESCE(total_value, 0) as total_value, used_ids 
 							FROM #__jvarcade_ratings WHERE gameid = ' . $this->db->Quote($game_id) . ' GROUP BY gameid');
@@ -307,9 +307,9 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function reportgame() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_id = (int)$app->input->get('id');
-		$my = JFactory::getUser();
+		$my = Joomla\CMS\Factory::getUser();
 		$user_id_from = $my->id;
 		$ret = 'Error repoting game';
 		
@@ -333,13 +333,13 @@ class jvarcadeController extends JControllerLegacy {
 		
 				if ($config == 1) {
 					// Load the user details (already valid from table check).
-					$fromUser = JUser::getInstance($user_id_from);
-					$toUser = JUser::getInstance($user_id_to);
-					$sitename	= JFactory::getApplication()->getCfg('sitename');
-					$gameURL	= JURI::root() . 'index.php?option=com_jvarcade&amp;task=game&amp;id=' . $game_id;
+					$fromUser = Joomla\CMS\User\User::getInstance($user_id_from);
+					$toUser = Joomla\CMS\User\User::getInstance($user_id_to);
+					$sitename	= Joomla\CMS\Factory::getApplication()->getCfg('sitename');
+					$gameURL	= Joomla\CMS\Uri\Uri::root() . 'index.php?option=com_jvarcade&view=game&id=' . $game_id;
 					$subject	= '' . $sitename . ' jVArcade - Game "' . $gametitle . '" error notification';
 					$msg		= 'Please investigate the game: ' . $gametitle . '. URL : ' . $gameURL . '. It appears to not be loading/running correctly.';
-					JFactory::getMailer()->sendMail($fromUser->email, $fromUser->name, $toUser->email, $subject, $msg);
+					Joomla\CMS\Factory::getMailer()->sendMail($fromUser->email, $fromUser->name, $toUser->email, $subject, $msg);
 				}
 					
 			}
@@ -353,7 +353,7 @@ class jvarcadeController extends JControllerLegacy {
 		}
 		
 	public function downloadgame($gdata=''){
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_id = (int)$app->input->get('id');
 		$this->db->setQuery('SELECT gamename, imagename, filename, title, height, width, description, background, author FROM #__jvarcade_games WHERE id =' . $game_id);
 		$gdata = $this->db->loadAssoc();
@@ -431,7 +431,7 @@ class jvarcadeController extends JControllerLegacy {
 	// LEADERBOARD
 	
 	public function leaderboard($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
 		$view = $this->getView('leaderboard', $viewType);
@@ -444,7 +444,7 @@ class jvarcadeController extends JControllerLegacy {
 	// SCORES
 	
 	public function scores ($cachable = false, $urlparams = false, $table_only = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
 		$view = $this->getView('scores', $viewType);
@@ -458,7 +458,7 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function latestscores ($cachable = false, $urlparams = false) {
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$viewType = $document->getType();
 		$model = $this->getModel('Scores');
 		$games_model = $this->getModel('Games');
@@ -483,7 +483,7 @@ class jvarcadeController extends JControllerLegacy {
 		#5 - No game ID
 		########################################################
 		
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 
 		$Itemid = $app->input->getInt('Itemid', 0);
 		if (!$Itemid) {
@@ -503,8 +503,8 @@ class jvarcadeController extends JControllerLegacy {
 		$games_model = $this->getModel('Games');
 
 		$dispatcher = JEventDispatcher::getInstance();
-		$my = JFactory::getUser();
-		$session = JFactory::getSession();
+		$my = Joomla\CMS\Factory::getUser();
+		$session = Joomla\CMS\Factory::getSession();
 		
 		$userid = (int)$my->id ? (int)$my->id : 0;
 		$username = (int)$my->id ? $my->username : $this->config->guest_name;
@@ -688,12 +688,12 @@ class jvarcadeController extends JControllerLegacy {
 
 		
 		if (!$ajaxscore) {
-			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
+			$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 			// Redirect to scores page for the game
 			$app->enqueueMessage($message);
-			$app->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+			$app->redirect(Joomla\CMS\Uri\Uri::root(true). '/index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 		} else {
-			$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
+			$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
 			echo $message;
 			exit;
 		}
@@ -702,7 +702,7 @@ class jvarcadeController extends JControllerLegacy {
 	
 	public function storepnscore() {
 	
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 
 		$Itemid = $app->input->getInt('Itemid',0);
 		if (!$Itemid) {
@@ -715,8 +715,8 @@ class jvarcadeController extends JControllerLegacy {
 		$games_model = $this->getModel('Games');
 		
 		$dispatcher = JDispatcher::getInstance();
-		$session = JFactory::getSession();
-		$my = JFactory::getUser();
+		$session = Joomla\CMS\Factory::getSession();
+		$my = Joomla\CMS\Factory::getUser();
 		
 		$userid = (int)$my->id ? (int)$my->id : 0;
 		$username = (int)$my->id ? $my->username : $this->config->guest_name;
@@ -736,11 +736,6 @@ class jvarcadeController extends JControllerLegacy {
 		$func = $session->get('session_func', '', 'jvarcade');
 		$gameData = $session->get('session_gdata', '', 'jvarcade');
 		
-		//$game_id = $app->input->getInt('gid', 0);
-		//$func = $app->input->getString('func', '');
-		//$gameData = $app->input->getString('gameData');
-		//$score = $app->input->getInt('score', 0);
-		//$endtime = time();
 		$starttime = $session->get('session_starttime', 0, 'jvarcade');
 		
 		// GET GAME DETAILS
@@ -895,11 +890,11 @@ class jvarcadeController extends JControllerLegacy {
 						break;
 				}
 				
-				$message .= ' <a href="' . JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
+				$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 				// it's not clear what to do with the message.. shall we redirect?
 				$app->enqueueMessage($message);
 				
-				$app->redirect(JUri::root(true). '/index.php?option=com_jvarcade&task=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+				$app->redirect(Joomla\CMS\Uri\Uri::root(true). '/index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid);
 				//echo $message;
 				
 				exit;
@@ -948,7 +943,7 @@ class jvarcadeController extends JControllerLegacy {
 	public function getJvarcadeItemID() {
 		$Itemid1 = 0;
 		$Itemid2 = 0;
-		$menu = JFactory::getApplication()->getMenu();
+		$menu = Joomla\CMS\Factory::getApplication()->getMenu();
 		$entry1 = $menu->getItems('link', 'index.php?option=com_jvarcade&view=home&task=home');
 		if (is_array($entry1) && is_object($entry1[0])) $Itemid1 = (int)$entry1[0]->id;
 		$entry2 = $menu->getItems('link', 'index.php?option=com_jvarcade&view=home');

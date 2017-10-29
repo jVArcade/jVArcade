@@ -13,12 +13,12 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeModelManage_scores extends JModelList {
+class jvarcadeModelManage_scores extends Joomla\CMS\MVC\Model\ListModel {
 	
 	public function __construct($config = array()) {
 		
-		$this->dbo = JFactory::getDBO();
-		$this->app = JFactory::getApplication();
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$this->app = Joomla\CMS\Factory::getApplication();
 		
 		if(empty($config['filter_fields']))
 		{

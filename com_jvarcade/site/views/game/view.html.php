@@ -82,7 +82,7 @@ class jvarcadeViewGame extends JViewLegacy {
 		$this->folderpath = $folderpath;
 		
 		// page title and breadcrumbs
-		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $game['title']);
+		$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $game['title']);
 		$doc->setDescription(strip_tags($game['description']));
 		$this->buildPathway($pathway, $parents, $game['title']);
 		
@@ -94,10 +94,10 @@ class jvarcadeViewGame extends JViewLegacy {
 		
 		// events
 		$dispatcher = JEventDispatcher::getInstance();
-		$result = $dispatcher->trigger('onPUABeforeFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->guest_name) ));
+		$result = $dispatcher->trigger('onPUABeforeFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->get('guest_name')) ));
 		
 		parent::display($tpl);
-		$result = $dispatcher->trigger('onPUAAfterFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->guest_name) ));
+		$result = $dispatcher->trigger('onPUAAfterFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->get('guest_name')) ));
 		
 		$session = JFactory::getSession();
 		$session->set('session_starttime', time(), 'jvarcade');
@@ -106,9 +106,9 @@ class jvarcadeViewGame extends JViewLegacy {
 	}
 	
 	function buildFolders($folders) {
-		$folderpath = '<a href=' . JRoute::_('index.php?option=com_jvarcade&task=home') . '>' . stripslashes($this->config->title) . '</a>';
+		$folderpath = '<a href=' . JRoute::_('index.php?option=com_jvarcade&view=home') . '>' . stripslashes($this->config->get('title')) . '</a>';
 		foreach ($folders as $folder) {
-		$folderpath .= ' » <a href=' . JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']) . '>' . $folder['name'] . '</a>';
+		$folderpath .= ' » <a href=' . JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']) . '>' . $folder['name'] . '</a>';
 		}
 		return $folderpath;
 		
@@ -116,7 +116,7 @@ class jvarcadeViewGame extends JViewLegacy {
 	
 	function buildPathway(&$pathway, $folders, $title) {
 		foreach ($folders as $folder) {
-			$pathway->addItem($folder['name'], JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']));
+			$pathway->addItem($folder['name'], JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']));
 		}
 		$pathway->addItem($title);
 	}
@@ -146,7 +146,7 @@ class jvarcadeViewGame extends JViewLegacy {
 	function displayComments() {
 		$start = '<div class="pu_heading" style="text-align: center;margin: 20px 0 20px 0;">' . JText::_('COM_JVARCADE_COMMENTS') . '</div><div id="comment-block">';
 		$end = '</div>';
-		if ($this->config->comments == 1 && $this->componentEnabled($this->comment_data, 'com_comment')) {
+		if ($this->config->get('comments') == 1 && $this->componentEnabled($this->comment_data, 'com_comment')) {
 			// CComment
 			
 			$path = JPATH_SITE . '/administrator/components/com_comment/plugins/com_jvarcade/jvarcade.php';
@@ -156,7 +156,7 @@ class jvarcadeViewGame extends JViewLegacy {
 				echo CcommentHelperUtils::commentInit('com_jvarcade', $this->game);
 				echo $end;
 			}
-		} elseif ($this->config->comments == 2 && $this->componentEnabled($this->comment_data, 'com_jcomments')) {
+		} elseif ($this->config->get('comments') == 2 && $this->componentEnabled($this->comment_data, 'com_jcomments')) {
 			// JComments
 			$jcommentspath = JPATH_SITE . '/components/com_jcomments/jcomments.php';
 			$jcommentsplugin = JPATH_SITE . '/components/com_jcomments/plugins/com_jvarcade.plugin.php';
@@ -166,7 +166,7 @@ class jvarcadeViewGame extends JViewLegacy {
 				echo JComments::show($this->game['id'], 'com_jvarcade', $this->game['gamename']); 
 				echo $end;
 			}
-		} elseif ($this->config->comments == 3 && $this->componentEnabled($this->comment_data, 'com_jacomment')) {
+		} elseif ($this->config->get('comments') == 3 && $this->componentEnabled($this->comment_data, 'com_jacomment')) {
 			// JA Comment
 			echo $start;
 			echo '{jacomment contentid='.$this->game['id'].' option=com_jvarcade contenttitle='.$this->game['gamename'].'}';

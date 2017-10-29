@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+		/>
+		<field
+			name="image"
+			type="file"
+		/>
+		<field
+			name="file"
+			type="file"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_JVARCADE_GAMES_DISPLAY_NAME"
+			size="25"
+		/>
+		<field
+			name="gamename"
+			type="text"
+			label="COM_JVARCADE_GAMES_SYSTEM_NAME"
+			description="COM_JVARCADE_GAMES_SYSTEM_NAME_DESC"
+			size="25"
+		/>
+		<field
+			name="folderid"
+			type="folders"
+			label="COM_JVARCADE_GAMES_FOLDER"
+		/>
+		<field
+			name="contentratingid"
+			type="contentratings"
+			label="COM_JVARCADE_GAMES_CONTENTRATING"
+		/>
+		<field
+			name="description"
+			type="editor"
+			label="COM_JVARCADE_GAMES_DESCRIPTION"
+		/>
+		<field
+			name="background"
+			type="text"
+			label="COM_JVARCADE_GAMES_BACKGROUND"
+			description="COM_JVARCADE_GAMES_BACKGROUND_DESC"
+			size="25"
+		/>
+		<field
+			name="height"
+			type="text"
+			label="COM_JVARCADE_GAMES_HEIGHT"
+			description="COM_JVARCADE_GAMES_HEIGHT_DESC"
+			size="25"
+		/>
+		<field
+			name="width"
+			type="text"
+			label="COM_JVARCADE_GAMES_WIDTH"
+			description="COM_JVARCADE_GAMES_WIDTH_DESC"
+			size="25"
+		/>
+		<field
+			name="numplayed"
+			type="text"
+			label="COM_JVARCADE_GAMES_NUMPLAYED"
+			size="25"
+		/>
+		<field
+			name="reverse_score"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="0"
+			label="COM_JVARCADE_GAMES_REVERSE_SCORE"
+			description="COM_JVARCADE_GAMES_REVERSE_SCORE_DESC"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="scoring"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_JVARCADE_GAMES_SCORING"
+			description="COM_JVARCADE_GAMES_SCORING_DESC"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="published"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_JVARCADE_GAMES_PUBLISHED"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="ajaxscore"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="0"
+			label="COM_JVARCADE_GAMES_AJAXSCORE"
+			description="COM_JVARCADE_GAMES_AJAXSCORE_DESC"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>	
+		</field>
+		<field
+			name="window"
+			type="list"
+			default="1"
+			label="COM_JVARCADE_GAMES_WINDOW"
+			description="COM_JVARCADE_GAMES_WINDOW_DESC"
+			>
+		<option value="1">COM_JVARCADE_MAIN_WINDOW</option>
+		<option value="2">COM_JVARCADE_NEW_WINDOW</option>	
+		</field>
+	</fieldset>
+</form>

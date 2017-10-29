@@ -1,5 +1,598 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+	<fieldset name="general" label="COM_JVARCADE_GRP_GENERAL">
+		<field 
+			name="date_format"
+			type="text"
+			label="COM_JVARCADE_OPT_DATE_FORMAT"
+			description="COM_JVARCADE_OPTDESC_DATE_FORMAT"
+			size="25"
+			default="Y-m-d"
+		/>
+		
+		<field 
+			name="time_format"
+			type="text"
+			label="COM_JVARCADE_OPT_TIME_FORMAT"
+			description="COM_JVARCADE_OPTDESC_TIME_FORMAT"
+			size="25"
+			default="H:i:s"
+		/>
+		
+		<field 
+			name="guest_name"
+			type="text"
+			label="COM_JVARCADE_OPT_GUEST_NAME"
+			description="COM_JVARCADE_OPTDESC_GUEST_NAME"
+			size="25"
+			default="jVArcadeGuest"
+		/>
+		
+		<field 
+			name="installed_charset"
+			type="text"
+			label="COM_JVARCADE_OPT_INSTALLED_CHARSET"
+			description="COM_JVARCADE_OPTDESC_INSTALLED_CHARSET"
+			size="25"
+			default="UTF-8"
+		/>
+		
+		<field 
+			name="table_max"
+			type="text"
+			label="COM_JVARCADE_OPT_TABLE_MAX"
+			description="COM_JVARCADE_OPTDESC_TABLE_MAX"
+			size="25"
+			default="100"
+		/>
+		
+		<field 
+			name="allow_gview"
+			type="radio"
+			label="COM_JVARCADE_OPT_ALLOW_GVIEW"
+			description="COM_JVARCADE_OPTDESC_ALLOW_GVIEW"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="allow_gplay"
+			type="radio"
+			label="COM_JVARCADE_OPT_ALLOW_GPLAY"
+			description="COM_JVARCADE_OPTDESC_ALLOW_GPLAY"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="allow_gsave"
+			type="radio"
+			label="COM_JVARCADE_OPT_ALLOW_GSAVE"
+			description="COM_JVARCADE_OPTDESC_ALLOW_GSAVE"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="leaderboard"
+			type="radio"
+			label="COM_JVARCADE_OPT_LEADERBOARD"
+			description="COM_JVARCADE_OPTDESC_LEADERBOARD"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="faves"
+			type="radio"
+			label="COM_JVARCADE_OPT_FAVES"
+			description="COM_JVARCADE_OPTDESC_FAVES"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="display_onlysingleurl"
+			type="radio"
+			label="COM_JVARCADE_OPT_DISPLAY_ONLYSINGLEURL"
+			description="COM_JVARCADE_OPTDESC_DISPLAY_ONLYSINGLEURL"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="tagcloud"
+			type="radio"
+			label="COM_JVARCADE_OPT_TAGCLOUD"
+			description="COM_JVARCADE_OPTDESC_TAGCLOUD"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="TagPerms" 
+			type="usergrouplist"
+			multiple="true"
+			default="1,9,6,7,2,3,4,5,8"
+			label="COM_JVARCADE_OPT_TAGPERMS"
+			description="COM_JVARCADE_OPTDESC_TAGPERMS" 
+		/>
+		
+		<field 
+			name="TagLimit"
+			type="text"
+			label="COM_JVARCADE_OPT_TAGLIMIT"
+			description="COM_JVARCADE_OPTDESC_TAGLIMIT"
+			size="25"
+			default="0"
+		/>
+		
+		<field 
+			name="updatelb"
+			type="text"
+			label="COM_JVARCADE_OPT_UPDATELB"
+			description="COM_JVARCADE_OPTDESC_UPDATELB"
+			size="25"
+			default="15"
+		/>
+		
+		<field 
+			name="max_faves"
+			type="text"
+			label="COM_JVARCADE_OPT_MAX_FAVES"
+			description="COM_JVARCADE_OPTDESC_MAX_FAVES"
+			size="25"
+			default="10"
+		/>
+		
+		<field 
+			name="contentrating"
+			type="radio"
+			label="COM_JVARCADE_OPT_CONTENTRATING"
+			description="COM_JVARCADE_OPTDESC_CONTENTRATING"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="game_modal"
+			type="radio"
+			label="COM_JVARCADE_OPT_GAME_MODAL"
+			description="COM_JVARCADE_OPTDESC_GAME_MODAL"
+			class="btn-group btn-group-yesno"
+			default="0"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="enable_dload"
+			type="radio"
+			label="COM_JVARCADE_OPT_ENABLE_DLOAD"
+			description="COM_JVARCADE_OPTDESC_ENABLE_DLOAD"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>	
+			
+		<field 
+			name="DloadPerms" 
+			type="usergrouplist"
+			multiple="true"
+			default="1,9,6,7,2,3,4,5,8" 
+			label="COM_JVARCADE_OPT_DLOADPERMS"
+			description="COM_JVARCADE_OPTDESC_DLOADPERMS" 
+			 
+		/>
+	
+	
+	
+	
+	
+	</fieldset>
+	<fieldset name="frontend" label="COM_JVARCADE_GRP_FRONTEND">
+		<field 
+			name="title"
+			type="text"
+			label="COM_JVARCADE_OPT_TITLE"
+			description="COM_JVARCADE_OPTDESC_TITLE"
+			size="25"
+			default="jVArcade"
+		/>
+		
+		<field
+			name="template"
+			type="list"
+			label="COM_JVARCADE_OPT_TEMPLATE"
+			description="COM_JVARCADE_OPTDESC_TEMPLATE"
+			default="default"
+			>
+			<option value="contrast">Contrast</option>
+			<option value="default">Default</option>
+			<option value="desert">Desert</option>
+			<option value="minimal">Minimal</option>
+			<option value="night">Night</option>
+			<option value="ocean">Ocean</option>
+		</field>
+		
+		<field 
+			name="scoreundergame"
+			type="radio"
+			label="COM_JVARCADE_OPT_SCOREUNDERGAME"
+			description="COM_JVARCADE_OPTDESC_SCOREUNDERGAME"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="foldergames"
+			type="radio"
+			label="COM_JVARCADE_OPT_FOLDERGAMES"
+			description="COM_JVARCADE_OPTDESC_FOLDERGAMES"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="rate"
+			type="radio"
+			label="COM_JVARCADE_OPT_RATE"
+			description="COM_JVARCADE_OPTDESC_RATE"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="showstats"
+			type="radio"
+			label="COM_JVARCADE_OPT_SHOWSTATS"
+			description="COM_JVARCADE_OPTDESC_SHOWSTATS"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="showscoresinfolders"
+			type="radio"
+			label="COM_JVARCADE_OPT_SHOWSCORESINFOLDERS"
+			description="COM_JVARCADE_OPTDESC_SHOWSCORESINFOLDERS"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field
+			name="homepage_view"
+			type="list"
+			label="COM_JVARCADE_OPT_HOMEPAGE_VIEW"
+			description="COM_JVARCADE_OPTDESC_HOMEPAGE_VIEW"
+			default="default"
+			>
+			<option value="default">Default</option>
+			<option value="carousel">Carousel</option>
+			<option value="flat">Flat</option>
+		</field>
+		
+		<field
+			name="homepage_order"
+			type="list"
+			label="COM_JVARCADE_OPT_HOMEPAGE_ORDER"
+			description="COM_JVARCADE_OPTDESC_HOMEPAGE_ORDER"
+			default="1"
+			>
+			<option value="1">COM_JVARCADE_HOMEPAGE_ORDER_1</option>
+			<option value="2">COM_JVARCADE_HOMEPAGE_ORDER_2</option>
+		</field>
+		
+		<field
+			name="homepage_order_dir"
+			type="list"
+			label="COM_JVARCADE_OPT_HOMEPAGE_ORDER_DIR"
+			description="COM_JVARCADE_OPTDESC_HOMEPAGE_ORDER_DIR"
+			default="1"
+			>
+			<option value="1">COM_JVARCADE_HOMEPAGE_ORDER_DIR_1</option>
+			<option value="2">COM_JVARCADE_HOMEPAGE_ORDER_DIR_2</option>
+		</field>
+		
+		<field 
+			name="foldercols"
+			type="text"
+			label="COM_JVARCADE_OPT_FOLDERCOLS"
+			description="COM_JVARCADE_OPTDESC_FOLDERCOLS"
+			size="25"
+			default="1"
+		/>
+		
+		<field 
+			name="GamesPerPage"
+			type="text"
+			label="COM_JVARCADE_OPT_GAMESPERPAGE"
+			description="COM_JVARCADE_OPTDESC_GAMESPERPAGE"
+			size="25"
+			default="2"
+		/>
+		
+		<field 
+			name="display_max"
+			type="text"
+			label="COM_JVARCADE_OPT_DISPLAY_MAX"
+			description="COM_JVARCADE_OPTDESC_DISPLAY_MAX"
+			size="25"
+			default="20"
+		/>
+		
+		<field 
+			name="bookmarks"
+			type="radio"
+			label="COM_JVARCADE_OPT_BOOKMARKS"
+			description="COM_JVARCADE_OPTDESC_BOOKMARKS"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="specialfolders"
+			type="radio"
+			label="COM_JVARCADE_OPT_SPECIALFOLDERS"
+			description="COM_JVARCADE_OPTDESC_SPECIALFOLDERS"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field 
+			name="report"
+			type="radio"
+			label="COM_JVARCADE_OPT_REPORT"
+			description="COM_JVARCADE_OPTDESC_REPORT"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="roundcorners"
+			type="radio"
+			label="COM_JVARCADE_OPT_ROUNDCORNERS"
+			description="COM_JVARCADE_OPTDESC_ROUNDCORNERS"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="randgamecount"
+			type="text"
+			label="COM_JVARCADE_OPT_RANDGAMECOUNT"
+			description="COM_JVARCADE_OPTDESC_RANDGAMECOUNT"
+			size="25"
+			default="3"
+		/>
+		
+		<field 
+			name="truncate_title"
+			type="text"
+			label="COM_JVARCADE_OPT_TRUNCATE_TITLE"
+			description="COM_JVARCADE_OPTDESC_TRUNCATE_TITLE"
+			size="25"
+			default="50"
+		/>
+		
+		<field 
+			name="alias_folder"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_FOLDER"
+			description="COM_JVARCADE_OPTDESC_ALIAS_FOLDER"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_popular"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_POPULAR"
+			description="COM_JVARCADE_OPTDESC_ALIAS_POPULAR"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_newest"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_NEWEST"
+			description="COM_JVARCADE_OPTDESC_ALIAS_NEWEST"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_contests"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_CONTESTS"
+			description="COM_JVARCADE_OPTDESC_ALIAS_CONTESTS"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_leaderboard"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_LEADERBOARD"
+			description="COM_JVARCADE_OPTDESC_ALIAS_LEADERBOARD"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_favourite"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_FAVOURITE"
+			description="COM_JVARCADE_OPTDESC_ALIAS_FAVOURITE"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="alias_random"
+			type="text"
+			label="COM_JVARCADE_OPT_ALIAS_RANDOM"
+			description="COM_JVARCADE_OPTDESC_ALIAS_RANDOM"
+			size="25"
+			default=""
+		/>
+		
+		<field 
+			name="show_usernames"
+			type="radio"
+			label="COM_JVARCADE_OPT_SHOW_USERNAMES"
+			description="COM_JVARCADE_OPTDESC_SHOW_USERNAMES"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	
+	</fieldset>
+	<fieldset name="integration" label="COM_JVARCADE_GRP_INTEGRATION">
+		<field
+			name="spacer1" 
+			type="spacer" 
+			label="COM_JVARCADE_OPT_COMMENTS_LEGEND"
+			class="text"
+		/>
+		<field 
+			name="comments" 
+			type="list" 
+			label="COM_JVARCADE_OPT_COMMENTS"
+			description="COM_JVARCADE_OPTDESC_COMMENTS" 
+			size="1" 
+			default="0"
+			>
+			<option value="0">None</option>
+			<option value="1">CComment</option>
+			<option value="2">JComments</option>
+		</field>
+		
+		<field 
+			name="scorelink" 
+			type="list" 
+			label="COM_JVARCADE_OPT_SCORELINK"
+			description="COM_JVARCADE_OPTDESC_SCORELINK" 
+			size="1" 
+			default="0"
+			>
+			<option value="0">None</option>
+			<option value="1">JomSocial</option>
+			<option value="2">Community Builder</option>
+			<option value="3">AltaUserPoints</option>
+		</field>
+		
+		<field 
+			name="show_avatar"
+			type="radio"
+			label="COM_JVARCADE_OPT_SHOW_AVATAR"
+			description="COM_JVARCADE_OPTDESC_SHOW_AVATAR"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field 
+			name="communitybuilder_itemid"
+			type="text"
+			label="COM_JVARCADE_OPT_COMMUNITYBUILDER_ITEMID"
+			description="COM_JVARCADE_OPTDESC_COMMUNITYBUILDER_ITEMID"
+			size="25"
+			default="7"
+		/>
+		
+		<field 
+			name="aup_itemid"
+			type="text"
+			label="COM_JVARCADE_OPT_AUP_ITEMID"
+			description="COM_JVARCADE_OPTDESC_AUP_ITEMID"
+			size="25"
+			default="8"
+		/>
+	</fieldset>
+	<fieldset name="profile" label="COM_JVARCADE_GRP_PROFILE">
+		<field 
+			name="profile_scores"
+			type="number"
+			label="COM_JVARCADE_OPT_PROFILE_SCORES"
+			description="COM_JVARCADE_OPTDESC_PROFILE_SCORES"
+			size="25"
+			min="0"
+			max="20"
+			default="5"
+		/>
+		
+		<field 
+			name="profile_faves"
+			type="number"
+			label="COM_JVARCADE_OPT_PROFILE_FAVES"
+			description="COM_JVARCADE_OPTDESC_PROFILE_FAVES"
+			size="25"
+			min="0"
+			max="20"
+			default="5"
+		/>
+	
+	</fieldset>
 	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
 		<field
 			name="rules"

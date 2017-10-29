@@ -16,38 +16,38 @@ defined('_JEXEC') or die;
 ?>
 	
 
-	<?php if ($this->config->specialfolders == 1) : ?>
+	<?php if ($this->config->get('specialfolders') == 1) : ?>
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="visible-desktop">
 				<ul class="nav">
-				<?php if (($this->config->faves == 1) && ((int)$this->user->get('id') > 0)) : ?>
+				<?php if (($this->config->get('faves') == 1) && ((int)$this->user->get('id') > 0)) : ?>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/fav25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=favourite');?>"><?php echo JText::_('COM_JVARCADE_MY_FAVORITES'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=favourite');?>"><?php echo JText::_('COM_JVARCADE_MY_FAVORITES'); ?></a>
 				</li>
 				<?php endif; ?>
-				<?php if ($this->config->leaderboard == 1) : ?>
+				<?php if ($this->config->get('leaderboard') == 1) : ?>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/leaderboard25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=leaderboard');?>"><?php echo JText::_('COM_JVARCADE_LEADERBOARD'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=leaderboard');?>"><?php echo JText::_('COM_JVARCADE_LEADERBOARD'); ?></a>
 				</li>
 				<?php endif; ?>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/contest25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contests');?>"><?php echo JText::_('COM_JVARCADE_CONTESTS'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contests');?>"><?php echo JText::_('COM_JVARCADE_CONTESTS'); ?></a>
 				</li>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/newest25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=newest');?>"><?php echo JText::_('COM_JVARCADE_NEWEST_GAMES'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=newest');?>"><?php echo JText::_('COM_JVARCADE_NEWEST_GAMES'); ?></a>
 				</li>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/popular25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=popular');?>"><?php echo JText::_('COM_JVARCADE_POPULAR_GAMES'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=popular');?>"><?php echo JText::_('COM_JVARCADE_POPULAR_GAMES'); ?></a>
 				</li>
 				<li>
 					<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/all25.png" alt="" />
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home');?>"><?php echo JText::_('COM_JVARCADE_ALL'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=home');?>"><?php echo JText::_('COM_JVARCADE_ALL'); ?></a>
 				</li>
 				</ul>
 			</div>
@@ -58,33 +58,33 @@ defined('_JEXEC') or die;
 					</div>
 					<div class="collapse">
 						<ul class="nav">
-							<?php if (($this->config->faves == 1) && ((int)$this->user->get('id') > 0)) : ?>
+							<?php if (($this->config->get('faves') == 1) && ((int)$this->user->get('id') > 0)) : ?>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/fav25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=favourite');?>"><?php echo JText::_('COM_JVARCADE_MY_FAVORITES'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=favourite');?>"><?php echo JText::_('COM_JVARCADE_MY_FAVORITES'); ?></a>
 							</li>
 							<?php endif; ?>
-							<?php if ($this->config->leaderboard == 1) : ?>
+							<?php if ($this->config->get('leaderboard') == 1) : ?>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/leaderboard25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=leaderboard');?>"><?php echo JText::_('COM_JVARCADE_LEADERBOARD'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=leaderboard');?>"><?php echo JText::_('COM_JVARCADE_LEADERBOARD'); ?></a>
 							</li>
 							<?php endif; ?>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/contest25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contests');?>"><?php echo JText::_('COM_JVARCADE_CONTESTS'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contests');?>"><?php echo JText::_('COM_JVARCADE_CONTESTS'); ?></a>
 							</li>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/newest25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=newest');?>"><?php echo JText::_('COM_JVARCADE_NEWEST_GAMES'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=newest');?>"><?php echo JText::_('COM_JVARCADE_NEWEST_GAMES'); ?></a>
 							</li>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/popular25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=popular');?>"><?php echo JText::_('COM_JVARCADE_POPULAR_GAMES'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=popular');?>"><?php echo JText::_('COM_JVARCADE_POPULAR_GAMES'); ?></a>
 							</li>
 							<li>
 								<img src="<?php echo JVA_IMAGES_SITEPATH; ?>icons/all25.png" alt="" />
-								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home');?>"><?php echo JText::_('COM_JVARCADE_ALL'); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=home');?>"><?php echo JText::_('COM_JVARCADE_ALL'); ?></a>
 							</li>
 						</ul>
 					</div>

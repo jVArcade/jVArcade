@@ -15,14 +15,14 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.view');
 
-class jvarcadeViewEdit_contentrating extends JViewLegacy {
+class jvarcadeViewEdit_contentrating extends Joomla\CMS\MVC\View\HtmlView {
 	var $folderlist;
 	var $contentratinglist;
 
 	function display($tpl = null) {
 		
 		$model = $this->getModel();
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$task = $app->input->get('task', 'edit_contentrating');
 		$this->task = $task;
 
@@ -44,7 +44,7 @@ class jvarcadeViewEdit_contentrating extends JViewLegacy {
 		}
 		$this->contentrating = $contentrating;
 		
-		$editor = JFactory::getEditor();
+		$editor = Joomla\CMS\Editor\Editor::getInstance('tinymce');
 		$this->editor = $editor;
 		$editor_params = array('mode' => 'advanced');
 		$this->editor_params = $editor_params;

@@ -24,13 +24,13 @@ class com_jvarcadeInstallerScript {
 		
 		
 		function install($parent) {
-			$app = JFactory::getApplication();
+			$app = Joomla\CMS\Factory::getApplication();
 			$install = '<div style="align:left;">';
 			require_once JPATH_ROOT . '/components/com_jvarcade/include/define.php';
 			$backendPath = JPATH_ROOT . '/administrator/components/com_jvarcade/';
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
-			$table = '#__jvarcade_settings';
-			$db = JFactory::getDBO();
+			$table = '#__jvarcade_games';
+			$db = Joomla\CMS\Factory::getDBO();
 			?>
 			<center><h1>Installation of jVArcade <?php echo JVA_VERSION; ?> </h1></center>
 			<?php
@@ -46,20 +46,13 @@ class com_jvarcadeInstallerScript {
                     		
 						}
 						if ($error) {
-							JFactory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
+							Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
 						} else {
 							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
 						}
         	} else {
 			
 					$alters = array();
-					$alters[] = "ALTER TABLE `#__jvarcade_settings` ADD UNIQUE (`optname`)";
-					$alters[] = "ALTER TABLE `#__jvarcade_games` ADD `gsafe` tinyint(2) NOT NULL DEFAULT 0";
-					$alters[] = "INSERT IGNORE INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('homepage_view', 'default', 'frontend', 7, 'select', 'COM_JVARCADE_OPTDESC_HOMEPAGE_VIEW')";
-					$alters[] = "INSERT IGNORE INTO `#__jvarcade_settings` (`optname`,`value`,`group`,`ord`,`type`,`description`) VALUES('aup_itemid', '8', 'integration', 6, 'text', 'COM_JVARCADE_OPTDESC_AUP_ITEMID')";
-					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'mochi_id'";
-					$alters[] = "DELETE FROM `#__jvarcade_settings` WHERE `optname` = 'flat'";
-					$alters[] = "ALTER TABLE `#__jvarcade_games` DROP COLUMN `mochi`";
 					//if (count($alters)) {
 						foreach ($alters as $query) {
 							$db->setQuery($query);
@@ -131,7 +124,7 @@ class com_jvarcadeInstallerScript {
 		echo $install;
 		echo "</div><br /><br /><br />";
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_system_jvarcade';
 		if( $plugin_installer->install( $file_origin ) )
 		{	
@@ -141,7 +134,7 @@ class com_jvarcadeInstallerScript {
 			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade System plugin installed and enabled successfully','message');
 		} else $error++;
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_search_jvarcade';
 		if( $plugin_installer->install( $file_origin ) )
 		{	
@@ -151,7 +144,7 @@ class com_jvarcadeInstallerScript {
 			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Search plugin installed and enabled successfully','message');
 		} else $error++;
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_atari';
 		if( $plugin_installer->install( $file_origin ) )
 		{	
@@ -161,7 +154,7 @@ class com_jvarcadeInstallerScript {
 			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Atari2600 Emulator plugin installed and enabled successfully','message');
 		} else $error++;
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_c64';
 		if( $plugin_installer->install( $file_origin ) )
 		{	
@@ -171,7 +164,7 @@ class com_jvarcadeInstallerScript {
 			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Commodore 64 emulator plugin installed and enabled successfully','message');
 		} else $error++;
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_gameboy';
 		if( $plugin_installer->install( $file_origin ) )
 		{	
@@ -181,7 +174,7 @@ class com_jvarcadeInstallerScript {
 			$app->enqueueMessage('<i class="icon-ok"></i> JVArcade Nintendo Gameboy emulator plugin installed and enabled successfully','message');
 		} else $error++;
 		
-		$plugin_installer = new JInstaller;
+		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_jvarcade_nes';
 		if( $plugin_installer->install( $file_origin ) )
 		{	

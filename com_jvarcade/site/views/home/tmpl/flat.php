@@ -53,12 +53,12 @@ JHtml::_('bootstrap.tooltip');
 					<center><?php echo $game['game_id']; ?></center>
 				</td>
 				<td width="10%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&amp;task=game&amp;id=' . $game['id']); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=game&id=' . $game['id']); ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" border="0" height="50" width="50" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong>"/>
 					</a>
 				</td>
 				<td width="20%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&amp;task=game&amp;id=' . $game['id']); ?>" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong></br><?php echo html_entity_decode($game['description'], ENT_QUOTES, 'UTF-8'); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=game&id=' . $game['id']); ?>" class="hasTooltip" data-original-title="<strong><?php echo $alt; ?></strong></br><?php echo html_entity_decode($game['description'], ENT_QUOTES, 'UTF-8'); ?>">
 						<b><?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?></b>
 					</a>
 					<br /><?php //echo html_entity_decode($game['description'], ENT_QUOTES, 'UTF-8'); ?>
@@ -72,7 +72,7 @@ JHtml::_('bootstrap.tooltip');
 					<?php if (count($game['highscore']) && (int)$game['highscore']['score']) : ?>
 							<b><?php echo JText::_('COM_JVARCADE_HIGH_SCORE') ?> : <?php echo $game['highscore']['score'] ?></b><br/>
 							<b><?php echo JText::_('COM_JVARCADE_SCORE_BY') ?> :<?php echo $game['highscore']['username'] ?></b><br/>
-							<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&amp;task=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
+							<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
 					<?php else : ?>
 							<h4><?php echo JText::_('COM_JVARCADE_NO_SCORES') ?></h4>
 					<?php endif; ?>
@@ -100,7 +100,7 @@ JHtml::_('bootstrap.tooltip');
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'pagination.php'); ?>
 	
 	<?php if ($this->layout != 'flat') : ?>
-	<br /><center><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&amp;task=home'); ?>"><?php echo JText::_('COM_JVARCADE_CHOOSE_ANOTHER_FOLDER'); ?></a></center>
+	<br /><center><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=home'); ?>"><?php echo JText::_('COM_JVARCADE_CHOOSE_ANOTHER_FOLDER'); ?></a></center>
 	<?php endif; ?>
 
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>

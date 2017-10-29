@@ -47,8 +47,8 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	
 	public function getFoldersHome() {
 		$conf = $this->getConf();
-		$order = (int)$conf->homepage_order == 1 ? 'name' : 'id' ;
-		$dir = (int)$conf->homepage_order_dir == 1 ? 'ASC' : 'DESC' ;
+		$order = (int)$conf->get('homepage_order') == 1 ? 'name' : 'id' ;
+		$dir = (int)$conf->get('homepage_order_dir') == 1 ? 'ASC' : 'DESC' ;
 		$this->dbo->setQuery('SELECT * FROM #__jvarcade_folders WHERE ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) . ' ORDER BY ' . $order . ' ' . $dir);
 		$folders = $this->dbo->loadAssocList('id');
 		return $folders;
@@ -120,7 +120,7 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 				$statements[] = '(SELECT * FROM #__jvarcade_games ' . 
 								' WHERE ' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
 								' AND ' . $this->dbo->quoteName('folderid') . ' = ' . $this->dbo->Quote($id) . 
-								' ORDER BY rand() LIMIT ' . $this->config->randgamecount . ')';
+								' ORDER BY rand() LIMIT ' . $this->config->get('randgamecount') . ')';
 			}
 			if (count($statements)) {
 				$sql = implode(' UNION  ', $statements);
@@ -422,11 +422,11 @@ class jvarcadeModelGames extends jvarcadeModelCommon {
 	// PERMISSIONS
 	
 	public function canTagPerms(&$user) {
-		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->TagPerms)));
+		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->get('TagPerms'))));
 	}
 	
 	public function canDloadPerms(&$user) {
-		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->DloadPerms)));
+		return (jvaHelper::isSuperAdmin($user) || jvaHelper::checkPerms(jvaHelper::userGroups($user), explode(',', $this->config->get('DloadPerms'))));
 	}
 	
 	public function folderPerms(&$user, $perms) {

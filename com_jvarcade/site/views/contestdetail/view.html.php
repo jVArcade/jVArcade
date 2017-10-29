@@ -63,7 +63,7 @@ class jvarcadeViewContestdetail extends JViewLegacy {
 			
 			$pathway->addItem($contests_title, JRoute::_('index.php?option=com_jvarcade&task=contests', false));
 			$pathway->addItem($title);
-			$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $contests_title . ' - ' . $title);
+			$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $contests_title . ' - ' . $title);
 			$doc->setDescription(strip_tags($contest->description));
 			$this->tabletitle = $title;
 		

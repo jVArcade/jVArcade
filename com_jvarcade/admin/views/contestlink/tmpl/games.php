@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th width="20"><?php echo JHtml::_('grid.checkall'); ?></th>
+			<th width="20"><?php echo Joomla\CMS\HTML\HTMLHelper::_('grid.checkall'); ?></th>
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_GAMES_ID'); ?></th>
 			<th style="text-align: center;" class="title"><?php echo JText::_('COM_JVARCADE_GAMES_TITLE'); ?></th>
 			<th style="text-align: center;"><?php echo JText::_('COM_JVARCADE_GAMES_NUMPLAYED'); ?></th>
@@ -30,12 +30,12 @@ defined('_JEXEC') or die('Restricted access');
 		$i = 0;
 		if (is_array($this->games)) {
 			foreach ($this->games as $k => $obj) {
-				$imgtag = (JVA_COMPATIBLE_MODE == '16') ? JHTML::_('image','admin/publish_x.png', '', array('border' => 0), true) : JHTML::_('image.administrator', 'publish_x.png', '/images/');
+				$imgtag = Joomla\CMS\HTML\HTMLHelper::_('image','admin/publish_x.png', '', array('border' => 0), true);
 		?>
 				<tr class="<?php echo "row$i"; ?>">
-					<td style="text-align: center;"><?php echo JHTML::_('grid.id', $k, $obj->id, false, 'cid'); ?></td>
+					<td style="text-align: center;"><?php echo Joomla\CMS\HTML\HTMLHelper::_('grid.id', $k, $obj->id, false, 'cid'); ?></td>
 					<td style="text-align: center;"><?php echo $obj->id; ?></td>
-					<td style="text-align: center;"><a target="_blank" href="<?php echo JRoute::_('index.php?option=com_jvarcade&c&task=edit_game&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
+					<td style="text-align: center;"><a target="_blank" href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&layout=edit&id=' . $obj->id); ?>"><?php echo $obj->title; ?></a></td>
 					<td style="text-align: center;"><?php echo $obj->numplayed; ?></td>
 				</tr>
 		<?php

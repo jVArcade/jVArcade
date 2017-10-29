@@ -50,8 +50,8 @@ defined('_JEXEC') or die('Restricted access');
 		
 			<!-- start sliders -->
 			<div class="span3">
-			<?php echo JHtml::_('bootstrap.startAccordion', 'cp1'); ?>
-			<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_ABOUT'), 'jvabout'); ?> 
+			<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.startAccordion', 'cp1'); ?>
+			<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_ABOUT'), 'jvabout'); ?> 
 				<div>
 					<table class="adminlist">
 						<tr>
@@ -71,7 +71,7 @@ defined('_JEXEC') or die('Restricted access');
 						</tr>
 						<tr>
 							<td bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_JVARCADE_COPYRIGHT'); ?></strong></td>
-							<td bgcolor="#FFFFFF">&copy; 2011 - <?php echo date('Y'); ?> jVitals.com</td>
+							<td bgcolor="#FFFFFF">&copy; 2016 - <?php echo date('Y'); ?> jVArcade.com</td>
 						</tr>
 						<tr>
 							<td bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_JVARCADE_LICENSE'); ?></strong></td>
@@ -84,22 +84,22 @@ defined('_JEXEC') or die('Restricted access');
 								jVArcade System Plugin<br/>
 							<?php endif; ?>
 							<?php foreach($this->plugins as $plugin) : ?>
-								<?php if (JPluginHelper::isEnabled('jvarcade', $plugin->name)): ?>
+								<?php if (Joomla\CMS\Plugin\PluginHelper::isEnabled('jvarcade', $plugin->name)): ?>
 									<?php echo $plugin->name; ?><br/>
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</tr>
 					</table>
 				</div>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_CHANGELOG'), 'jvchange'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endSlide'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_CHANGELOG'), 'jvchange'); ?>
 				<div>
 					<div id="changelog-wrapper">
 						<?php echo $this->changelog; ?>
 					</div>
 				</div>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_LATEST_SCORES'), 'jvscores'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endSlide'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_LATEST_SCORES'), 'jvscores'); ?>
 				<div>
 					<table class="adminlist">
 						<tr>
@@ -124,8 +124,8 @@ defined('_JEXEC') or die('Restricted access');
 						</tr>
 					</table>
 				</div>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_LATEST_GAMES'), 'jvgames'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endSlide'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_LATEST_GAMES'), 'jvgames'); ?>
 				<div>
 					<table class="adminlist">
 						<tr>
@@ -147,8 +147,8 @@ defined('_JEXEC') or die('Restricted access');
 						</tr>
 					</table>
 				</div>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php echo JHtml::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_CREDITS'), 'jvcredits'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endSlide'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addSlide', 'cp1', JText::_('COM_JVARCADE_CREDITS'), 'jvcredits'); ?>
 				<div>
 					<table class="adminlist">
 						<tr>
@@ -165,7 +165,7 @@ defined('_JEXEC') or die('Restricted access');
 						</tr>
 					</table>
 				</div>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php echo JHtml::_('bootstrap.endAccordion'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endSlide'); ?>
+				<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endAccordion'); ?>
 			</div>
 			<!-- end sliders -->

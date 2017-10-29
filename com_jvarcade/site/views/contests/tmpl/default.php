@@ -50,12 +50,12 @@ defined('_JEXEC') or die('Restricted access');
 		<?php foreach ($this->contests as $contest) : ?>
 			<tr class="sectiontableentry">
 				<td width="10%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contestdetail&id=' . $contest['id'], false); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id'], false); ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . ($contest['imagename'] ? 'contests/' . $contest['imagename'] : 'cpanel/contests.png') ; ?>" border="0" alt="" />
 					</a>
 				</td>
 				<td width="18%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contestdetail&id=' . $contest['id']); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id']); ?>">
 						<b><?php echo stripslashes($contest['name']); ?></b>
 					</a>
 					<br /><?php echo html_entity_decode($contest['description'], ENT_QUOTES, 'UTF-8'); ?>

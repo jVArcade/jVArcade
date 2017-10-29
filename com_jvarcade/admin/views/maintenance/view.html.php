@@ -13,10 +13,10 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeViewMaintenance extends JViewLegacy {
+class jvarcadeViewMaintenance extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$task = $app->input->get('task', 'maintenance');
 		$this->task = $task;
 		

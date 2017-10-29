@@ -88,8 +88,8 @@ class jvarcadeViewProfile extends JViewLegacy {
 					$highscore = $model->getHighestScore($game['id'], $game['reverse_score']);
 					$highscore['score'] =  round($highscore['score'], 2);
 					if (!isset($highscore['userid']) || !(int)$highscore['userid']) {
-						$highscore['username'] = $this->config->guest_name;
-					} elseif(!(int)$this->config->show_usernames) {
+						$highscore['username'] = $this->config->get('guest_name');
+					} elseif(!(int)$this->config->get('show_usernames')) {
 						$highscore['username'] = $highscore['name'];
 					}
 				}
@@ -101,7 +101,7 @@ class jvarcadeViewProfile extends JViewLegacy {
 		
 		$title = JText::_('COM_JVARCADE_PROFILE_TITLE') . ' - ' . $this->userToProfile->username;
 		$pathway->addItem($title);
-		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
+		$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $title);
 		
 		
 		parent::display($tpl);

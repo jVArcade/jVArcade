@@ -16,11 +16,11 @@ defined('_JEXEC') or die;
 require_once (JPATH_COMPONENT . '/include/init.php');
 
 
-$controller = JControllerLegacy::getInstance('jvarcade');
-$input = JFactory::getApplication()->input;
+$controller = Joomla\CMS\MVC\Controller\BaseController::getInstance('jvarcade');
+$input = Joomla\CMS\Factory::getApplication()->input;
 
 // Create the controller
-$controller->execute($input->get('task', 'home'));
+$controller->execute($input->get('view', 'home'));
 $controller->redirect();
 
 ?>

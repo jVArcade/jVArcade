@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+			/>
+		<field
+			name="image"
+			type="file"
+			/>
+		<field
+			name="name"
+			type="text"
+			size="40"
+			label="COM_JVARCADE_CONTESTS_NAME"
+			/>
+		<field
+			name="description"
+			type="editor"
+			label="COM_JVARCADE_CONTESTS_DESCRIPTION"
+			/>
+		<field
+			name="startdatetime"
+			type="calendar"
+			label="COM_JVARCADE_CONTESTS_START"
+			description="COM_JVARCADE_CONTESTS_START_DESC"
+			translateformat="true"
+			showtime="true"
+			singleheader="true"
+			filltable="true"
+			default="NOW"
+			/>
+		<field
+			name="enddatetime"
+			type="calendar"
+			label="COM_JVARCADE_CONTESTS_END"
+			description="COM_JVARCADE_CONTESTS_END_DESC"
+			translateformat="true"
+			showtime="true"
+			singleheader="true"
+			filltable="true"
+			/>
+		<field
+			name="islimitedtoslots"
+			type="text"
+			size="40"
+			label="COM_JVARCADE_CONTESTS_SLOTS"
+			description="COM_JVARCADE_CONTESTS_SLOTS_DESC"
+			/>
+		<field
+			name="maxplaycount"
+			type="text"
+			size="40"
+			label="COM_JVARCADE_CONTESTS_GAMECOUNT"
+			description="COM_JVARCADE_CONTESTS_GAMECOUNT_DESC"
+			/>
+		<field
+			name="published"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_JVARCADE_CONTESTS_PUBLISHED"
+		>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="hasadvertisedstarted"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_JVARCADE_CONTESTS_STARTADV"
+			description="COM_JVARCADE_CONTESTS_STARTADV_DESC"
+		>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="hasadvertisedended"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_JVARCADE_CONTESTS_ENDADV"
+			description="COM_JVARCADE_CONTESTS_ENDADV_DESC"
+		>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		
+	</fieldset>
+</form>
+

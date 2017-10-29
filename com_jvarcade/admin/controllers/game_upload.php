@@ -16,15 +16,15 @@ defined('_JEXEC') or die;
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
-class jvarcadeControllerGame_upload extends JControllerLegacy {
+class jvarcadeControllerGame_upload extends Joomla\CMS\MVC\Controller\BaseController {
 	
 	private $app;
 	private $config;
 	
 	public function __construct() {
 		parent::__construct();
-		$this->app = JFactory::getApplication();
-		$this->config = JFactory::getConfig();
+		$this->app = Joomla\CMS\Factory::getApplication();
+		$this->config = Joomla\CMS\Factory::getConfig();
 	}
 	
 	public function installUpload() {

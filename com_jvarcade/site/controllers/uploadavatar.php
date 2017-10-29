@@ -13,11 +13,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeControllerUploadavatar extends JControllerLegacy {
+class jvarcadeControllerUploadavatar extends Joomla\CMS\MVC\Controller\BaseController {
 	
 	public function upload(){
 		
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$userid = $app->input->get('id');
 		$upload = $app->input->files->get('avatar');
 		

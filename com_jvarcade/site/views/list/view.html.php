@@ -22,12 +22,12 @@ class jvarcadeViewList extends JViewLegacy {
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
 		$pro_user = JFactory::getUser($mainframe->input->get('uid') ?: null);
-		$task = $mainframe->input->get('task');
+		$task = $mainframe->input->get('view');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
 		$this->Itemid = $Itemid;
 		$model = $this->getModel();
-		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
+		$sort_url = 'index.php?option=com_jvarcade&view=' . $task;
 		$can_view = 1;
 		$subfolders = 1;
 		
@@ -127,13 +127,13 @@ class jvarcadeViewList extends JViewLegacy {
 			$parents = $model->getParents($folder_id);
 			$doctitle = array();
 			foreach($parents as $parent) {
-				$pathway->addItem($parent['name'], JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $parent['id']));
+				$pathway->addItem($parent['name'], JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $parent['id']));
 				$doctitle[] = $parent['name'];
 			}
-			$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . implode(' > ', $doctitle));
+			$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . implode(' > ', $doctitle));
 		} else {
 			$pathway->addItem($title);
-			$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
+			$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $title);
 		}
 		if ($description) $doc->setDescription($description);
 		
@@ -148,8 +148,8 @@ class jvarcadeViewList extends JViewLegacy {
 					$highscore = $model->getHighestScore($game['id'], $game['reverse_score']);
 					$highscore['score'] =  round($highscore['score'], 2);
 					if (!isset($highscore['userid']) || !(int)$highscore['userid']) {
-						$highscore['username'] = $this->config->guest_name;
-					} elseif(!(int)$this->config->show_usernames) {
+						$highscore['username'] = $this->config->get('guest_name');
+					} elseif(!(int)$this->config->get('show_usernames')) {
 						$highscore['username'] = $highscore['name'];
 					}
 				}

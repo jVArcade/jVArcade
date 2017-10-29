@@ -20,11 +20,11 @@ class jvarcadeViewHome extends JViewLegacy {
 		$doc = JFactory::getDocument();
 		$user = JFactory::getUser();
 		$this->user = $user;
-		$task = $mainframe->input->get('task');
+		$task = $mainframe->input->get('view');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
 		$this->Itemid = $Itemid;
-		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
+		$sort_url = 'index.php?option=com_jvarcade&view=' . $task;
 
 		$model = $this->getModel();
 		$can_dload = $model->canDloadPerms($user);
@@ -32,7 +32,7 @@ class jvarcadeViewHome extends JViewLegacy {
 
 		
 		
-		if ($this->config->title) $doc->setTitle($this->config->title);
+		if ($this->config->get('title')) $doc->setTitle($this->config->get('title'));
 		
 		if ($this->layout == 'flat') {
 			// FLAT MODE
@@ -69,8 +69,8 @@ class jvarcadeViewHome extends JViewLegacy {
 						$highscore = $model->getHighestScore($game['id'], $game['reverse_score']);
 						$highscore['score'] =  round($highscore['score'], 2);
 						if (!isset($highscore['userid']) || !(int)$highscore['userid']) {
-							$highscore['username'] = $this->config->guest_name;
-						} elseif(!(int)$this->config->show_usernames) {
+							$highscore['username'] = $this->config->get('guest_name');
+						} elseif(!(int)$this->config->get('show_usernames')) {
 							$highscore['username'] = $highscore['name'];
 						}
 					}
@@ -99,7 +99,7 @@ class jvarcadeViewHome extends JViewLegacy {
 			$folder_ids = array_keys($folders);
 			
 			// shall we display random games for each folder?
-			if ($this->config->foldergames == 1) {
+			if ($this->config->get('foldergames') == 1) {
 			
 				// get the random games
 				$games = $model->getRandomGames($folder_ids);
@@ -111,14 +111,14 @@ class jvarcadeViewHome extends JViewLegacy {
 						}
 						
 						// get high scores
-						if (($this->config->showscoresinfolders == 1) && $game['scoring']) {
+						if (($this->config->get('showscoresinfolders') == 1) && $game['scoring']) {
 							$game['highscore'] = array();
 							if ($game['scoring']) {
 								$highscore = $model->getHighestScore($game['id'], $game['reverse_score']);
 								$highscore['score'] =  round($highscore['score'], 2);
 								if (!isset($highscore['userid']) || !(int)$highscore['userid']) {
-									$highscore['username'] = $this->config->guest_name;
-								} elseif(!(int)$this->config->show_usernames) {
+									$highscore['username'] = $this->config->get('guest_name');
+								} elseif(!(int)$this->config->get('show_usernames')) {
 									$highscore['username'] = $highscore['name'];
 								}
 								$game['highscore'] = $highscore;

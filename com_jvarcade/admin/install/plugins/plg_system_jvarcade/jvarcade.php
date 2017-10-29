@@ -11,13 +11,8 @@
 
 defined('_JEXEC') or die( 'Restricted access' );
 
-if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
-}
 
-//jimport( 'cms.plugin.plugin' );
-
-class plgSystemJvarcade extends JPlugin {
+class plgSystemJvarcade extends Joomla\CMS\Plugin\CMSPlugin {
 	var $url = '';
 	var $u = '';
 	
@@ -26,7 +21,7 @@ class plgSystemJvarcade extends JPlugin {
 	}
 
 	function onAfterInitialise() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$redirect = false;
 		
 		// First check if the needed files are there. If not we create them and put content in them.
@@ -34,11 +29,10 @@ class plgSystemJvarcade extends JPlugin {
 		$scripts = array(
 			'newscore.php' => '<?php require_once \'./index.php\';',
 			'arcade.php' => '<?php require_once \'./index.php\';',
-			'crossdomain.xml' => '<?xml version="1.0"?>' . "\n" . '<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">' . "\n" . '<cross-domain-policy>' . "\n\t" . '<allow-access-from domain="www.mochiads.com" />' . "\n\t" . '<allow-access-from domain="x.mochiads.com" />' . "\n\t" . '<allow-access-from domain="xs.mochiads.com" />' . "\n" . '</cross-domain-policy>' . "\n",
 		);
 		foreach ($scripts as $filename => $content) {
-			if (!file_exists(JPATH_ROOT . DS . $filename)) {
-				file_put_contents(JPATH_ROOT . DS . $filename, $content);
+			if (!file_exists(JPATH_ROOT . '/' . $filename)) {
+				file_put_contents(JPATH_ROOT . '/' . $filename, $content);
 			}
 		}
 		
@@ -111,18 +105,18 @@ class plgSystemJvarcade extends JPlugin {
 				unset($_GET[$k]);
 			}
 		
-			$url = JUri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&' . implode('&', $params);
+			$url = Joomla\CMS\Uri\Uri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&' . implode('&', $params);
 			
 		if ($task == 'v3') {
 			$parts = parse_url($url);
     		parse_str($parts['query'], $query);
-			$app->redirect(JUri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&gname=' . $query['gname'] .'&gscore=' . $query['gscore']);
+			$app->redirect(Joomla\CMS\Uri\Uri::root(true) . '/index.php?option=com_jvarcade&task=score.' . $task . '&gname=' . $query['gname'] .'&gscore=' . $query['gscore']);
 			jexit();
 			
 		}
 		
 		if ($task == 'v32') {
-			$u = JUri::getInstance($url);
+			$u = Joomla\CMS\Uri\Uri::getInstance($url);
 			$u->delVar('autocom');
 			$app->redirect($u->toString());
 			jexit();
@@ -130,7 +124,7 @@ class plgSystemJvarcade extends JPlugin {
 			
 		
 		if ($task == 'arcade' || 'newscore' || 'pnflash') {
-			$u = JUri::getInstance($url);
+			$u = Joomla\CMS\Uri\Uri::getInstance($url);
 			$u->delVar('module');
 			$app->redirect($u->toString());
 			jexit();

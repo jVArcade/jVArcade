@@ -15,53 +15,48 @@ defined('_JEXEC') or die;
 
 
 
-class jvarcadeController extends JControllerLegacy {
-
+class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
+    
+    protected $default_view='cpanel';
 	
 	public function display($cachable = false, $urlparams = false)
 	{
 		
-		$vName = $this->input->get('task', 'cpanel');
+		$vName = $this->input->get('view', 'cpanel');
 		
 		switch ($vName)
 		{
-			case 'settings':
+				
+			case 'scores':
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'Common';
+				$mName = 'scores';
 				
 				break;
 				
-			case 'manage_scores':
+			case 'folders':
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'manage_scores';
-				
-				break;
-				
-			case 'manage_folders':
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'manage_folders';
+				$mName = 'folders';
 				
 				break;
 			
-			case 'add_folder':
-			case 'edit_folder':
-				$vName = 'edit_folder';
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'edit_folder';
+			
+			case 'folder':
+				$vName = 'folder';
+				$vLayout = $this->input->get('layout', 'edit', 'string');
+				$mName = 'folder';
 				
 				break;
 				
-			case 'manage_games':
+			case 'games':
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'manage_games';
+				$mName = 'games';
 				
 				break;
 			
-			case 'add_game':
-			case 'edit_game':
-				$vName = 'edit_game';
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'edit_game';
+			case 'game':
+				$vName = 'game';
+				$vLayout = $this->input->get('layout', 'edit', 'string');
+				$mName = 'game';
 				
 				break;
 				
@@ -71,39 +66,38 @@ class jvarcadeController extends JControllerLegacy {
 				
 				break;
 				
-			case 'add_contest':
-			case 'edit_contest':
-				$vName = 'edit_contest';
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'edit_contest';
+			case 'contest':
+				$vName = 'contest';
+				$vLayout = $this->input->get('layout', 'edit', 'string');
+				$mName = 'contest';
 				
 				break;
 			
 			case 'addgametocontest':
 				$vName = 'contestlink';
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
 				
 				break;
 				
 			case 'addcontestgames':
 				$vName = 'contestlink';
 				$vLayout = $this->input->get('layout', 'contestgames', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
 				
 				break;
 				
 			case 'showcontestgames':
 				$vName = 'contestlink';
 				$vLayout = $this->input->get('layout', 'games', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
 				
 				break;
 				
 			case 'showgamecontests':
 				$vName = 'contestlink';
 				$vLayout = $this->input->get('layout', 'contests', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
 				
 				break;
 				
@@ -115,27 +109,20 @@ class jvarcadeController extends JControllerLegacy {
 				
 			case 'maintenance':
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
+				
+				break;
+
+			case 'contentratings':
+				$vLayout = $this->input->get('layout', 'default', 'string');
+				$mName = 'contentratings';
 				
 				break;
 				
-			case 'rss':
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'Common';
-				
-				break;
-				
-			case 'content_ratings':
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'content_ratings';
-				
-				break;
-				
-			case 'add_contentrating':
-			case 'edit_contentrating':
-				$vName = 'edit_contentrating';
-				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'edit_contentrating';
+			case 'contentrating':
+				$vName = 'contentrating';
+				$vLayout = $this->input->get('layout', 'edit', 'string');
+				$mName = 'contentrating';
 				
 				break;
 				
@@ -143,14 +130,14 @@ class jvarcadeController extends JControllerLegacy {
 			default:
 				$vName = 'cpanel';
 				$vLayout = $this->input->get('layout', 'default', 'string');
-				$mName = 'Common';
+				$mName = 'AdminCommon';
 				
 				break;
 			
 				
 		}
 		
-		$document = JFactory::getDocument();
+		$document = Joomla\CMS\Factory::getDocument();
 		$vType    = $document->getType();
 		
 		// Get/Create the view
@@ -173,21 +160,16 @@ class jvarcadeController extends JControllerLegacy {
 		return $this;
 	}
 
-	public function settingssave() {
-		$model = $this->getModel('Common');
-		$model->configSave();
-	}
-
 	public function savegametocontest() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_ids = $app->input->getString('game_ids', '');
 		$contest_ids = $app->input->getString('contest_ids', '');
 		if ($game_ids && $contest_ids) {
 			$game_ids = explode(',', $game_ids);
-			JArrayHelper::toInteger($game_ids);
+			Joomla\Utilities\ArrayHelper::toInteger($game_ids);
 			$contest_ids = explode(',', $contest_ids);
 			Joomla\Utilities\ArrayHelper::toInteger($contest_ids);
-			$model = $this->getModel('Common');
+			$model = $this->getModel('AdminCommon');
 			if($model->addGameToContest($game_ids, $contest_ids)) {
 				echo JText::_('COM_JVARCADE_CONTESTSLINK_SAVE_SUCCESS');
 			} else {
@@ -200,15 +182,15 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function deletegamefromcontest() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_ids = $app->input->getString('game_id', '');
 		$contest_ids = $app->input->getString('contest_id', '');
 		if ($game_ids && $contest_ids) {
 			$game_ids = explode(',', $game_ids);
 			Joomla\Utilities\ArrayHelper::toInteger($game_ids);
 			$contest_ids = explode(',', $contest_ids);
-			JArrayHelper::toInteger($contest_ids);
-			$model = $this->getModel('Common');
+			Joomla\Utilities\ArrayHelper::toInteger($contest_ids);
+			$model = $this->getModel('AdminCommon');
 			if($model->deleteGameFromContest($game_ids, $contest_ids)) {
 				echo 1;
 			} else {
@@ -221,29 +203,29 @@ class jvarcadeController extends JControllerLegacy {
 	}
 	
 	public function domaintenance() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$service = $app->input->getWord('service', '');
 		$context = $app->input->getWord('context', '');
 		$gameid = $app->input->getInt('gameid', 0);
 		$contestid = $app->input->getInt('contestid', 0);
-		$model = $this->getModel('Common');
+		$model = $this->getModel('AdminCommon');
 		$jsonDATA = $model->doMaintenance($service, $context, $gameid, $contestid);
 		$app->input->set('tmpl', 'component');
 		$app->input->set('format', 'raw');
-		$doc = JFactory::getDocument();
+		$doc = Joomla\CMS\Factory::getDocument();
 		$doc->setMimeEncoding('application/json', false);
 		echo json_encode($jsonDATA);
 		exit;
 	}
 
 	public function domigration() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$step = $app->input->getInt('step', 0);
 		$model = $this->getModel('Migration');
 		$jsonDATA = $model->doMigration($step);
 		$app->input->set('tmpl', 'component');
 		$app->input->set('format', 'raw');
-		$doc = JFactory::getDocument();
+		$doc = Joomla\CMS\Factory::getDocument();
 		$doc->setMimeEncoding('application/json', false);
 		echo json_encode($jsonDATA);
 		exit;

@@ -14,7 +14,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class jvarcadeModelInstall extends JModelLegacy {
+class jvarcadeModelInstall extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 	private $db;
 	private $app;
 	private $config;
@@ -22,9 +22,9 @@ class jvarcadeModelInstall extends JModelLegacy {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->db = JFactory::getDBO();
-		$this->app = JFactory::getApplication();
-		$this->config = JFactory::getConfig();
+		$this->db = Joomla\CMS\Factory::getDBO();
+		$this->app = Joomla\CMS\Factory::getApplication();
+		$this->config = Joomla\CMS\Factory::getConfig();
 		$this->dispatcher = JDispatcher::getInstance();
 	}
 	
@@ -158,7 +158,7 @@ class jvarcadeModelInstall extends JModelLegacy {
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
 		$msg_type = count($errormsg) ? 'error' : 'message';
 		$this->app->enqueueMessage($msg, $msg_type);
-		$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
+		$this->app->redirect('index.php?option=com_jvarcade&view=game_upload');
 		jexit();
 	}
 	

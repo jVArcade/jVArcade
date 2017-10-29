@@ -14,11 +14,11 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class jvarcadeModelGame_upload extends JModelLegacy {
+class jvarcadeModelGame_upload extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->dbo = JFactory::getDBO();
+		$this->dbo = Joomla\CMS\Factory::getDBO();
 	
 
 	}

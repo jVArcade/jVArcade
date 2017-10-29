@@ -14,16 +14,16 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class jvarcadeModelCommon extends JModelLegacy {
+class jvarcadeModelAdminCommon extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 	protected $dbo;
 	protected $filterobj = null;
-	protected $conf = null;
-	protected $confobj = null;
+	protected $config = null;
+	protected $tzobj = null;
 	
 	public function __construct() {
 		parent::__construct();
-		$this->dbo = JFactory::getDBO();
-		$app = JFactory::getApplication('site');
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$app = Joomla\CMS\Factory::getApplication('site');
 		global $option;
 		
 		// Get pagination request variables
@@ -36,11 +36,11 @@ class jvarcadeModelCommon extends JModelLegacy {
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 		
-		$this->filterobj = new JFilterInput(null, null, 1, 1);
+		$this->filterobj = new Joomla\CMS\Filter\InputFilter(null, null, 1, 1);
 	}
 	
 	public function getDBerr() {
-		$app = JFactory::getApplication('site');
+		$app = Joomla\CMS\Factory::getApplication('site');
 		$app->enqueueMessage($this->dbo->getErrorMsg(), 'error');
 	}
 	
@@ -51,86 +51,26 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	public function getConf() {
-		if (!$this->conf) {
-			$this->_loadConf();
-		}
-		return $this->conf;
+	    //if (!$this->config) {
+	        $this->config = Joomla\CMS\Component\ComponentHelper::getParams('com_jvarcade');
+	    //}
+	    return $this->config;
 	}
 	
-	private function _loadConf() {
-		if (!$this->conf) {
-			$this->dbo->setQuery("SELECT * FROM #__jvarcade_settings ORDER BY " . $this->dbo->quoteName('group') . ", " . $this->dbo->quoteName('ord') . "");
-			$this->conf = $this->dbo->loadAssocList();
-			return (boolean)$this->conf;
-		}
-		return true;
-	}
-	
-	public function getConfObj() {
-		if (!$this->confobj) {
-			$this->_loadConfObj();
-		}
-		return $this->confobj;
-	}
-	
-	private function _loadConfObj() {
-		static $loadedconf;
-		
-		if (!$loadedconf) {
-			$my = JFactory::getUser();
-			$app = JFactory::getApplication();
-			$this->dbo->setQuery("SELECT * FROM #__jvarcade_settings ORDER BY " . $this->dbo->quoteName('group') . ", " . $this->dbo->quoteName('ord') . "");
-			$res = $this->dbo->loadObjectList();
-			$obj = new stdClass();
-			if (count($res)) {
-				foreach ($res as $row) {
-					$optname = $row->optname;
-					$obj->$optname = $row->value;
-				}
-			}
-			
-			// TIMEZONE - if user is logged in we use the user timezone, if guest - we use timezone in global settings
-			$obj->timezone = ((int)$my->guest ? $app->getCfg('offset') : $my->getParam('timezone', $app->getCfg('offset')));
-			
-			// DIFF BETWEEN SERVER AND USER TIMEZONE - date already contains the server timezone offset so we subtract it
-			$dateTimeZone = new DateTimeZone($obj->timezone);
-			$obj->tz_diff = ($dateTimeZone->getOffset(new DateTime("now", $dateTimeZone)) - (int)date('Z'))/3600;
-			
-			
-			$this->confobj = $loadedconf = $obj;
-			return (boolean)$this->confobj;
-		} else {
-			$this->confobj = $loadedconf;
-		}
-		return true;
-	}
-	
-	public function configSave() {
-		$app = JFactory::getApplication('site');
-		$config_save = $app->input->getInt('config_save', 0);
-		if ($config_save) {
-			$confdb = $this->getConf();
-			$conf = array();
-			foreach ($confdb as $obj) {
-				$confvalue = $app->input->get($obj['optname'], '', 'raw');
-				if ($obj['optname'] == 'TagPerms' && is_array($confvalue)) $confvalue = implode(',', $confvalue);
-				if ($obj['optname'] == 'DloadPerms' && is_array($confvalue)) $confvalue = implode(',', $confvalue);
-				if (strpos($obj['optname'],'alias') !== false) $confvalue = str_replace(array(' '), array(''), trim($confvalue));
-				if (strlen(trim($confvalue))) {
-					$conf[$obj['optname']] = $this->filterobj->clean(trim($confvalue), 'html');
-				} else {
-					$conf[$obj['optname']] = $obj['value'];
-				}
-			}
-			
-			foreach ($conf as $optname => $value) {
-				$this->dbo->setQuery("UPDATE #__jvarcade_settings SET " . $this->dbo->quoteName('value') . " = " . $this->dbo->Quote($value) . " 
-					WHERE " . $this->dbo->quoteName('optname') . " = " . $this->dbo->Quote($optname) . "");
-				$this->dbo->execute();
-			}
-			$app->redirect('index.php?option=com_jvarcade&task=settings');
-			exit;
-		}
+	public function getAdminTimezone() {
+	    $my = Joomla\CMS\Factory::getUser();
+	    $app = Joomla\CMS\Factory::getApplication();
+	    $obj = new stdClass();
+	    // TIMEZONE - if user is logged in we use the user timezone, if guest - we use timezone in global settings
+	    $obj->timezone = ((int)$my->guest ? $app->getCfg('offset') : $my->getParam('timezone', $app->getCfg('offset')));
+	    
+	    // DIFF BETWEEN SERVER AND USER TIMEZONE - date already contains the server timezone offset so we subtract it
+	    $dateTimeZone = new DateTimeZone($obj->timezone);
+	    $obj->tz_diff = ($dateTimeZone->getOffset(new DateTime("now", $dateTimeZone)) - (int)date('Z'))/3600;
+	    
+	    $this->tzobj = $obj;
+	    
+	    return $this->tzobj;
 	}
 	
 	public function getContentRatingList() {
@@ -383,7 +323,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 
 		$this->dbo->setQuery('INSERT INTO #__jvarcade_leaderboard(' . $this->dbo->quoteName('contestid') . ', ' . $this->dbo->quoteName('userid') . ', ' . $this->dbo->quoteName('points') . ') VALUES ' . implode(',', $qarr));
 		if (!count($qarr) || $this->dbo->execute()) {
-			$globalconf = JFactory::getConfig();
+			$globalconf = Joomla\CMS\Factory::getConfig();
 			$path = $globalconf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
 			if (file_exists($path)) unlink($path);
 			return true;
@@ -452,12 +392,12 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		$msg[] = '<br><strong>' . JText::_('COM_JVARCADE_MAINTENANCE_PLUGINS') . '</strong><br/>';
 
-		if (JPluginHelper::isEnabled('system', 'jvarcade')) {
+		if (Joomla\CMS\Plugin\PluginHelper::isEnabled('system', 'jvarcade')) {
 			$msg[] = JText::sprintf('COM_JVARCADE_MAINTENANCE_PLUGIN', 'jVArcade System Plugin', JText::_('COM_JVARCADE_MAINTENANCE_PLUGIN_ENABLED'));
 		}
-		$plugins = JPluginHelper::getPlugin('puarcade');
+		$plugins = Joomla\CMS\Plugin\PluginHelper::getPlugin('puarcade');
 		foreach($plugins as $plugin) {
-			$enabled = JPluginHelper::isEnabled('puarcade', $plugin->name) ? JText::_('COM_JVARCADE_MAINTENANCE_PLUGIN_ENABLED') : JText::_('COM_JVARCADE_MAINTENANCE_PLUGIN_DISABLED');
+			$enabled = Joomla\CMS\Plugin\PluginHelper::isEnabled('puarcade', $plugin->name) ? JText::_('COM_JVARCADE_MAINTENANCE_PLUGIN_ENABLED') : JText::_('COM_JVARCADE_MAINTENANCE_PLUGIN_DISABLED');
 			$msg[] = JText::sprintf('COM_JVARCADE_MAINTENANCE_PLUGIN', $plugin->name, $enabled);
 		}
 
@@ -569,7 +509,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 	}
 	
 	public function loadChangelogFile() {
-		$config = JFactory::getConfig();
+		$config = Joomla\CMS\Factory::getConfig();
 		$tmp_path = $config->get('tmp_path');
 		$filename = 'jvarcade-changelog.xml';
 		$tmpfile = $tmp_path . '/' . $filename;
@@ -590,7 +530,7 @@ class jvarcadeModelCommon extends JModelLegacy {
 		
 		if ($dorequest) {
 			
-			$http = JHttpFactory::getHttp();
+		    $http = Joomla\CMS\Http\HttpFactory::getHttp();
 			$response = $http->get('https://rawgit.com/jVArcade/jVArcade/master/com_jvarcade/admin/changelog.xml', array(), 90);
 			$response = $response->body;
 			

@@ -11,16 +11,13 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
-}
 
-if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'include' . DS . 'define.php')) {
-	require_once (JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'include' . DS . 'define.php');
-	require_once (JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'helpers' . DS . 'helper.php');
+if(file_exists(JPATH_ROOT . '/components/com_jvarcade/include/define.php')) {
+	require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
+	require_once (JPATH_ROOT . '/components/com_jvarcade/helpers/helper.php');
 	jimport('joomla.plugin.plugin');
 	
-	class plgSearchJvarcade extends JPlugin {
+	class plgSearchJvarcade extends Joomla\CMS\Plugin\CMSPlugin {
 	
 		public function __construct(& $subject, $config) {
 			parent::__construct($subject, $config);
@@ -41,8 +38,8 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 		}
 	
 		function onContentSearch($text, $phrase = '', $ordering = '', $areas = null) {
-			$db = JFactory::getDbo();
-			$user = JFactory::getUser();
+			$db = Joomla\CMS\Factory::getDbo();
+			$user = Joomla\CMS\Factory::getUser();
 			$return = array();
 			$Itemid = (int)$this->params->get('Itemid', 0);
 	
@@ -119,8 +116,8 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 							if ($this->folderPerms($user, $r->viewpermissions)) {
 								$item = new stdClass;
 								$desc = array();
-								$folder_url = JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . (int)$r->folder_id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
-								$game_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . (int)$r->game_id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
+								$folder_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=folder&id=' . (int)$r->folder_id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
+								$game_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=game&id=' . (int)$r->game_id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
 								$item->title = htmlspecialchars(stripslashes($r->title));
 								if ($r->folder_name) $desc[] = htmlspecialchars(stripslashes(JText::_('PLG_SEARCH_JVARCADE_FOLDER') . ': ' . $r->folder_name));
 								$desc[] = htmlspecialchars(stripslashes(JText::_('PLG_SEARCH_JVARCADE_NUMPLAYED') . ': ' . $r->numplayed));
@@ -191,7 +188,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 						foreach($rows as $r) {
 							if ($this->folderPerms($user, $r->viewpermissions)) {
 								$item = new stdClass;
-								$folder_url = JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . (int)$r->id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
+								$folder_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=folder&id=' . (int)$r->id . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
 								$item->title = htmlspecialchars(stripslashes($r->name));
 								$item->text = htmlspecialchars(stripslashes($r->description));
 								$item->section = JText::_('PLG_SEARCH_JVARCADE_FOLDERS');
@@ -256,7 +253,7 @@ if(file_exists(JPATH_ROOT . DS . 'components' . DS . 'com_jvarcade' . DS . 'incl
 						// create the search results object
 						foreach($rows as $r) {
 							$item = new stdClass;
-							$tag_url = JRoute::_('index.php?option=com_jvarcade&task=showtag&tag=' . $r->tag . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
+							$tag_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=showtag&tag=' . $r->tag . ($Itemid > 0 ? '&Itemid=' . $Itemid : ''), false);
 							$item->title = htmlspecialchars(stripslashes($r->tag));
 							$item->section = JText::_('PLG_SEARCH_JVARCADE_TAGS');
 							$item->href = $tag_url;

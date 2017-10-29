@@ -10,7 +10,7 @@
 
 defined('JPATH_BASE') or die;
 
-JFormHelper::loadFieldClass('list');
+Joomla\CMS\Form\FormHelper::loadFieldClass('list');
 
 
 
@@ -33,11 +33,11 @@ class JFormFieldFolders extends JFormFieldList
 	 */
 	
 	public function getFolderList() {
-		$this->dbo = JFactory::getDbo();
+		$this->dbo = Joomla\CMS\Factory::getDbo();
 		$this->dbo->setQuery('SELECT id AS value, name As text FROM #__jvarcade_folders ORDER BY id');
 		$options = $this->dbo->loadObjectList();
 
-		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_JVARCADE_GAMES_FILTERBYFOLDER')));
+		array_unshift($options, Joomla\CMS\HTML\HTMLHelper::_('select.option', '0', JText::_('COM_JVARCADE_GAMES_FILTERBYFOLDER')));
 		
 		return $options;
 	}

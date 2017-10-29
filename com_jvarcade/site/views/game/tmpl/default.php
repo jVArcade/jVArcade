@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <div id="puarcade_wrapper">
-	<?php if ($this->config->rate == 1) : ?> 
+	<?php if ($this->config->get('rate') == 1) : ?> 
 		<?php  JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
 	<?php endif; ?>
 	
@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 	
 	<?php if (!$this->game['published']) : ?>
 		<?php echo JText::_('COM_JVARCADE_GAME_NOT_PUBLISHED'); ?>
-	<?php elseif(!(int)$this->user->get('id') && !(int)$this->config->allow_gplay): ?>
+	<?php elseif(!(int)$this->user->get('id') && !(int)$this->config->get('allow_gplay')): ?>
 		<?php echo JText::_('COM_JVARCADE_GUESTS_CANT_PLAY'); ?>
 	<?php elseif(!$this->can_play): ?>
 		<?php echo JText::_('COM_JVARCADE_GAME_NO_PLAY_PERMS'); ?>
@@ -42,14 +42,14 @@ defined('_JEXEC') or die('Restricted access');
 			<?php endforeach; ?>
 			<?php endif; ?>
 		<?php else: ?>
-			<?php if (!$this->config->allow_gsave) : ?>
+			<?php if (!$this->config->get('allow_gsave')) : ?>
 				<div class="pu_cantscore"><?php echo JText::_('COM_JVARCADE_GUESTS_CANT_SCORE'); ?></div>
 			<?php endif; ?>
 		<?php endif; ?>
 		
 		<!-- RATE GAME -->
 		
-		<?php if ($this->config->rate) : ?>
+		<?php if ($this->config->get('rate')) : ?>
 			<div id="rate1" class="rating">
 			<script type="text/javascript">
 				jQuery(document).ready(function() {
@@ -81,7 +81,7 @@ defined('_JEXEC') or die('Restricted access');
 				<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
 				<param name="play" value="true" />
 				<param name="loop" value="true" />
-				<?php if ($this->config->window == 2) {?>
+				<?php if ($this->config->get('window') == 2) {?>
 				<param name="wmode" value="window" />
 				<?php } else {?>
 				<param name="wmode" value="opaque" />
@@ -98,7 +98,7 @@ defined('_JEXEC') or die('Restricted access');
 					<param name="quality" value="high" />
 					<param name="bgcolor" value="<?php echo $this->game['background']; ?>" />
 					<param name="loop" value="true" />
-					<?php if ($this->config->window == 2) {?>
+					<?php if ($this->config->get('window') == 2) {?>
 					<param name="wmode" value="window" />
 					<?php } else {?>
 					<param name="wmode" value="opaque" />
@@ -243,7 +243,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php 
 				$embed = ob_get_contents(); 
 				ob_end_clean();
-				if ($this->config->window == 2) {
+				if ($this->config->get('window') == 1) {
 					echo JHtml::_('bootstrap.modal', $modalId); ?>
 					<style>
 					div .modal {
@@ -373,20 +373,20 @@ defined('_JEXEC') or die('Restricted access');
 		<!-- BOOKMARKS -->
 		<?php include_once(JVA_TEMPLATES_INCPATH . 'bookmarks.php');
         
-			if ($this->config->enable_dload == 1 && $this->can_dload) : 
+			if ($this->config->get('enable_dload') == 1 && $this->can_dload) : 
 				?>
             	<a href="javascript:void(0)" onclick="jQuery.jva.downloadGame(<?php echo $this->game['id']; ?>); return false;">
 				<img src="<?php echo JVA_IMAGES_SITEPATH; ?>dlg.png" /></a>
              <?php endif; ?>
              
 		<div class="pu_block_container">
-			<?php if ((int)$this->config->scoreundergame) : ?>
+			<?php if ((int)$this->config->get('scoreundergame')) : ?>
 			<div class="pu_ScoreUnderGame">
 				<!-- SCORES -->
 				<?php echo $this->scores_table; ?>
 			</div>
 			<?php endif; ?>
-			<?php if ($this->config->tagcloud == 1) : ?>
+			<?php if ($this->config->get('tagcloud') == 1) : ?>
 			<!-- TAG CLOUD -->
 			<div class="pu_contentblock">
 				<div class="pu_heading" style="text-align: center;"><?php echo JText::_('COM_JVARCADE_TAG_CLOUD'); ?></div>
@@ -398,10 +398,10 @@ defined('_JEXEC') or die('Restricted access');
 				});
 			</script>
 			<?php endif; ?>
-			<?php if ($this->config->showstats == 1 && $this->config->tagcloud == 1) : ?>
+			<?php if ($this->config->get('showstats') == 1 && $this->config->get('tagcloud') == 1) : ?>
 			<div class="pu_AddMargin"></div>
 			<?php endif; ?>
-			<?php if ($this->config->showstats == 1) : ?>
+			<?php if ($this->config->get('showstats') == 1) : ?>
 			<!-- STATS -->
 			<div class="pu_contentblock">
 				<div class="pu_heading" style="text-align: center;"><?php echo JText::_('COM_JVARCADE_STATS'); ?></div>
@@ -426,13 +426,13 @@ defined('_JEXEC') or die('Restricted access');
 						<td><?php echo JText::_('COM_JVARCADE_SCORES'); ?></td>
 						<td><?php echo $this->scorecount; ?></td>
 					</tr>
-					<?php if ($this->config->rate) : ?>				
+					<?php if ($this->config->get('rate')) : ?>				
 					<tr>
 						<td><?php echo JText::_('COM_JVARCADE_CURRENT_RATING'); ?></td>
 						<td><?php echo $this->game['current_vote'] . '/5'; ?></td>
 					</tr>
 					<?php endif; ?>
-					<?php if ($this->config->faves == 1 && $this->favoured > 0) : ?>
+					<?php if ($this->config->get('faves') == 1 && $this->favoured > 0) : ?>
 					<tr>
 						<td><?php echo JText::_('COM_JVARCADE_FAVOURED'); ?></td>
 						<td><?php echo $this->favoured; ?></td>
@@ -443,7 +443,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php endif; ?>
 			
 			<div class="pu_GamePageBottomLinks">
-			<?php if ($this->config->faves == 1 ) : ?>
+			<?php if ($this->config->get('faves') == 1 ) : ?>
 			<!-- ADD/REMOVE FAVOURITES-->
 			<div id="fave">
 			<?php if ($this->user->id): ?>
@@ -452,7 +452,7 @@ defined('_JEXEC') or die('Restricted access');
 						<img src="<?php echo JVA_IMAGES_SITEPATH; ?>red_x.png" border="0" alt="" /><?php echo JText::_('COM_JVARCADE_ALREADY_FAVORITE'); ?>
 					</a>
 				<?php else: ?>
-					<?php if ($this->my_fav_count < $this->config->max_faves) : ?> 
+					<?php if ($this->my_fav_count < $this->config->get('max_faves')) : ?> 
 						<a href="#" onclick="jQuery.jva.savefave(<?php echo $this->game['id']; ?>);return false;">
 							<img src="<?php echo JVA_IMAGES_SITEPATH; ?>plus.png" border="0" hspace="3" alt="" /><?php echo JText::_('COM_JVARCADE_ADD_FAVE'); ?>
 						</a>
@@ -467,7 +467,7 @@ defined('_JEXEC') or die('Restricted access');
 			
 			<?php endif; ?>
 			
-			<?php if ($this->config->report == 1 && $this->user->id) : ?>
+			<?php if ($this->config->get('report') == 1 && $this->user->id) : ?>
 				<!-- REPORT GAME -->
 				<div id="gameissues">
 					<a href="#" onclick="jQuery.jva.reportGame(<?php echo $this->game['id']; ?>); return false;">

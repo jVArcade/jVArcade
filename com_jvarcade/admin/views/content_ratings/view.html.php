@@ -13,11 +13,11 @@
 // no direct access
 defined('_JEXEC') or die();
 
-class jvarcadeViewContent_ratings extends JViewLegacy {
+class jvarcadeViewContent_ratings extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
@@ -27,9 +27,7 @@ class jvarcadeViewContent_ratings extends JViewLegacy {
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode('<br />', $errors));
-		
-			return false;
+		    throw new Exception(implode("\n", $errors), 500);
 		}
 		
 		JToolBarHelper::title(JText::_('COM_JVARCADE_CONTENT_RATINGS'), 'jvacontent');

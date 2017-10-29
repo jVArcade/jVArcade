@@ -14,17 +14,17 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class jvarcadeModelEdit_contest extends JModelLegacy {
+class jvarcadeModelEdit_contest extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->dbo = JFactory::getDBO();
-		$this->app = JFactory::getApplication();
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$this->app = Joomla\CMS\Factory::getApplication();
 		$this->dispatcher = JEventDispatcher::getInstance();
 		global $option;
 	
 	
-		$this->filterobj = new JFilterInput(null, null, 1, 1);
+		$this->filterobj = new Joomla\CMS\Filter\InputFilter(null, null, 1, 1);
 	}
 	
 	public function getContests($id = 0) {

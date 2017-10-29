@@ -12,7 +12,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-JHtml::_('bootstrap.tooltip');
+Joomla\CMS\HTML\HTMLHelper::_('bootstrap.tooltip');
 ?>
 <style>
 .control-label {width: 30%!important;}
@@ -51,7 +51,7 @@ JHtml::_('bootstrap.tooltip');
 						<label for="warningrequired" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_CONTENT_RATINGS_WARNING') . '</strong><br>' . JText::_('COM_JVARCADE_CONTENT_RATINGS_WARNING_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_CONTENT_RATINGS_WARNING'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('jvarcade.html.booleanlist',  'warningrequired', 'class="inputbox" size="1"', $this->contentrating->warningrequired, 'JYES', 'JNO', 'warningrequired');?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'warningrequired', 'class="inputbox" size="1"', $this->contentrating->warningrequired, 'JYES', 'JNO', 'warningrequired');?>
 					</div>
 				</div>
 			</fieldset>
@@ -61,7 +61,7 @@ JHtml::_('bootstrap.tooltip');
 						<label for="published"><?php echo JText::_('COM_JVARCADE_CONTENT_RATINGS_PUBLISHED'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('jvarcade.html.booleanlist',  'published', 'class="inputbox" size="1"', $this->contentrating->published, 'JYES', 'JNO', 'published');?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'published', 'class="inputbox" size="1"', $this->contentrating->published, 'JYES', 'JNO', 'published');?>
 					</div>
 				</div>
 			</fieldset>

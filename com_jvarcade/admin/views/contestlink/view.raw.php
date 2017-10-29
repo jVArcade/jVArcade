@@ -15,13 +15,13 @@ defined('_JEXEC') or die('Restricted access');
 
 //jimport('joomla.application.component.view');
 
-class jvarcadeViewContestlink extends JViewLegacy {
+class jvarcadeViewContestlink extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 
 		$model = $this->getModel();
-		$app = JFactory::getApplication();
-		$task = $app->input->getWord('task', 'showcontestgames');
+		$app = Joomla\CMS\Factory::getApplication();
+		$task = $app->input->getWord('view', 'showcontestgames');
 		$this->task = $task;
 		
 		if ($task == 'showcontestgames') {

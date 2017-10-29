@@ -15,19 +15,19 @@ defined('_JEXEC') or die('Restricted access');
 
 //jimport('joomla.application.component.view');
 
-class jvarcadeViewContestlink extends JViewLegacy {
+class jvarcadeViewContestlink extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 
 		$model = $this->getModel();
-		$app = JFactory::getApplication();
-		$task = $app->input->get('task', 'addgametocontest');
+		$app = Joomla\CMS\Factory::getApplication();
+		$task = $app->input->get('view', 'addgametocontest');
 		$this->task = $task;
 		
 		if ($task == 'addgametocontest') {
 			
 			$game_id = array_unique($app->input->get('cid', array(), 'array'));
-			JArrayHelper::toInteger($game_id);
+			Joomla\Utilities\ArrayHelper::toInteger($game_id);
 			$game_titles = $model->getGameTitles($game_id);
 			$game_titles = implode(',', $game_titles);
 			$this->game_titles = $game_titles;
@@ -36,22 +36,22 @@ class jvarcadeViewContestlink extends JViewLegacy {
 			
 			$contestobj = $model->getContests();
 			foreach($contestobj as $obj ) {
-				$contests[] = JHTML::_('select.option', $obj->id, $obj->name);
+				$contests[] = Joomla\CMS\HTML\HTMLHelper::_('select.option', $obj->id, $obj->name);
 			}
-			$contestlist = JHTML::_('select.genericlist', $contests, 'contestlist', 'size="9" multiple', 'value', 'text');
+			$contestlist = Joomla\CMS\HTML\HTMLHelper::_('select.genericlist', $contests, 'contestlist', 'size="9" multiple', 'value', 'text');
 			$this->contestlist = $contestlist;
 
 		} else if ($task == 'addcontestgames') {
 			
 			$contest_id = array_unique($app->input->get('cid', array(), 'array'));
-			JArrayHelper::toInteger($contest_id);
+			Joomla\Utilities\ArrayHelper::toInteger($contest_id);
 			$this->contest_id = implode(',', $contest_id);
 			
 			$gamesobj = $model->getGameIdTitles();
 			foreach($gamesobj as $obj ) {
-				$games[] = JHTML::_('select.option', $obj->id, $obj->title);
+				$games[] = Joomla\CMS\HTML\HTMLHelper::_('select.option', $obj->id, $obj->title);
 			}
-			$gameslist = JHTML::_('select.genericlist', $games, 'gameslist', 'size="9" multiple', 'value', 'text');
+			$gameslist = Joomla\CMS\HTML\HTMLHelper::_('select.genericlist', $games, 'gameslist', 'size="9" multiple', 'value', 'text');
 			$this->gameslist = $gameslist;
 		}
 		

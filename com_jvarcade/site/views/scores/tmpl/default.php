@@ -31,7 +31,7 @@ defined('_JEXEC') or die;
 				</th>
 				<th width="25%" style="text-align: center;"><?php echo JText::_('COM_JVARCADE_AVATAR'); ?></th>
 				<th width="25%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_NAME', (!(int)$this->config->show_usernames ? 'u.name' : 'u.username'), @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_NAME', (!(int)$this->config->get('show_usernames') ? 'u.name' : 'u.username'), @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="25%" style="text-align: center;">
 					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_SCORES', 'p.score', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
@@ -54,11 +54,11 @@ defined('_JEXEC') or die;
 				<tr class="sectiontableentry1">
 					<td width="25%" style="text-align: center;"><?php echo jvaHelper::formatDate($score['date']); ?></td>
 					<td width="25%" style="text-align: center;">
-					<?php if ($this->config->show_avatar == 1) : ?>
+					<?php if ($this->config->get('show_avatar') == 1) : ?>
 						<?php echo jvaHelper::showAvatar($score['userid']); ?>
 					<?php endif; ?>
 					</td>
-					<td width="25%" style="text-align: center;"><?php echo jvaHelper::userlink((int)$score['userid'], (!(int)$this->config->show_usernames ? $score['name'] : $score['username'])); ?></td>
+					<td width="25%" style="text-align: center;"><?php echo jvaHelper::userlink((int)$score['userid'], (!(int)$this->config->get('show_usernames') ? $score['name'] : $score['username'])); ?></td>
 					<td width="25%" style="text-align: center;"><?php echo rtrim(rtrim(number_format($score['score'],2), '0'), '.'); ?></td>
 				</tr>
 			<?php endif;?>
@@ -71,7 +71,7 @@ defined('_JEXEC') or die;
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'pagination.php'); ?>
 	
 <?php if (!$this->table_only) :?>
-	<?php if ($this->config->rate == 1) : ?> 
+	<?php if ($this->config->get('rate') == 1) : ?> 
 		<?php JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
 		<div id="rate1" class="rating">
 		<script type="text/javascript">

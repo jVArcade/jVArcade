@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 
 
-class jvarcadeControllerContent_ratings extends JControllerLegacy {
+class jvarcadeControllerContent_ratings extends Joomla\CMS\MVC\Controller\BaseController {
 	
 	protected $default_view = 'content_ratings';
 	

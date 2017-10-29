@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 
 //jimport('joomla.application.component.model');
 
-class jvarcadeModelMigration extends JModelLegacy {
+class jvarcadeModelMigration extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 	private $dbo;
 	private $return_arr;
 	private $old_imagepath;
@@ -27,8 +27,8 @@ class jvarcadeModelMigration extends JModelLegacy {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->dbo = JFactory::getDBO();
-		$app = JFactory::getApplication('site');
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$app = Joomla\CMS\Factory::getApplication('site');
 		$this->return_arr = array('errnum' => 0, 'msg' => '');
 		
 		$this->dbo->setQuery('SELECT games_dir, games_images_dir FROM #__puarcade_config LIMIT 1');

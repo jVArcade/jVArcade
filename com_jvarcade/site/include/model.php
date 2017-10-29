@@ -28,12 +28,12 @@ class jvarcadeModelCommon extends JModelList {
 		parent::__construct();
 		$this->dbo = JFactory::getDbo();
 		$this->user = JFactory::getUser();
-		$this->config = $this->getConf();
+		$this->config = JComponentHelper::getParams('com_jvarcade');
 		$this->global_conf = JFactory::getConfig();
  
         // Get pagination request variables
 		$input = JFactory::getApplication()->input;
-		$limit = $this->config->GamesPerPage;
+		$limit = $this->config->get('GamesPerPage');
         $limitstart = $input->get('limitstart', 0, '', 'int');
  
         // In case limit has been changed, adjust it
@@ -67,35 +67,19 @@ class jvarcadeModelCommon extends JModelList {
 
 	public function getConf() {
 		if (!$this->config) {
-			$this->_loadConf();
+		    JComponentHelper::getParams('com_jvarcade');
 		}
 		return $this->config;
 	}
 	
-	private function _loadConf() {
-		static $loadedconf;
-		if (!$loadedconf) {
-			$my = JFactory::getUser();
-			$app = JFactory::getApplication();
-			$this->dbo->setQuery("SELECT * FROM #__jvarcade_settings ORDER BY " . $this->dbo->quoteName('group') . ", " . $this->dbo->quoteName('ord') . "");
-			$res = $this->dbo->loadObjectList();
-			$obj = new stdClass();
-			if (count($res)) {
-				foreach ($res as $row) {
-					$optname = $row->optname;
-					$obj->$optname = $row->value;
-				}
-			}
+	public function getTimezone() {
+		$my = JFactory::getUser();
+		$app = JFactory::getApplication();
+		// TIMEZONE - if user is logged in we use the user timezone, if guest - we use timezone in global settings
+		$timezone = ((int)$my->guest ? $app->getCfg('offset') : $my->getParam('timezone', $app->getCfg('offset')));
 			
-			// TIMEZONE - if user is logged in we use the user timezone, if guest - we use timezone in global settings
-			$obj->timezone = ((int)$my->guest ? $app->getCfg('offset') : $my->getParam('timezone', $app->getCfg('offset')));
 			
-			$this->config = $loadedconf = $obj;
-			return (boolean)$this->config;
-		} else {
-			$this->config = $loadedconf;
-		}
-		return true;
+	   return $timezone;
 	}
 
 }

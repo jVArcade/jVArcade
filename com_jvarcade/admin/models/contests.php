@@ -13,12 +13,12 @@
 // no direct access
 defined('_JEXEC') or die();
 
-class jvarcadeModelContests extends JModelList {
+class jvarcadeModelContests extends Joomla\CMS\MVC\Model\ListModel {
 	
 	public function __construct($config = array()) {
 	
-		$this->dbo = JFactory::getDBO();
-		$this->app = JFactory::getApplication();
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$this->app = Joomla\CMS\Factory::getApplication();
 	
 		if(empty($config['filter_fields']))
 		{
@@ -50,50 +50,5 @@ class jvarcadeModelContests extends JModelList {
 	
 		return $query;
 	}
-	
-	
-	
-	public function deleteContest() {
-		$id = array_unique($this->app->input->get('cid', array(0), 'array'));
-		Joomla\Utilities\ArrayHelper::toInteger($id);
-	
-		$query = "DELETE FROM #__jvarcade_contest WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
-		$this->dbo->setQuery($query);
-	
-		if ($this->dbo->execute()) {
-			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestgame WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->execute();
-			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestmember WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->execute();
-			$this->dbo->setQuery("DELETE FROM #__jvarcade_contestscore WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$this->dbo->execute();
-				
-			$this->dbo->setQuery("SELECT id FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('contestid') . " IN (" . implode(',', $id) . ")");
-			$ids = $this->dbo->loadColumn();
-			if (is_array($ids) && count($ids)) {
-				$this->dbo->setQuery("DELETE FROM #__jvarcade_leaderboard WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $ids) . ")");
-				$this->dbo->execute();
-			}
-		}
-	
-		$this->app->redirect('index.php?option=com_jvarcade&task=contests');
-	}
-	
-	public function contestPublish($published) {
-		$id = array_unique($this->app->input->get('cid', array(0), 'array'));
-		Joomla\Utilities\ArrayHelper::toInteger($id);
-		$query = "UPDATE #__jvarcade_contest SET " . $this->dbo->quoteName('published') . " = " . $this->dbo->Quote((int)$published) . "
-			WHERE " . $this->dbo->quoteName('id') . " IN (" . implode(',', $id) . ")";
-		$this->dbo->setQuery($query);
-		$this->dbo->execute();
-		$this->app->redirect('index.php?option=com_jvarcade&task=contests');
-	
-	}
-	
-	public function editContest() {
-		$id = $this->app->input->get('cid', null, 'contests', array());
-		if (!is_array($id)) $id = array($id);
-		Joomla\Utilities\ArrayHelper::toInteger($id, array(0));
-		$this->app->redirect('index.php?option=com_jvarcade&task=edit_contest&id='. implode(',', $id));
-	}
+
 }

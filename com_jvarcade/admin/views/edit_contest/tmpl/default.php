@@ -12,9 +12,9 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', 'select');
+Joomla\CMS\HTML\HTMLHelper::_('bootstrap.tooltip');
+Joomla\CMS\HTML\HTMLHelper::_('behavior.multiselect');
+Joomla\CMS\HTML\HTMLHelper::_('formbehavior.chosen', 'select');
 ?>
 
 <style>
@@ -26,8 +26,8 @@ JHtml::_('formbehavior.chosen', 'select');
 	<input type="hidden" name="task" value="savecontest" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="id" value="<?php echo (int)$this->contest->id;?>" />
-	<?php echo JHtml::_('bootstrap.startTabSet', 'jveditcontest', array('active' => 'contest_edit'));?>
-	<?php echo JHtml::_('bootstrap.addTab', 'jveditcontest', 'contest_edit', JText::_('Edit Contest')); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.startTabSet', 'jveditcontest', array('active' => 'contest_edit'));?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addTab', 'jveditcontest', 'contest_edit', JText::_('Edit Contest')); ?>
 	<div class="row-fluid">
 		<div class="span6">
 			<fieldset class="form-horizontal">
@@ -76,7 +76,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label for="startdatetime" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_CONTESTS_START') . '</strong><br>' . JText::_('COM_JVARCADE_CONTESTS_START_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_CONTESTS_START'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('calendar', $this->contest->startdatetime, 'startdatetime', 'startdatetime', '%Y-%m-%d %H:%M:%S', array('size'=>'40',  'maxlength'=>'19')); ?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('calendar', $this->contest->startdatetime, 'startdatetime', 'startdatetime', '%Y-%m-%d %H:%M:%S', array('size'=>'40',  'maxlength'=>'19')); ?>
 					</div>
 				</div>
 			</fieldset>
@@ -86,7 +86,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label for="enddatetime" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_CONTESTS_END') . '</strong><br>' . JText::_('COM_JVARCADE_CONTESTS_END_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_CONTESTS_END'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('calendar', $this->contest->enddatetime, 'enddatetime', 'enddatetime', '%Y-%m-%d %H:%M:%S', array('size'=>'40',  'maxlength'=>'19')); ?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('calendar', $this->contest->enddatetime, 'enddatetime', 'enddatetime', '%Y-%m-%d %H:%M:%S', array('size'=>'40',  'maxlength'=>'19')); ?>
 					</div>
 				</div>
 			</fieldset>
@@ -116,7 +116,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label for="published"><?php echo JText::_('COM_JVARCADE_CONTESTS_PUBLISHED'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('jvarcade.html.booleanlist',  'published', 'class="inputbox" size="1"', $this->contest->published, 'JYES', 'JNO', 'published');?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'published', 'class="inputbox" size="1"', $this->contest->published, 'JYES', 'JNO', 'published');?>
 					</div>
 				</div>
 			</fieldset>
@@ -126,7 +126,7 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label for="hasadvertisedstarted" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_CONTESTS_STARTADV') . '</strong><br>' . JText::_('COM_JVARCADE_CONTESTS_STARTADV_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_CONTESTS_STARTADV'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('jvarcade.html.booleanlist',  'hasadvertisedstarted', 'class="inputbox" size="1"', $this->contest->hasadvertisedstarted, 'JYES', 'JNO', 'adstart');?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'hasadvertisedstarted', 'class="inputbox" size="1"', $this->contest->hasadvertisedstarted, 'JYES', 'JNO', 'adstart');?>
 					</div>
 				</div>
 			</fieldset>
@@ -136,16 +136,16 @@ JHtml::_('formbehavior.chosen', 'select');
 						<label for="hasadvertisedended" class="hasTooltip" data-original-title="<strong><?php echo htmlspecialchars(JText::_('COM_JVARCADE_CONTESTS_ENDADV') . '</strong><br>' . JText::_('COM_JVARCADE_CONTESTS_ENDADV_DESC'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo JText::_('COM_JVARCADE_CONTESTS_ENDADV'); ?></label>
 					</div>
 					<div class="controls">
-						<?php echo JHTML::_('jvarcade.html.booleanlist',  'hasadvertisedended', 'class="inputbox" size="1"', $this->contest->hasadvertisedended, 'JYES', 'JNO', 'adend');?>
+						<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'hasadvertisedended', 'class="inputbox" size="1"', $this->contest->hasadvertisedended, 'JYES', 'JNO', 'adend');?>
 					</div>
 				</div>
 			</fieldset>
 		</div>
 	</div>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endTab'); ?>
 	<?php if ((int)$this->contest->id) : ?>
-	<?php echo JHtml::_('bootstrap.addTab', 'jveditcontest', 'gameforcontest', JText::_('COM_JVARCADE_CONTESTSLINK_GAMESINCONTEST')); ?>
-	<?php echo JHtml::_('bootstrap.renderModal', 'gameForContest', array('url' => JRoute::_('index.php?option=com_jvarcade&task=addcontestgames&tmpl=component&cid=' . $this->contest->id,false), 'title' => 'Add Game To Contest', 'height' => '300', 'width' => '600'));?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addTab', 'jveditcontest', 'gameforcontest', JText::_('COM_JVARCADE_CONTESTSLINK_GAMESINCONTEST')); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.renderModal', 'gameForContest', array('url' => Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=addcontestgames&tmpl=component&cid=' . $this->contest->id,false), 'title' => 'Add Game To Contest', 'height' => '300', 'width' => '600'));?>
 	<div class="row-fluid">
 			<fieldset class="form-horizontal">
 				
@@ -161,9 +161,9 @@ JHtml::_('formbehavior.chosen', 'select');
 				
 			</fieldset>
 	</div>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endTab'); ?>
 	<?php endif; ?>
-	<?php echo JHtml::_('bootstrap.addTab', 'jveditcontest', 'maintenance', JText::_('COM_JVARCADE_MAINTENANCE_CONTEST')); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.addTab', 'jveditcontest', 'maintenance', JText::_('COM_JVARCADE_MAINTENANCE_CONTEST')); ?>
 	<div class="row-fluid">
 		<div class="span6">
 			<fieldset class="form-horizontal">
@@ -184,7 +184,7 @@ JHtml::_('formbehavior.chosen', 'select');
 			<div class="clr"></div>
 		</div>
 	</div>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
-	<?php echo JHtml::_('bootstrap.endTabSet');?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endTab'); ?>
+	<?php echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.endTabSet');?>
 </form>
 

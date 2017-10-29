@@ -13,21 +13,21 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', 'select');
-JHtml::_('bootstrap.tooltip');
+Joomla\CMS\HTML\HTMLHelper::_('behavior.multiselect');
+Joomla\CMS\HTML\HTMLHelper::_('formbehavior.chosen', 'select');
+Joomla\CMS\HTML\HTMLHelper::_('bootstrap.tooltip');
 ?>
 <script>
   jQuery(document).ready(function() {
 	  
 	jQuery('#install_package_but').on("click", function(e){
 		    e.preventDefault();
-		    jQuery('#adminForm').attr('action', "<?php echo JUri::base(); ?>index.php?option=com_jvarcade&task=game_upload.installUpload").submit();
+		    jQuery('#adminForm').attr('action', "<?php echo Joomla\CMS\Uri\Uri::base(); ?>index.php?option=com_jvarcade&task=game_upload.installUpload").submit();
 		});
 
 	jQuery('#install_directory_but').on("click", function(e){
 		    e.preventDefault();
-		    jQuery('#adminForm').attr('action', "<?php echo JUri::base(); ?>index.php?option=com_jvarcade&task=game_upload.installFolder").submit();
+		    jQuery('#adminForm').attr('action', "<?php echo Joomla\CMS\Uri\Uri::base(); ?>index.php?option=com_jvarcade&task=game_upload.installFolder").submit();
 		});
 });
 </script>
@@ -66,7 +66,7 @@ JHtml::_('bootstrap.tooltip');
 								<label class="hasTooltip" data-original-title="<strong><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></strong>"><?php echo JText::_('COM_JVARCADE_UPLOADARCHIVE_PUBLISHED'); ?></label>
 							</div>
 							<div class="controls">
-								<?php echo JHtml::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->published, 'JYES', 'JNO', 'publish');?>
+								<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.booleanlist',  'published', 'size="1"', $this->published, 'JYES', 'JNO', 'publish');?>
 							</div>
 					</div>
 					</fieldset>

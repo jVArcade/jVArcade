@@ -14,7 +14,7 @@
 defined('_JEXEC') or die;
 
 
-class jvarcadeControllerEdit_contest extends JControllerLegacy {
+class jvarcadeControllerEdit_contest extends Joomla\CMS\MVC\Controller\BaseController {
 	
 	protected $default_view = 'edit_contest';
 	

@@ -264,7 +264,7 @@ class jvaHelper {
 			
 			
 			//Community Builder
-			if ((int)$config->scorelink == 2) {
+			if ((int)$config->get('scorelink') == 2) {
 				$db = JFactory::getDBO();
 				$db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id = ' . (int)$userid);
 				$_avatar = $db->loadResult();
@@ -274,12 +274,12 @@ class jvaHelper {
 					$_avatar = JURI::root() . 'components/com_comprofiler/plugin/templates/default/images/avatar/tnnophoto_n.png';
 				}
 			//JomSocial
-			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
+			} elseif (((int)$config->get('scorelink') == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
 				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_avatar = $js_user->getThumbAvatar();
 			//AlphaUserPoints
-			} elseif ((int)$config->scorelink ==3) {
+			} elseif ((int)$config->get('scorelink') == 3) {
 				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
@@ -288,7 +288,7 @@ class jvaHelper {
 					echo $avatar;
 				}
 				
-			} elseif ((int)$config->scorelink == 0) {
+			} elseif ((int)$config->get('scorelink') == 0) {
 				
 				if ((int)$userid == 0) {
 					$_avatar = JVA_IMAGES_SITEPATH . '/avatars/blank_avatar.png';
@@ -341,27 +341,27 @@ class jvaHelper {
 			
 			// Guest
 			if ((int)$userid == 0) {
-				$_name = $config->guest_name;
+				$_name = $config->get('guest_name');
 			//Alpha User Points
-			} elseif (((int)$config->scorelink == 3) && is_file(JPATH_SITE . '/components/com_altauserpoints/helper.php')) {
+			} elseif (((int)$config->get('scorelink') == 3) && is_file(JPATH_SITE . '/components/com_altauserpoints/helper.php')) {
 				$api_AUP = JPATH_SITE . '/components/com_altauserpoints/helper.php';
 				if ( file_exists($api_AUP))
 				{
 					require_once ($api_AUP);
-					$linktoAUPprofil = AltaUserPointsHelper::getAupLinkToProfil($userid, (int)$config->aup_itemid);
+					$linktoAUPprofil = AltaUserPointsHelper::getAupLinkToProfil($userid, (int)$config->get('aup_itemid'));
 					$_name = '<a href="' . $linktoAUPprofil . '">' . $username . '</a>';
 				}
 			//Community Builder
-			} elseif ((int)$config->scorelink == 2) {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->communitybuilder_itemid ) . '">' . $username . '</a>';
+			} elseif ((int)$config->get('scorelink') == 2) {
+				$_name = '<a href="' . JRoute::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->get('communitybuilder_itemid') ) . '">' . $username . '</a>';
 			//JomSocial
-			} elseif (((int)$config->scorelink == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
+			} elseif (((int)$config->get('scorelink') == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
 				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
 				$js_user = CFactory::getUser((int)$userid);
 				$_name = '<a href="' . CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$userid) . '">' . $js_user->getDisplayName() . '</a>';
 			// No integration
 			} else {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&task=profile&uid=' . (int)$userid) . '">' . $username . '</a>';
+				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&view=profile&uid=' . (int)$userid) . '">' . $username . '</a>';
 			}
 			
 			$jva_userlinks[(int)$userid] = $_name;
@@ -418,17 +418,6 @@ class jvaHelper {
 
 class jvarcadeHtml {
 
-	public static function booleanlist ($name, $attributes, $value, $yes, $no, $id) {
-		
-			return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id)) . '</fieldset>';
-		
-	}
-
-	public static function radiolist ($item, $name, $attributes, $name1, $name2, $value, $id) {
-		
-			return '<fieldset id="' . $name . '"  class="radio">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.radiolist',  $item, $name, $attributes, $name1, $name2, $value, $id)) . '</fieldset>';
-		
-	}
 	
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $sort_url, $new_direction = 'asc', $task = null) {
 		$app = JFactory::getApplication();
@@ -455,36 +444,6 @@ class jvarcadeHtml {
 		$html .= '</a>';
 		
 		return $html;
-	}
-	
-	public static function usergroup($name, $selected, $attribs = '', $options = array()) {
-		$ret = '';
-		$selected = explode(',', $selected);
-		
-
-		
-			$db = JFactory::getDbo();
-			$db->setQuery(
-				'SELECT a.id AS value, a.title AS text, COUNT(DISTINCT b.id) AS level' .
-				' FROM #__usergroups AS a' .
-				' LEFT JOIN `#__usergroups` AS b ON a.lft > b.lft AND a.rgt < b.rgt' .
-				' GROUP BY a.id' .
-				' ORDER BY a.lft ASC'
-			);
-			$options = $db->loadObjectList();
- 		
-			if (is_array($options) && count($options)) {
-				for ($i = 0, $n = count($options); $i < $n; $i++) {
-					$options[$i]->text = str_repeat('- ',$options[$i]->level).$options[$i]->text;
-				}
-				//array_unshift($options, JHtml::_('select.option', 0, 'Guest'));
-				$ret = JHtml::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected ));
-			
-			
-		}
-		
-		return $ret;
-		
 	}
 
 }

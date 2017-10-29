@@ -3,7 +3,7 @@
 <extension type="component" version="3.4" method="upgrade">
 	<name>jVArcade</name>
 	<version>2.14</version>
-	<copyright>(C) All rights reserved. 2011-2016 jVitals.com</copyright>
+	<copyright>(C) All rights reserved. 2017 jVArcade.com</copyright>
 	<creationDate>12 Mar 2016</creationDate>
 	<author>jVitals Team</author>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
@@ -46,15 +46,14 @@
 	<administration>
 		<menu link="option=com_jvarcade&amp;view=cpanel">COM_JVARCADE</menu>
 		<submenu>
-			<menu link="option=com_jvarcade&amp;task=cpanel">COM_JVARCADE_CPANEL</menu>
-			<menu link="option=com_jvarcade&amp;task=settings">COM_JVARCADE_SETTINGS</menu>
-			<menu link="option=com_jvarcade&amp;task=manage_scores">COM_JVARCADE_MANAGE_SCORES</menu>
-			<menu link="option=com_jvarcade&amp;task=manage_folders">COM_JVARCADE_MANAGE_FOLDERS</menu>
-			<menu link="option=com_jvarcade&amp;task=manage_games">COM_JVARCADE_MANAGE_GAMES</menu>
-			<menu link="option=com_jvarcade&amp;task=game_upload">COM_JVARCADE_UPLOAD_ARCHIVE</menu>
-			<menu link="option=com_jvarcade&amp;task=maintenance">COM_JVARCADE_MAINTENANCE</menu>
-			<menu link="option=com_jvarcade&amp;task=content_ratings">COM_JVARCADE_CONTENT_RATINGS</menu>
-			<menu link="option=com_jvarcade&amp;task=contests">COM_JVARCADE_CONTESTS</menu>
+			<menu link="option=com_jvarcade&amp;view=cpanel">COM_JVARCADE_CPANEL</menu>
+			<menu link="option=com_jvarcade&amp;view=scores">COM_JVARCADE_MANAGE_SCORES</menu>
+			<menu link="option=com_jvarcade&amp;view=folders">COM_JVARCADE_MANAGE_FOLDERS</menu>
+			<menu link="option=com_jvarcade&amp;view=games">COM_JVARCADE_MANAGE_GAMES</menu>
+			<menu link="option=com_jvarcade&amp;view=game_upload">COM_JVARCADE_UPLOAD_ARCHIVE</menu>
+			<menu link="option=com_jvarcade&amp;view=maintenance">COM_JVARCADE_MAINTENANCE</menu>
+			<menu link="option=com_jvarcade&amp;view=contentratings">COM_JVARCADE_CONTENT_RATINGS</menu>
+			<menu link="option=com_jvarcade&amp;view=contests">COM_JVARCADE_CONTESTS</menu>
 		</submenu>
 		<files folder="admin">
 			<filename>index.html</filename>
@@ -68,6 +67,7 @@
 			<filename>install.jvarcade.sql</filename>
 			<filename>uninstall.jvarcade.sql</filename>
 			<folder>css</folder>
+			<folder>helpers</folder>
 			<folder>models</folder>
 			<folder>views</folder>
 			<folder>language</folder>

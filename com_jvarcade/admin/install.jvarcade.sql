@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_folders` (
   `description` varchar(255) DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `parentid` int(11) NOT NULL DEFAULT '0',
-  `viewpermissions` varchar(100) NOT NULL DEFAULT '0',
+  `viewpermissions` text NOT NULL DEFAULT '0',
   `imagename` varchar(255) NOT NULL DEFAULT 'folder.gif',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
@@ -108,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_games` (
   `folderid` int(11) DEFAULT NULL,
   `window` tinyint(2) NOT NULL,
   `contentratingid` int(11) NOT NULL DEFAULT '1',
-  `gsafe` tinyint(2) NOT NULL DEFAULT '0',
   `ajaxscore` tinyint(1) NOT NULL DEFAULT '0',
   `author` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -142,18 +141,6 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_ratings` (
   `gameid` int(11) NOT NULL,
   `used_ids` varchar(250) NOT NULL,
   UNIQUE KEY `gameid_idx` (`gameid`)
-) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-CREATE TABLE IF NOT EXISTS `#__jvarcade_settings` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `optname` varchar(255) NOT NULL,
-  `value` text NOT NULL,
-  `group` varchar(255) NOT NULL DEFAULT 'default',
-  `ord` int(11) NOT NULL DEFAULT '1',
-  `type` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY (`optname`)
 ) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE TABLE IF NOT EXISTS `#__jvarcade_tags` (

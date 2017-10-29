@@ -24,9 +24,9 @@ $conf = new jvarcadeModelCommon();
 $config = $conf->getConf();
 
 // define time/date formats
-define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
-define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
-define('COM_JVARCADE_TIMEZONE', $config->timezone);
+define('COM_JVARCADE_DATE_FORMAT', $config->get('date_format'));
+define('COM_JVARCADE_TIME_FORMAT', $config->get('time_format'));
+define('COM_JVARCADE_TIMEZONE', $conf->getTimezone());
 
 // Javascript includes and declarations
 $document = JFactory::getDocument();
@@ -46,9 +46,9 @@ JPluginHelper::importPlugin('puarcade', null, true, $dispatcher);
 JPluginHelper::importPlugin('jvarcade', null, true, $dispatcher);
 
 // Load styles
-$css = (strlen($config->template) && $config->template && file_exists(JVA_CSS_INCPATH . $config->template . '.css')) ? $config->template : 'default' ;
+$css = (strlen($config->get('template')) && $config->get('template') && file_exists(JVA_CSS_INCPATH . $config->get('template') . '.css')) ? $config->get('template') : 'default' ;
 $document->addStyleSheet(JVA_CSS_SITEPATH . $css . '.css');
-if((int)$config->roundcorners) {
+if((int)$config->get('roundcorners')) {
 	$document->addStyleSheet(JVA_CSS_SITEPATH . '/smoothness/round.corners.css');
 }
 

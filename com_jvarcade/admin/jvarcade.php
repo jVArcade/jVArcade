@@ -14,30 +14,32 @@
 defined('_JEXEC') or die;
 
 JLoader::register("jvarcadeToolbarHelper", JPATH_COMPONENT_ADMINISTRATOR ."/sidebar.php");
+JLoader::register("JvaFileHandler", JPATH_COMPONENT_ADMINISTRATOR ."/helpers/filehandler.php");
 
 require_once (dirname(__FILE__) . '/model.php');
 //require_once (dirname(__FILE__) . '/models/migration.php');
 require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
-$model =  new jvarcadeModelCommon();
-$config = $model->getConfObj();
+$model =  new jvarcadeModelAdminCommon();
+$config = $model->getConf();
+$tz_obj = $model->getAdminTimezone();
 
-define('COM_JVARCADE_DATE_FORMAT', $config->date_format);
-define('COM_JVARCADE_TIME_FORMAT', $config->time_format);
-define('COM_JVARCADE_TIMEZONE', $config->timezone);
+define('COM_JVARCADE_DATE_FORMAT', $config->get('date_format'));
+define('COM_JVARCADE_TIME_FORMAT', $config->get('time_format'));
+define('COM_JVARCADE_TIMEZONE', $tz_obj->timezone);
 
-$document = JFactory::getDocument();
-$document->addStyleSheet(JUri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
+$document = Joomla\CMS\Factory::getDocument();
+$document->addStyleSheet(Joomla\CMS\Uri\Uri::root() . 'administrator/components/com_jvarcade/css/'. 'style.css');
 
 // Javascript includes and declarations
-JHtml::_('jquery.framework');
-JHtml::script('com_jvarcade/jquery.jva.js', false, true);
+Joomla\CMS\HTML\HTMLHelper::_('jquery.framework');
+Joomla\CMS\HTML\HTMLHelper::_('script', 'com_jvarcade/jquery.jva.js', false, true);
 
-$jsconstants  = 'var JVA_HOST_NAME = \'' . JUri::base() . '\';' . "\n";
-$jsconstants .= 'var JVA_AJAX_URL = \'' . JUri::base() . '\';' . "\n";
-$jsconstants .= 'var JVA_CONTESTLINK_ADDGAME_URL = \'' . JRoute::_('index.php?option=com_jvarcade&task=addgametocontest&tmpl=component&',false) . '\';' . "\n";
-$jsconstants .= 'var JVA_CONTESTLINK_ADDCONTESTGAMES_URL = \'' . JRoute::_('index.php?option=com_jvarcade&task=addcontestgames&tmpl=component&',false) . '\';' . "\n";
+$jsconstants  = 'var JVA_HOST_NAME = \'' . Joomla\CMS\Uri\Uri::base() . '\';' . "\n";
+$jsconstants .= 'var JVA_AJAX_URL = \'' . Joomla\CMS\Uri\Uri::base() . '\';' . "\n";
+$jsconstants .= 'var JVA_CONTESTLINK_ADDGAME_URL = \'' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=addgametocontest&tmpl=component&',false) . '\';' . "\n";
+$jsconstants .= 'var JVA_CONTESTLINK_ADDCONTESTGAMES_URL = \'' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=addcontestgames&tmpl=component&',false) . '\';' . "\n";
 $jsconstants .= 'var JVA_MAIN_URL = JVA_HOST_NAME + \'index.php\';' . "\n";
 $jsconstants .= 'var JVA_MAX_MIGRATION_STEPS = 12;' . "\n";
 $jsconstants .= 'var COM_JVARCADE_CONTESTSLINK_DELETE_WARNING = \'' . JText::_('COM_JVARCADE_CONTESTSLINK_DELETE_WARNING') . '\';' . "\n";
@@ -71,7 +73,7 @@ $document->addScriptDeclaration($jsconstants);
 jvaHelper::checkForNewVersion();
 
 
-$controller = JControllerLegacy::getInstance('jvarcade');
-$controller->execute(JFactory::getApplication()->input->get('task'));
+$controller = Joomla\CMS\MVC\Controller\BaseController::getInstance('jvarcade');
+$controller->execute(Joomla\CMS\Factory::getApplication()->input->get('task'));
 $controller->redirect();
 

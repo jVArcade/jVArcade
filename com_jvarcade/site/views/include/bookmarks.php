@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 ?>
 
 		<div class="pu_bookmarks">
-		<?php if ($this->config->bookmarks == 1) : ?>
+		<?php if ($this->config->get('bookmarks') == 1) : ?>
 			<!-- AddToAny BEGIN --> 
 				<a class="a2a_dd" href="https://www.addtoany.com/share_save">
 						<img src="//static.addtoany.com/buttons/share_save_171_16.png" width="171" height="16" border="0" alt="Share"/>

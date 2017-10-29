@@ -13,9 +13,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//jimport('joomla.application.component.controller');
-
-class jvarcadeControllerScore extends JControllerLegacy {
+class jvarcadeControllerScore extends Joomla\CMS\MVC\Controller\BaseController {
 	private $global_conf;
 	private $config;
 	private $db;
@@ -28,8 +26,8 @@ class jvarcadeControllerScore extends JControllerLegacy {
 
 	public function __construct() {
 		parent::__construct();
-		$this->global_conf = JFactory::getConfig();
-		$this->db = JFactory::getDBO();
+		$this->global_conf = Joomla\CMS\Factory::getConfig();
+		$this->db = Joomla\CMS\Factory::getDBO();
 		$conf = new jvarcadeModelCommon();
 		$this->config = $conf->getConf();
 	}
@@ -39,7 +37,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	*/
 
 	public function arcade() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		// V3 game
 		if (isset($_REQUEST['sessdo'])) {
 			$sessdo = strtolower($app->input->getString('sessdo', ''));
@@ -80,7 +78,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 
 	public function v3() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		// V3 support
 		// $act = strtolower($app->input->getWord( 'act', '' ));
 		// if($act == 'arcade') {
@@ -90,7 +88,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	public function v32() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		// V32 support
 		// $auto = strtolower($app->input->getWord('autocom', ''));
 		$sessdo = strtolower($app->input->getWord('do', ''));
@@ -111,7 +109,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	public function pnflash() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		// pnflashgames support (it seems they can be submitted either by get or post data)
 		$module = strtolower($app->input->getWord('module', ''));
 		$arcade = strtolower($app->input->getWord('arcade', ''));
@@ -129,7 +127,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	*/
 	
 	public function startSession() {
-		$this->session = JFactory::getSession();
+		$this->session = Joomla\CMS\Factory::getSession();
 		$this->sid = $this->session->getId();
 		$this->sname = $this->session->getName();
 	}
@@ -137,8 +135,8 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Ensures to write session to disk before redirecting
 	
 	public function redirectPage($url, $sef = false) {
-		$app = JFactory::getApplication();
-		if ($sef) $url = JRoute::_($url, false);
+		$app = Joomla\CMS\Factory::getApplication();
+		if ($sef) $url = Joomla\CMS\Router\Route::_($url, false);
 		//session_write_close();
 		$app->redirect($url);
 		jexit();
@@ -147,7 +145,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Handle PhpBB games
 	
 	public function handlePhpbbScoreSubmit() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$game_name = $app->input->getString('game_name', '');
 		$gamename = $app->input->getString('gamename', '');
 		$gname  = $app->input->getString('gname', '');
@@ -182,7 +180,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Handle V3 games
 	
 	public function handleV3SessionStart() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$gname = $app->input->getString('gamename', '');
 		$starttime = mktime();
 		$randnum = rand(1,10);
@@ -195,7 +193,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	public function handleV3ScoreRequest() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$score = $app->input->getInt('score', 0);
 		$fakekey = $app->input->getString('fakekey', '');
 		$mtime = microtime();
@@ -208,7 +206,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	public function handleV3ScoreSubmit() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		if (isset( $_REQUEST['gscore'])) {
 			$score = $app->input->getInt('gscore',0);
 			$this->session->set('session_score', $score, 'jvarcade');
@@ -232,7 +230,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	}
 	
 	public function handleV32ScoreSubmit() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$gscore_real = $app->input->getInt('gscore', 0);
 		$gscore = $app->input->getInt('enscore', 0);
 		$gname = $app->input->getString('gname', '');
@@ -264,7 +262,7 @@ class jvarcadeControllerScore extends JControllerLegacy {
 	// Handle Pnflash games
 	
 	public function handlePnflashScoreSubmit() {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$gid = $app->input->getInt('gid' , 0);
 		$func = $app->input->getString('func', '');
 		$score = $app->input->getInt('score', null);

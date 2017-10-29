@@ -13,12 +13,12 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class jvarcadeViewedit_contest extends JViewLegacy {
+class jvarcadeViewedit_contest extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 		
 		$model = $this->getModel();
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$task = $app->input->get('task', 'edit_contest');
 		$this->task = $task;
 
@@ -45,7 +45,7 @@ class jvarcadeViewedit_contest extends JViewLegacy {
 		}
 		$this->contest = $contest;
 		
-		$editor = JFactory::getEditor();
+		$editor = Joomla\CMS\Factory::getEditor();
 		$this->editor = $editor;
 		$editor_params = array('mode' => 'advanced');
 		$this->editor_params = $editor_params;

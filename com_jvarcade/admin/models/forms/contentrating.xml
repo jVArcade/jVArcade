@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+			/>
+		<field
+			name="image"
+			type="file"
+			/>
+		<field
+			name="name"
+			type="text"
+			size="40"
+			label="COM_JVARCADE_CONTENT_RATINGS_NAME"
+			/>
+		<field
+			name="description"
+			type="editor"
+			label="COM_JVARCADE_CONTENT_RATINGS_DESCRIPTION"
+			/>
+		<field
+			name="warningrequired"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			label="COM_JVARCADE_CONTENT_RATINGS_WARNING"
+			description="COM_JVARCADE_CONTENT_RATINGS_WARNING_DESC"
+			default="0"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+		<field
+			name="warningrequired"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			label="COM_JVARCADE_CONTENT_RATINGS_PUBLISHED"
+			default="0"
+			>
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+		</field>
+	</fieldset>
+</form>

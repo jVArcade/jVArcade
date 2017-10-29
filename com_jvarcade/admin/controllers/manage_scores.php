@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 
 
 
-class jvarcadeControllerManage_scores extends JControllerLegacy {
+class jvarcadeControllerManage_scores extends Joomla\CMS\MVC\Controller\BaseController {
 	
 	protected $default_view = 'manage_scores';
 	

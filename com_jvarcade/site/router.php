@@ -13,7 +13,7 @@
 // no direct access
 defined('_JEXEC') or die;
 
-$JVersion = new JVersion();
+$JVersion = new Joomla\CMS\Version();
 $version = $JVersion->getShortVersion();
  
 if (version_compare($version, '3.3.0', 'lt')) {
@@ -38,10 +38,12 @@ if (version_compare($version, '3.3.0', 'lt')) {
 class JvarcadeRouter implements JComponentRouterInterface {
 	protected $dbo;
 	protected $app;
+	protected $config;
 	
 	public function __construct() {
-		$this->dbo = JFactory::getDBO();
-		$this->app = JFactory::getApplication();
+		$this->dbo = Joomla\CMS\Factory::getDBO();
+		$this->app = Joomla\CMS\Factory::getApplication();
+		$this->config = Joomla\CMS\Component\ComponentHelper::getParams('com_jvarcade');
 	}
 	
 	public function build(&$query) {
@@ -49,10 +51,10 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		$task = '';
 		$aliases = $this->getAlias();
 		
-		if(isset($query['task'])) {
-			$task = $query['task'];
-			$segments[] = (is_array($aliases) && count($aliases) && isset($aliases[$task])) ? $aliases[$task] : $query['task'];
-			unset($query['task']);
+		if(isset($query['view'])) {
+			$task = $query['view'];
+			$segments[] = (is_array($aliases) && count($aliases) && isset($aliases[$task])) ? $aliases[$task] : $query['view'];
+			unset($query['view']);
 		}
 		
 		if (($task == 'game' || $task == 'scores' || $task == 'contestdetail' || $task == 'folder') && isset($query['id'])) {
@@ -142,9 +144,9 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		if (isset($segments[0])) {
 			// the first case is when we access a joomla menu and the first segment is not the task
 		    if (strpos($segments[0], 'id:') !== false || strpos($segments[0], 'uid:') !== false || strpos($segments[0], 'tag:') !== false || strpos($segments[0], 'start:') !== false || strpos($segments[0], 'ord:') !== false || strpos($segments[0], 'dir:') !== false) {
-				$vars['task'] = $this->getMenuQuery('task', 'home');
+				$vars['view'] = $this->getMenuQuery('view', 'home');
 			} else { 
-				$vars['task'] = (is_array($aliases) && count($aliases) && isset($aliases[$segments[0]])) ? $aliases[$segments[0]] : $segments[0];
+				$vars['view'] = (is_array($aliases) && count($aliases) && isset($aliases[$segments[0]])) ? $aliases[$segments[0]] : $segments[0];
 			}
 		}
 		
@@ -222,9 +224,16 @@ class JvarcadeRouter implements JComponentRouterInterface {
 		static $aliases;
 		if (is_null($aliases) || !is_array($aliases) || !count($aliases)) {
 			$aliases = array();
-			$this->dbo->setQuery('SELECT optname, value from #__jvarcade_settings WHERE optname LIKE \'%alias%\'');
-			$results = $this->dbo->loadAssocList();
-			foreach($results as $result) {
+			$results = array(
+			    'alias_folder' => $this->config->get('alias_folder'),
+			    'alias_leaderboard' => $this->config->get('alias_leaderboard'),
+			    'alias_popular' => $this->config->get('alias_popular'),
+			    'alias_newest' => $this->config->get('alias_newest'),
+			    'alias_contests' => $this->config->get('alias_contests'),
+			    'alias_favourite' => $this->config->get('alias_favourtie'),
+			    'alias_random' => $this->config->get('alias_random')
+			);
+			foreach($results as $result['optname'] => $result['value']) {
 				if (isset($result['value']) && $result['value']) {
 					$aliases[str_replace('alias_', '', $result['optname'])] = $this->makeAlias($result['value']);
 				}

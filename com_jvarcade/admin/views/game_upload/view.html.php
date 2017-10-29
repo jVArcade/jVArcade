@@ -16,13 +16,13 @@ defined('_JEXEC') or die('Restricted access');
 jimport('bootstrap.framework');
 
 
-class jvarcadeViewGame_upload extends JViewLegacy {
+class jvarcadeViewGame_upload extends Joomla\CMS\MVC\View\HtmlView {
 	var $folderlist;
 
 	public function display($tpl = null) {
-		$config = JFactory::getConfig();
+		$config = Joomla\CMS\Factory::getConfig();
 		$model = $this->getModel();
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$this->task = $app->input->getCmd('task', 'game_upload');
 		$published = 1;
 		$this->published = $published;
