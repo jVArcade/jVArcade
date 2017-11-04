@@ -2,13 +2,13 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
 <extension type="component" version="3.4" method="upgrade">
 	<name>jVArcade</name>
-	<version>2.14</version>
+	<version>2.15</version>
 	<copyright>(C) All rights reserved. 2017 jVArcade.com</copyright>
-	<creationDate>12 Mar 2016</creationDate>
-	<author>jVitals Team</author>
+	<creationDate>1 Nov 2017</creationDate>
+	<author>jvarcade.com</author>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorEmail>admin@jvitals.com</authorEmail>
-	<authorUrl>http://www.jvitals.com</authorUrl>
+	<authorEmail>admin@jvarcade.com</authorEmail>
+	<authorUrl>http://www.jvarcade.com</authorUrl>
 	<description>A Joomla Arcade Component</description>
 	<scriptfile>install.script.php</scriptfile>
 	<install>
