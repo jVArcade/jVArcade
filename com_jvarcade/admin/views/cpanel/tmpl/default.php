@@ -155,6 +155,9 @@ defined('_JEXEC') or die('Restricted access');
 							<th>Thanks To:</th>
 						</tr>
 						<tr>
+							<td>Hazzaa Kassis and the jVitals Team for creating jVArcade</td>
+						</tr>
+						<tr>
 							<td><a href="http://www.puarcade.com">Pragma @ pragmaticutopia.com</a> for creating, nuturing and enhancing the arcade that so many people use today.</td>
 						</tr>
 						<tr>
