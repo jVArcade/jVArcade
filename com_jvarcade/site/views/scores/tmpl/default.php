@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -27,14 +27,14 @@ defined('_JEXEC') or die;
 		<table class="pu_ListHeader">
 			<tr>
 				<th width="25%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_DATE', 'p.date', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_DATE', 'p.date', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="25%" style="text-align: center;"><?php echo JText::_('COM_JVARCADE_AVATAR'); ?></th>
 				<th width="25%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_NAME', (!(int)$this->config->get('show_usernames') ? 'u.name' : 'u.username'), @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_NAME', (!(int)$this->config->get('show_usernames') ? 'u.name' : 'u.username'), @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="25%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_SCORES', 'p.score', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_SCORES', 'p.score', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 			</tr>
 		</table>
@@ -72,7 +72,7 @@ defined('_JEXEC') or die;
 	
 <?php if (!$this->table_only) :?>
 	<?php if ($this->config->get('rate') == 1) : ?> 
-		<?php JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
+		<?php Joomla\CMS\HTML\HTMLHelper::script('com_jvarcade/jquery.rating.js', false, true); ?>
 		<div id="rate1" class="rating">
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
@@ -81,8 +81,8 @@ defined('_JEXEC') or die;
 		</script>
 		</div>
 	<?php endif; ?>
-	<br /><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $this->game['id']); ?>"><?php echo JText::_('COM_JVARCADE_PLAY_THIS'); ?></a>
-	<br /><a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home'); ?>"><?php echo JText::_('COM_JVARCADE_CHOOSE_ANOTHER'); ?></a>
+	<br /><a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $this->game['id']); ?>"><?php echo JText::_('COM_JVARCADE_PLAY_THIS'); ?></a>
+	<br /><a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=home'); ?>"><?php echo JText::_('COM_JVARCADE_CHOOSE_ANOTHER'); ?></a>
 
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
 	
@@ -90,7 +90,7 @@ defined('_JEXEC') or die;
 <?php endif; ?>
 <input type="hidden" name="option" value="com_jvarcade" />
 <input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
-<input type="hidden" name="task" value="<?php echo (!$this->table_only ? 'scores' : 'game') ;?>" />
+<input type="hidden" name="view" value="<?php echo (!$this->table_only ? 'scores' : 'game') ;?>" />
 <input type="hidden" name="id" value="<?php echo $this->game_id; ?>" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />

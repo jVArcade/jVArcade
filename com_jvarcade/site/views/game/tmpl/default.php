@@ -1,11 +1,11 @@
 ﻿<?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div id="puarcade_wrapper">
 	<?php if ($this->config->get('rate') == 1) : ?> 
-		<?php  JHtml::script('com_jvarcade/jquery.rating.js', false, true); ?>
+		<?php  Joomla\CMS\HTML\HTMLHelper::_('script', 'com_jvarcade/jquery.rating.js', array('version' => 'auto', 'relative' => true)); ?>
 	<?php endif; ?>
 	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); ?>
@@ -244,7 +244,7 @@ defined('_JEXEC') or die('Restricted access');
 				$embed = ob_get_contents(); 
 				ob_end_clean();
 				if ($this->config->get('window') == 1) {
-					echo JHtml::_('bootstrap.modal', $modalId); ?>
+					echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.modal', $modalId); ?>
 					<style>
 					div .modal {
 						/* new custom width */
@@ -264,7 +264,7 @@ defined('_JEXEC') or die('Restricted access');
 						<div class="modal-body"><?php echo $embed; ?></div>
 					</div>
 					 <?php if ($this->game['warningrequired']) {
-						 echo JHtml::_('bootstrap.modal', 'warnModal'); ?>
+						 echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.modal', 'warnModal'); ?>
 						 <style>
 						 	
 						 #warnModal .modal-body {
@@ -276,7 +276,7 @@ defined('_JEXEC') or die('Restricted access');
 						 		<img id="jva-warning-img" src="<?php echo JVA_IMAGES_SITEPATH . 'contentrating/gamewarning.png'?>">
 						 	</div>
 						 	<div class="modal-footer">
-						 		<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
+						 		<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
 						 	<input type="button" class="btn btn-primary" data-dismiss="modal" value="Continue">
 						 	</div>
 						 </div>
@@ -329,7 +329,7 @@ defined('_JEXEC') or die('Restricted access');
 				} else {
 				if ($this->game['warningrequired']): 
 				$warning =  trim(strip_tags($this->game['rating_desc']));
-				echo JHtml::_('bootstrap.modal', 'warnModal');?>
+				echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.modal', 'warnModal');?>
 					<style>
 					#warnModal .modal-body {
 						max-height: 600px;
@@ -343,7 +343,7 @@ defined('_JEXEC') or die('Restricted access');
             			<img id="jva-warning-img" src="<?php echo JVA_IMAGES_SITEPATH . 'contentrating/gamewarning.png'?>">	
 						</div>
 						<div class="modal-footer">
-						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
+						<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=home') ?>"><button type="button" class="btn btn-primary">Leave This Page</button></a>
 						<input type="button" class="btn btn-primary" data-dismiss="modal" value="Continue">
 						</div>
 					</div>
@@ -373,8 +373,7 @@ defined('_JEXEC') or die('Restricted access');
 		<!-- BOOKMARKS -->
 		<?php include_once(JVA_TEMPLATES_INCPATH . 'bookmarks.php');
         
-			if ($this->config->get('enable_dload') == 1 && $this->can_dload) : 
-				?>
+			if ($this->config->get('enable_dload') == 1 && $this->can_dload) : ?>
             	<a href="javascript:void(0)" onclick="jQuery.jva.downloadGame(<?php echo $this->game['id']; ?>); return false;">
 				<img src="<?php echo JVA_IMAGES_SITEPATH; ?>dlg.png" /></a>
              <?php endif; ?>
@@ -488,4 +487,4 @@ defined('_JEXEC') or die('Restricted access');
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'footer.php'); ?>
 	
 </div>
-<?php echo JHTML::_('behavior.keepalive'); ?>
+<?php echo Joomla\CMS\HTML\HTMLHelper::_('behavior.keepalive'); ?>

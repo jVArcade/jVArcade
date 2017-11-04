@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -52,7 +52,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 			$orderby = ' ORDER BY p.date DESC ';
 		}
 		
-		$query = 'SELECT SQL_CALC_FOUND_ROWS p.*, g.id as gameid, g.gamename, g.title, g.imagename, g.scoring, g.reverse_score, u.id as userid, u.username, u.name 
+		$query = 'SELECT SQL_CALC_FOUND_ROWS p.*, g.id as gameid, g.gamename, g.description, g.title, g.imagename, g.scoring, g.reverse_score, u.id as userid, u.username, u.name 
 				FROM #__jvarcade p 
 					LEFT JOIN #__jvarcade_games g ON p.gameid = g.id 
 					LEFT JOIN #__users u ON u.id = p.userid 
@@ -68,7 +68,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	}
 	
 	public function saveScore($game_id, $game_title, $userid, $username, $score, $highestscore, $trigger) {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$res = 0;
 		
@@ -312,7 +312,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	}
 	
 	public function registerScore($game_id, $game_title, $userid, $username, $score, $reverse) {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$player_ip = $app->input->server->get('REMOTE_ADDR', '0.0.0.0', 'raw');
 		$dispatcher = JDispatcher::getInstance();
 		$contests = $this->getContestsByGame($game_id);
@@ -394,7 +394,7 @@ class jvarcadeModelScores extends jvarcadeModelCommon {
 	
 	public function checkUpdateLeaderBoard($contest_id = 0) {
 		$path = $this->global_conf->get('tmp_path') . '/' . 'lb_' . $contest_id . '.txt';
-		if (is_file($path) && (((int)file_get_contents($path) + ((int)$this->config->updatelb*60)) < time())) {
+		if (is_file($path) && (((int)file_get_contents($path) + ((int)$this->config->get('updatelb')*60)) < time())) {
 			return true;
 		}
 		return false;

@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -13,15 +13,15 @@
 // no direct access
 defined('_JEXEC') or die;
 
-class jvarcadeViewList extends JViewLegacy {
+class jvarcadeViewList extends Joomla\CMS\MVC\View\HtmlView {
 	
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication();
+		$mainframe = Joomla\CMS\Factory::getApplication();
 		$pathway = $mainframe->getPathway();
-		$doc = JFactory::getDocument();
-		$user = JFactory::getUser();
-		$pro_user = JFactory::getUser($mainframe->input->get('uid') ?: null);
+		$doc = Joomla\CMS\Factory::getDocument();
+		$user = Joomla\CMS\Factory::getUser();
+		$pro_user = Joomla\CMS\Factory::getUser($mainframe->input->get('uid') ?: null);
 		$task = $mainframe->input->get('view');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
@@ -127,7 +127,7 @@ class jvarcadeViewList extends JViewLegacy {
 			$parents = $model->getParents($folder_id);
 			$doctitle = array();
 			foreach($parents as $parent) {
-				$pathway->addItem($parent['name'], JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $parent['id']));
+				$pathway->addItem($parent['name'], Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $parent['id']));
 				$doctitle[] = $parent['name'];
 			}
 			$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . implode(' > ', $doctitle));

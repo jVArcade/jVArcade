@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.13
- * @date		2016-02-18
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 class jvarcadeTableContentrating extends Joomla\CMS\Table\Table {

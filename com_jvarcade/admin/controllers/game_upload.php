@@ -1,12 +1,12 @@
 <?php
 /**
  * @package		jVArcade
-* @version		2.12
-* @date		2014-05-17
-* @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
-* @link		http://jvitals.com
-*/
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvarcade.com
+ */
 
 
 
@@ -56,7 +56,7 @@ class jvarcadeControllerGame_upload extends Joomla\CMS\MVC\Controller\BaseContro
 		
 		if ($errormsg) {
 			$this->app->enqueueMessage($errormsg, 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
+			$this->app->redirect('index.php?option=com_jvarcade&view=game_upload');
 			exit;
 		}
 		
@@ -70,7 +70,7 @@ class jvarcadeControllerGame_upload extends Joomla\CMS\MVC\Controller\BaseContro
 		$package = jvaHelper::unpack($tmp_dest);
 		if (!$package) {
 			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
+			$this->app->redirect('index.php?option=com_jvarcade&view=game_upload');
 			exit;
 		}
 		
@@ -90,7 +90,7 @@ class jvarcadeControllerGame_upload extends Joomla\CMS\MVC\Controller\BaseContro
 	
 		if ($errormsg) {
 			$this->app->enqueueMessage($errormsg, 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
+			$this->app->redirect('index.php?option=com_jvarcade&view=game_upload');
 			jexit();
 		}
 	

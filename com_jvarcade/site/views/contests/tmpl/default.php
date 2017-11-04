@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -26,19 +26,19 @@ defined('_JEXEC') or die('Restricted access');
 				<th width="13%">
 				</th> 
 				<th width="20%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_NAME', 'name', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_NAME', 'name', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="15%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_START', 'startdatetime', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_START', 'startdatetime', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="10%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_END', 'enddatetime', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_END', 'enddatetime', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="10%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_REGISTRATION', 'registration', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_REGISTRATION', 'registration', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 				<th width="10%" style="text-align: center;">
-					<?php echo JHTML::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_STATUS', 'status', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
+					<?php echo Joomla\CMS\HTML\HTMLHelper::_('jvarcade.html.sort', 'COM_JVARCADE_CONTESTS_STATUS', 'status', @$this->lists['order_Dir'], @$this->lists['order'], $this->sort_url); ?>
 				</th>
 			</tr>
 		</table>
@@ -50,12 +50,12 @@ defined('_JEXEC') or die('Restricted access');
 		<?php foreach ($this->contests as $contest) : ?>
 			<tr class="sectiontableentry">
 				<td width="10%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id'], false); ?>">
+					<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id'], false); ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . ($contest['imagename'] ? 'contests/' . $contest['imagename'] : 'cpanel/contests.png') ; ?>" border="0" alt="" />
 					</a>
 				</td>
 				<td width="18%">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id']); ?>">
+					<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $contest['id']); ?>">
 						<b><?php echo stripslashes($contest['name']); ?></b>
 					</a>
 					<br /><?php echo html_entity_decode($contest['description'], ENT_QUOTES, 'UTF-8'); ?>
@@ -88,7 +88,7 @@ defined('_JEXEC') or die('Restricted access');
 	
 </div>
 <input type="hidden" name="option" value="com_jvarcade" />
-<input type="hidden" name="task" value="<?php echo $this->task; ?>" />
+<input type="hidden" name="view" value="<?php echo $this->task; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />

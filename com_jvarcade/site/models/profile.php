@@ -1,12 +1,12 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
-* @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
-* @link		http://jvitals.com
-*/
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
+ * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
+ * @link		http://jvarcade.com
+ */
 
 
 
@@ -17,7 +17,7 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 	
 	public function getUserScores($user_id) {
 		$query = 'SELECT b.score, b.date, c.title, c.imagename, c.description, c.id FROM #__jvarcade AS b, #__jvarcade_games AS c WHERE b.userid ='
-				. $user_id .' AND b.gameid = c.id ORDER BY b.date DESC LIMIT ' . $this->config->profile_scores;
+				. $user_id .' AND b.gameid = c.id ORDER BY b.date DESC LIMIT ' . $this->config->get('profile_scores');
 		$this->dbo->setQuery($query);
 		$user_scores = $this->dbo->loadAssocList();
 		return $user_scores;
@@ -31,7 +31,7 @@ class jvarcadeModelProfile extends jvarcadeModelCommon {
 	   	    ' JOIN #__jvarcade_faves f' .
 	   	    '	ON g.id = f.gid AND f.userid = ' . $this->dbo->Quote($user_id) .
 	   	    ' WHERE g.' . $this->dbo->quoteName('published') . ' = ' . $this->dbo->Quote(1) .
-	   	    ' ORDER BY game_id DESC LIMIT ' . $this->config->profile_faves;
+	   	    ' ORDER BY game_id DESC LIMIT ' . $this->config->get('profile_faves');
 	    $this->dbo->setQuery($query);
 	    $faves = $this->dbo->loadAssocList();
 	    return $faves;

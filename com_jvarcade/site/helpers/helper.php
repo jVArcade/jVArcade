@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -26,17 +26,17 @@ class jvaHelper {
 			$srv_tz = new DateTimeZone(date('e'));
 			$user_tz = new DateTimeZone(COM_JVARCADE_TIMEZONE);
 			
-			$date = JFactory::getDate($input, $srv_tz);
+			$date = Joomla\CMS\Factory::getDate($input, $srv_tz);
 			$date->setTimezone($user_tz);
 			
 			$date_string = $date->format($date_format, true);
 			$time_string = $date->format($time_format, true);
 			
-			$today = JFactory::getDate(date('d-m-Y H:i:s'), $srv_tz);
+			$today = Joomla\CMS\Factory::getDate(date('d-m-Y H:i:s'), $srv_tz);
 			$today->setTimezone($user_tz);
 			$today_string = $today->format($date_format, true);
 			
-			$yesterday = JFactory::getDate(date('d-m-Y H:i:s', mktime(date('H'), date('i'), date('s'), date("m")  , date("d")-1, date("Y"))), $srv_tz);
+			$yesterday = Joomla\CMS\Factory::getDate(date('d-m-Y H:i:s', mktime(date('H'), date('i'), date('s'), date("m")  , date("d")-1, date("Y"))), $srv_tz);
 			$yesterday->setTimezone($user_tz);
 			$yesterday_string = $yesterday->format($date_format, true);
 			
@@ -103,7 +103,7 @@ class jvaHelper {
 		$archivename = JPath::clean($archivename);
 
 		// do the unpacking of the archive
-		$result = JArchive::extract($archivename, $extractdir);
+		$result = Joomla\Archive\Archive::extract($archivename, $extractdir);
 
 		if ( $result === false ) {
 			return false;
@@ -175,7 +175,7 @@ class jvaHelper {
 	}
 	
 	public static function checkForNewVersion($modrequest = false) {
-		$config = JFactory::getConfig();
+		$config = Joomla\CMS\Factory::getConfig();
 		$tmp_path = $config->get('tmp_path');
 		$filename = 'jva-version-compare.txt';
 		$tmpfile = $tmp_path . '/' . $filename;
@@ -194,7 +194,7 @@ class jvaHelper {
 		if (!$filefound) $dorequest = true;
 		
 		if ($dorequest) {
-			$JVersion = new JVersion();
+			$JVersion = new Joomla\CMS\Version();
 			
 			$opts = array(
 					'http'=>array(
@@ -241,10 +241,10 @@ class jvaHelper {
 		}
 		
 		// Version check
-		$session = JFactory::getSession();
+		$session = Joomla\CMS\Factory::getSession();
 		$sessionQueue = $session->get('application.queue');
 		if ($info && (!is_array($sessionQueue) || !in_array(array('message' => $info, 'type' => 'notice'), $sessionQueue))) {
-			$app = JFactory::getApplication();
+			$app = Joomla\CMS\Factory::getApplication();
 			if (!$modrequest){
 				$app->enqueueMessage($info, 'notice');
 			}
@@ -265,7 +265,7 @@ class jvaHelper {
 			
 			//Community Builder
 			if ((int)$config->get('scorelink') == 2) {
-				$db = JFactory::getDBO();
+				$db = Joomla\CMS\Factory::getDBO();
 				$db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id = ' . (int)$userid);
 				$_avatar = $db->loadResult();
 				if (strlen($_avatar) && file_exists(JPATH_BASE . '/images/comprofiler/' . $_avatar) && ($img_size = @getimagesize(JPATH_BASE . '/images/comprofiler/' . $_avatar))) {
@@ -353,7 +353,7 @@ class jvaHelper {
 				}
 			//Community Builder
 			} elseif ((int)$config->get('scorelink') == 2) {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->get('communitybuilder_itemid') ) . '">' . $username . '</a>';
+				$_name = '<a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_comprofiler&task=userProfile&user=' . (int)$userid . '&Itemid=' . (int)$config->get('communitybuilder_itemid') ) . '">' . $username . '</a>';
 			//JomSocial
 			} elseif (((int)$config->get('scorelink') == 1) && is_file(JPATH_ROOT . '/components/com_community/libraries/core.php')) {
 				include_once(JPATH_ROOT . '/components/com_community/libraries/core.php');
@@ -361,7 +361,7 @@ class jvaHelper {
 				$_name = '<a href="' . CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$userid) . '">' . $js_user->getDisplayName() . '</a>';
 			// No integration
 			} else {
-				$_name = '<a href="' . JRoute::_('index.php?option=com_jvarcade&view=profile&uid=' . (int)$userid) . '">' . $username . '</a>';
+				$_name = '<a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=profile&uid=' . (int)$userid) . '">' . $username . '</a>';
 			}
 			
 			$jva_userlinks[(int)$userid] = $_name;
@@ -417,10 +417,16 @@ class jvaHelper {
 }
 
 class jvarcadeHtml {
+    
+    public static function booleanlist ($name, $attributes, $value, $yes, $no, $id) {
+        
+        return '<fieldset id="' . $name . '" class="radio btn-group btn-group-yesno">' . str_replace(array('<div class="controls">', '</div>'), '',JHtml::_('select.booleanlist',  $name, $attributes, $value, $yes, $no, $id)) . '</fieldset>';
+        
+    }
 
 	
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $sort_url, $new_direction = 'asc', $task = null) {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$linktitle = JText::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN');
 		$direction = strtolower($direction);
 		$images = array('sort_asc.png', 'sort_desc.png');
@@ -434,11 +440,11 @@ class jvarcadeHtml {
 		
 		$sort_url .= ($app->input->getInt('limitstart', 0) ? '&limitstart=' . $app->input->getInt('limitstart', 0)  : '') . '&filter_order=' . $order . '&filter_order_Dir=' . $direction;
 		
-		$html = '<a href="' . JRoute::_($sort_url) . '" rel="nofollow" title="' . $linktitle . '">';
+		$html = '<a href="' . Joomla\CMS\Router\Route::_($sort_url) . '" rel="nofollow" title="' . $linktitle . '">';
 		$html .= JText::_($title);
 
 		if ($order == $selected) {
-			$html .= JHtml::_('image','system/'.$images[$index], '', null, true);
+			$html .= Joomla\CMS\HTML\HTMLHelper::_('image','system/'.$images[$index], '', null, true);
 		}
 		
 		$html .= '</a>';

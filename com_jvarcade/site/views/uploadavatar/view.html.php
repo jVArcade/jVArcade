@@ -1,19 +1,19 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 defined('_JEXEC') or die;
 
-class jvarcadeViewUploadavatar extends JViewLegacy {
+class jvarcadeViewUploadavatar extends Joomla\CMS\MVC\View\HtmlView {
 	
 	public function display($tpl=null){
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$this->user_id = (int)$app->input->get('id');
  
 		// Display the view

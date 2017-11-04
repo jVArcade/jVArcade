@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -13,25 +13,24 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//jimport('joomla.application.component.view');
 jimport('joomla.html.pagination');
 
-class jvarcadeViewGame extends JViewLegacy {
+class jvarcadeViewGame extends Joomla\CMS\MVC\View\HtmlView {
 	
 	var $comment_data;
 	
 	function display($tpl = null) {
 		
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$pathway = $app->getPathway();
-		$doc = JFactory::getDocument();
-		$user = JFactory::getUser();
+		$doc = Joomla\CMS\Factory::getDocument();
+		$user = Joomla\CMS\Factory::getUser();
 		$this->user = $user;
 		
 		$model = $this->getModel();
 
 		// vars
-		$scheme = (strpos(JURI::root(), 'https://') !== false) ? 'https://' : 'http://';
+		$scheme = (strpos(Joomla\CMS\Uri\Uri::root(), 'https://') !== false) ? 'https://' : 'http://';
     	$this->scheme = $scheme;
 		$sitename = $app->get('sitename');
 		$this->sitename = $sitename;
@@ -55,9 +54,9 @@ class jvarcadeViewGame extends JViewLegacy {
 		$this->can_dload = $can_dload;
 
 		// bookmarks
-		$uri = JURI::getInstance();
+		$uri = Joomla\CMS\Uri\Uri::getInstance();
 		$prefix = $uri->toString(array('host', 'port'));
-		$bookmark_url = JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game_id, false);
+		$bookmark_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id, false);
 		if (!preg_match('#^/#', $bookmark_url)) {
 			$bookmark_url = '/' . $bookmark_url;
 		}
@@ -87,7 +86,7 @@ class jvarcadeViewGame extends JViewLegacy {
 		$this->buildPathway($pathway, $parents, $game['title']);
 		
 		// Comments
-		$db	= JFactory::getDbo();
+		$db	= Joomla\CMS\Factory::getDbo();
 		$sql = "SELECT element as `option`, enabled FROM #__extensions WHERE `type` = 'component' AND element IN ('com_comment', 'com_jcomments', 'com_jacomment')";
 		$db->setQuery($sql);
 		$this->comment_data = $db->loadAssocList('option');
@@ -99,16 +98,16 @@ class jvarcadeViewGame extends JViewLegacy {
 		parent::display($tpl);
 		$result = $dispatcher->trigger('onPUAAfterFlashGame', array($game['id'], $game['title'], (int)$user->id, ((int)$user->id ? $user->username : $this->config->get('guest_name')) ));
 		
-		$session = JFactory::getSession();
+		$session = Joomla\CMS\Factory::getSession();
 		$session->set('session_starttime', time(), 'jvarcade');
 		//~ session_write_close();
 		
 	}
 	
 	function buildFolders($folders) {
-		$folderpath = '<a href=' . JRoute::_('index.php?option=com_jvarcade&view=home') . '>' . stripslashes($this->config->get('title')) . '</a>';
+		$folderpath = '<a href=' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=home') . '>' . stripslashes($this->config->get('title')) . '</a>';
 		foreach ($folders as $folder) {
-		$folderpath .= ' » <a href=' . JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']) . '>' . $folder['name'] . '</a>';
+		$folderpath .= ' » <a href=' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']) . '>' . $folder['name'] . '</a>';
 		}
 		return $folderpath;
 		
@@ -116,7 +115,7 @@ class jvarcadeViewGame extends JViewLegacy {
 	
 	function buildPathway(&$pathway, $folders, $title) {
 		foreach ($folders as $folder) {
-			$pathway->addItem($folder['name'], JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']));
+			$pathway->addItem($folder['name'], Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']));
 		}
 		$pathway->addItem($title);
 	}

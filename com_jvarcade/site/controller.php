@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -18,6 +18,8 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 	private $global_conf = null;
 	private $db = null;
 	private $config = null;
+	
+	protected $default_view = 'home';
 
 
 	public function __construct() {
@@ -27,101 +29,148 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$conf = new jvarcadeModelCommon();
 		$this->config = $conf->getConf();
 	}
-
-	public function home ($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Games');
-		$view = $this->getView('home', $viewType);
-		$view->setModel($model, true);
-		$layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
-		$view->setLayout($layout);
-		$view->set('config', $this->config);
-		$view->set('layout', $layout);
-		$view->display();
-	}
 	
-	public function profile($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Profile');
-		$games_model = $this->getModel('Games');
-		$view = $this->getView('profile', $viewType);
-		$view->setModel($model, true);
-		$view->setModel($games_model);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
-	}
-	
-	public function uploadavatar($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$view = $this->getView('uploadavatar', $viewType);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
-	}
-	// LISTINGS
-	
-	public function newest() {
-		$this->listgames();
-	}
-
-	public function popular() {
-		$this->listgames();
-	}
-
-	public function favourite() {
-		$this->listgames();
-	}
-
-	public function folder() {
-		$this->listgames();
-	}
-
-	public function showtag() {
-		$this->listgames();
-	}
-
-	public function random() {
-		$this->listgames();
-	}
-
-	public function listgames($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Games');
-		$view = $this->getView('list', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
-		$view->set('layout', $layout);
-		$view->display();
-		
-	}
-
-	public function contests($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Scores');
-		$view = $this->getView('contests', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
-	}
-
-	public function contestdetail($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Scores');
-		$view = $this->getView('contestdetail', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
+	public function display($cachable = false, $urlparams = false) {
+	    
+	    $vName = $this->input->get('view', 'cpanel');
+	    
+	    switch ($vName)
+	    {
+	        case 'home' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Games');
+	            $view = $this->getView('home', $viewType);
+	            $view->setModel($model, true);
+	            $layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
+	            $view->setLayout($layout);
+	            $view->set('config', $this->config);
+	            $view->set('layout', $layout);
+	            $view->display(); 
+	        break;
+	        
+	        case 'profile' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Profile');
+	            $games_model = $this->getModel('Games');
+	            $view = $this->getView('profile', $viewType);
+	            $view->setModel($model, true);
+	            $view->setModel($games_model);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'uploadavatar' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $view = $this->getView('uploadavatar', $viewType);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'newest' :
+	        case 'popular' :
+	        case 'favourite':
+	        case 'folder' :
+	        case 'showtag' :
+	        case 'random' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Games');
+	            $view = $this->getView('list', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $layout = (strlen($this->config->get('homepage_view')) && $this->config->get('homepage_view') && file_exists(JVA_HOMEVIEW_INCPATH . $this->config->get('homepage_view') . '.php')) ? $this->config->get('homepage_view') : 'default' ;
+	            $view->set('layout', $layout);
+	            $view->display();
+	        break;
+	        
+	        case 'contests' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Scores');
+	            $view = $this->getView('contests', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'contestdetail' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Scores');
+	            $view = $this->getView('contestdetail', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'game' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Games');
+	            $scores_model = $this->getModel('Scores');
+	            $view = $this->getView('game', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('scores_model', $scores_model);
+	            $view->set('config', $this->config);
+	            
+	            if ((int)$this->config->get('scoreundergame')) {
+	                ob_start();
+	                $this->scores(false, false, true);
+	                $scores_table = ob_get_clean();
+	                $view->set('scores_table', $scores_table);
+	            }
+	            
+	            $view->display();
+	        break;
+	        
+	        case 'gametags' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Games');
+	            $view = $this->getView('gametags', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'leaderboard' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Scores');
+	            $view = $this->getView('leaderboard', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->display();
+	        break;
+	        
+	        case 'scores':
+	            $this->scores(false, false, false);
+	        break;
+	        
+	        case 'latestscores' :
+	            $document = Joomla\CMS\Factory::getDocument();
+	            $viewType = $document->getType();
+	            $model = $this->getModel('Scores');
+	            $games_model = $this->getModel('Games');
+	            $view = $this->getView('latestscores', $viewType);
+	            $view->setModel($model, true);
+	            $view->setLayout('default');
+	            $view->set('config', $this->config);
+	            $view->set('games_model', $games_model);
+	            $view->display();
+	        break;
+	    }
 	}
 	
 	public function contestregister() {
@@ -134,40 +183,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$model->ContestMembership($id, $user_id, $type);
 		$app->redirect(Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=contestdetail&id=' . $id, false));
 	}
-	
-	// GAME PAGE RELATED
-	
-	public function game($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Games');
-		$scores_model = $this->getModel('Scores');
-		$view = $this->getView('game', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('scores_model', $scores_model);
-		$view->set('config', $this->config);
-		
-		if ((int)$this->config->get('scoreundergame')) {
-			ob_start();
-			$this->scores(false, false, true);
-			$scores_table = ob_get_clean();
-			$view->set('scores_table', $scores_table);
-		}
-		
-		$view->display();
-	}
-	
-	public function gametags($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Games');
-		$view = $this->getView('gametags', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
-	}
+
 	
 	public function savetag() {
 		$app = Joomla\CMS\Factory::getApplication();
@@ -426,20 +442,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 	
 		
 	}
-	
-	
-	// LEADERBOARD
-	
-	public function leaderboard($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Scores');
-		$view = $this->getView('leaderboard', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->display();
-	}
+
 	
 	// SCORES
 	
@@ -455,20 +458,6 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$view->set('games_model', $games_model);
 		$view->set('table_only', $table_only);
 		$view->display();
-	}
-	
-	public function latestscores ($cachable = false, $urlparams = false) {
-		$document = Joomla\CMS\Factory::getDocument();
-		$viewType = $document->getType();
-		$model = $this->getModel('Scores');
-		$games_model = $this->getModel('Games');
-		$view = $this->getView('latestscores', $viewType);
-		$view->setModel($model, true);
-		$view->setLayout('default');
-		$view->set('config', $this->config);
-		$view->set('games_model', $games_model);
-		$view->display();
-		
 	}
 	
 	public function storescore() {
@@ -507,7 +496,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$session = Joomla\CMS\Factory::getSession();
 		
 		$userid = (int)$my->id ? (int)$my->id : 0;
-		$username = (int)$my->id ? $my->username : $this->config->guest_name;
+		$username = (int)$my->id ? $my->username : $this->config->get('guest_name');
 
 		$res = 0;
 		$message = '';
@@ -559,7 +548,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 					$res = 2;
 				} else if (is_numeric($score) && $score != 0) {
 					
-					if (!(int)$userid && (!(int)$this->config->allow_gplay || !(int)$this->config->allow_gsave)) {
+					if (!(int)$userid && (!(int)$this->config->get('allow_gplay') || !(int)$this->config->get('allow_gsave'))) {
 						// Check if guests can play and save
 						$res = 4;
 					} else {
@@ -622,7 +611,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 							
 							// CHECK IF WE ARE ABOVE THE MAXIMUM SCORES TO KEEP
 							$count = $scores_model->gameScoreCount($game_id);
-							if ($count < $this->config->table_max) {
+							if ($count < $this->config->get('table_max')) {
 								// We are not
 								$updatescore = true;
 							} else {
@@ -688,10 +677,10 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 
 		
 		if (!$ajaxscore) {
-			$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
+			$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid, false) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 			// Redirect to scores page for the game
 			$app->enqueueMessage($message);
-			$app->redirect(Joomla\CMS\Uri\Uri::root(true). '/index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+			$app->redirect(Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid, false));
 		} else {
 			$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid, false) . '" target="_blank">' . JText::_('COM_JVARCADE_SEE_SCORE_FOR_GAME') . '</a>';
 			echo $message;
@@ -719,7 +708,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$my = Joomla\CMS\Factory::getUser();
 		
 		$userid = (int)$my->id ? (int)$my->id : 0;
-		$username = (int)$my->id ? $my->username : $this->config->guest_name;
+		$username = (int)$my->id ? $my->username : $this->config->get('guest_name');
 		
 		$res = 0;
 		$message = '';
@@ -771,7 +760,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 						$res = 2;
 					} else if (is_numeric($score) && $score != 0) {
 						
-						if (!(int)$userid && (!(int)$this->config->allow_gplay || !(int)$this->config->allow_gsave)) {
+						if (!(int)$userid && (!(int)$this->config->get('allow_gplay') || !(int)$this->config->get('allow_gsave'))) {
 							// Check if guests can play and save
 							$res = 4;
 						} else {
@@ -834,7 +823,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 								
 								// CHECK IF WE ARE ABOVE THE MAXIMUM SCORES TO KEEP
 								$count = $scores_model->gameScoreCount($game_id);
-								if ($count < $this->config->table_max) {
+								if ($count < $this->config->get('table_max')) {
 									// We are not
 									$updatescore = true;
 								} else {
@@ -890,11 +879,11 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 						break;
 				}
 				
-				$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
+				$message .= ' <a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game_id . '&fid=' . $folderid . '&Itemid=' . $Itemid, false) . '">' . JText::_('COM_JVARCADE_PLAY_AGAIN') . '</a>';
 				// it's not clear what to do with the message.. shall we redirect?
 				$app->enqueueMessage($message);
 				
-				$app->redirect(Joomla\CMS\Uri\Uri::root(true). '/index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid);
+				$app->redirect(Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores&id=' . $game_id . '&Itemid=' . $Itemid, false));
 				//echo $message;
 				
 				exit;
@@ -928,7 +917,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 			case 'loadGameScores':
 
 				$order = $reverse == 1 ? 'ASC' : 'DESC';
-				$scorelist = clsPUArcade::GetScoreXML($game_id, $order, $this->config->display_max);
+				$scorelist = clsPUArcade::GetScoreXML($game_id, $order, $this->config->get('display_max'));
 				echo '&opSuccess=true&gameScores=' . $scorelist . '&endvar=1';
 				exit;
 				break;
@@ -944,7 +933,7 @@ class jvarcadeController extends Joomla\CMS\MVC\Controller\BaseController {
 		$Itemid1 = 0;
 		$Itemid2 = 0;
 		$menu = Joomla\CMS\Factory::getApplication()->getMenu();
-		$entry1 = $menu->getItems('link', 'index.php?option=com_jvarcade&view=home&task=home');
+		$entry1 = $menu->getItems('link', 'index.php?option=com_jvarcade&view=home');
 		if (is_array($entry1) && is_object($entry1[0])) $Itemid1 = (int)$entry1[0]->id;
 		$entry2 = $menu->getItems('link', 'index.php?option=com_jvarcade&view=home');
 		if (is_array($entry2) && is_object($entry2[0])) $Itemid2 = (int)$entry2[0]->id;

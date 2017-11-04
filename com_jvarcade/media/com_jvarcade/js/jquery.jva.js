@@ -8,7 +8,7 @@
 		showTags: function(id, status, Itemid) {
 			jQuery.post(JVA_AJAX_URL, {
 				"option": "com_jvarcade",
-				"task": "gametags",
+				"view": "gametags",
 				"format": "raw",
 				"tmpl": "component",
 				"id": id,

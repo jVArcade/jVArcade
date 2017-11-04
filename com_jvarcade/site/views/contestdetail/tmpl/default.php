@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -32,11 +32,11 @@ defined('_JEXEC') or die('Restricted access');
 			<br />
 			<?php if (is_array($this->members) && count($this->members) && array_key_exists($this->user->id, $this->members)) : ?>
 				<?php echo JText::_('COM_JVARCADE_CONTEST_ALREADY_REGISTERED'); ?><br/>
-				<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contestregister&type=0&id=' . $this->contest->id); ?>"><?php echo JText::_('COM_JVARCADE_UNREGISTER'); ?></a>
+				<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=contestregister&type=0&id=' . $this->contest->id); ?>"><?php echo JText::_('COM_JVARCADE_UNREGISTER'); ?></a>
 			<?php elseif ($this->slotsleft == 0) : ?>
 				<?php echo JText::_('COM_JVARCADE_CONTESTS_MAXIMUM_SLOTS_REACHED'); ?>
 			<?php else : ?>
-				<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=contestregister&type=1&id=' . $this->contest->id); ?>"><?php echo JText::_('COM_JVARCADE_REGISTER'); ?></a>
+				<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&task=contestregister&type=1&id=' . $this->contest->id); ?>"><?php echo JText::_('COM_JVARCADE_REGISTER'); ?></a>
 			<?php endif; ?>
 			<br/>
 		<?php endif; ?>
@@ -76,12 +76,12 @@ defined('_JEXEC') or die('Restricted access');
 						<?php echo $place; ?>
 					</td>
 					<td width="20%" style="text-align: center">
-						<?php if ($this->config->show_avatar == 1) : ?>
+						<?php if ($this->config->get('show_avatar') == 1) : ?>
 							<center><?php echo jvaHelper::showAvatar($entry->userid); ?></center>
 						<?php endif; ?>
 					</td>
 					<td width="20%" style="text-align: center">
-						<center><?php echo jvaHelper::userlink($entry->userid, (!(int)$this->config->show_usernames ? $entry->name : $entry->username)); ?></center>
+						<center><?php echo jvaHelper::userlink($entry->userid, (!(int)$this->config->get('show_usernames') ? $entry->name : $entry->username)); ?></center>
 					</td>
 					<td width="40%" style="text-align: center">
 						<center><?php echo $entry->points; ?></center>
@@ -120,13 +120,13 @@ defined('_JEXEC') or die('Restricted access');
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game->imagename ; ?>" height="50" width="50" border="0" alt="" />
 					</td>
 					<td width="35%">
-						<center><?php echo jvaHelper::truncate(stripslashes($game->title), (int)$this->config->truncate_title); ?></center>
+						<center><?php echo jvaHelper::truncate(stripslashes($game->title), (int)$this->config->get('truncate_title')); ?></center>
 					</td>
 					<td width="40%">
 						<center><?php echo $game->description; ?></center>
 					</td>
 					<td width="15%">
-						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=game&id=' . $game->id); ?>"><?php echo JText::_('COM_JVARCADE_PLAY_NOW'); ?></a>
+						<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game->id); ?>"><?php echo JText::_('COM_JVARCADE_PLAY_NOW'); ?></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -154,7 +154,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php foreach ($this->members as $member) : ?>
 				<tr style="border:0px;text-align:left;">
 					<td width="40%" style="border:0px;">
-						<?php echo (!(int)$this->config->show_usernames ? $member->name : $member->username); ?>
+						<?php echo (!(int)$this->config->get('show_usernames') ? $member->name : $member->username); ?>
 					</td>
 					<td width="60%" style="border:0px;">
 						<?php echo jvaHelper::formatDate($member->dateregistered); ?>
@@ -172,6 +172,6 @@ defined('_JEXEC') or die('Restricted access');
 	
 </div>
 <input type="hidden" name="option" value="com_jvarcade" />
-<input type="hidden" name="task" value="<?php echo $this->task; ?>" />
+<input type="hidden" name="view" value="<?php echo $this->task; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 </form>

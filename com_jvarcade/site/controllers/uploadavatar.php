@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -24,7 +24,7 @@ class jvarcadeControllerUploadavatar extends Joomla\CMS\MVC\Controller\BaseContr
 		$fileExt = JFile::getExt($upload['name']);
 		if (!in_array(strtolower($fileExt), array('bmp', 'gif', 'jpeg', 'jpg', 'png'))){
 			$app->enqueueMessage(JText::sprintf('COM_JVARCADE_UPLOAD_AVATAR_PRE_ERR1') . $fileExt . JText::sprintf('COM_JVARCADE_UPLOAD_AVATAR_POST_ERR1'), 'Error');
-			$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
+			$app->redirect('index.php?option=com_jvarcade&view=uploadavatar&tmpl=component&id=' . $userid);
 			exit;
 		}
 		
@@ -32,7 +32,7 @@ class jvarcadeControllerUploadavatar extends Joomla\CMS\MVC\Controller\BaseContr
 		
 		if (($imgwith > 256 || $imgheight > 256)) {
 			$app->enqueueMessage(JText::_('COM_JVARCADE_UPLOAD_AVATAR_DIMS'), 'Error');
-			$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
+			$app->redirect('index.php?option=com_jvarcade&view=uploadavatar&tmpl=component&id=' . $userid);
 			exit;
 		}
 		
@@ -49,6 +49,6 @@ class jvarcadeControllerUploadavatar extends Joomla\CMS\MVC\Controller\BaseContr
 		} else {
 			$app->enqueueMessage(JText::_('COM_JVARCADE_UPLOAD_AVATAR'));
 		}
-		$app->redirect('index.php?option=com_jvarcade&task=uploadavatar&tmpl=component&id=' . $userid);
+		$app->redirect('index.php?option=com_jvarcade&view=uploadavatar&tmpl=component&id=' . $userid);
 	}
 }

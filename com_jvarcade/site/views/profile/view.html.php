@@ -1,30 +1,30 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 defined('_JEXEC') or die;
 
-class jvarcadeViewProfile extends JViewLegacy {
+class jvarcadeViewProfile extends Joomla\CMS\MVC\View\HtmlView {
 	
 	
 	public function display($tpl=null) {
-		$app = JFactory::getApplication();
+		$app = Joomla\CMS\Factory::getApplication();
 		$model = $this->getModel();
 		$games_model = $this->getModel('Games');
 		$pathway = $app->getPathway();
-		$doc = JFactory::getDocument();
+		$doc = Joomla\CMS\Factory::getDocument();
 		
-		$user_id = (int)$app->input->get('id');
-		$userToProfile = JFactory::getUser($user_id);
+		$user_id = (int)$app->input->get('uid');
+		$userToProfile = Joomla\CMS\Factory::getUser($user_id);
 		$this->userToProfile = $userToProfile;
 
-		$currentUser = JFactory::getUser();
+		$currentUser = Joomla\CMS\Factory::getUser();
 		$this->user = $currentUser;
 		
 		$can_dload = $games_model->canDloadPerms($currentUser);

@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -49,12 +49,12 @@ defined('_JEXEC') or die;
 						<?php echo $place; ?>
 					</td>
 					<td width="20%" style="text-align: center">
-						<?php if ($this->config->show_avatar == 1) : ?>
+						<?php if ($this->config->get('show_avatar') == 1) : ?>
 							<center><?php echo jvaHelper::showAvatar($entry->userid); ?></center>
 						<?php endif; ?>
 					</td>
 					<td width="20%" style="text-align: center">
-						<center><?php echo jvaHelper::userlink($entry->userid, (!(int)$this->config->show_usernames ? $entry->name : $entry->username)); ?></center>
+						<center><?php echo jvaHelper::userlink($entry->userid, (!(int)$this->config->get('show_usernames') ? $entry->name : $entry->username)); ?></center>
 					</td>
 					<td width="40%" style="text-align: center">
 						<center><?php echo $entry->points; ?></center>
@@ -72,6 +72,6 @@ defined('_JEXEC') or die;
 	
 </div>
 <input type="hidden" name="option" value="com_jvarcade" />
-<input type="hidden" name="task" value="<?php echo $this->task; ?>" />
+<input type="hidden" name="view" value="<?php echo $this->task; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 </form>

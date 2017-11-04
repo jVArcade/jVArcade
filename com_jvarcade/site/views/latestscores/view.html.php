@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -16,20 +16,20 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 jimport('joomla.html.pagination');
 
-class jvarcadeViewLatestscores extends JViewLegacy {
+class jvarcadeViewLatestscores extends Joomla\CMS\MVC\View\HtmlView {
 	
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication();
+		$mainframe = Joomla\CMS\Factory::getApplication();
 		$pathway = $mainframe->getPathway();
-		$doc = JFactory::getDocument();
-		$user = JFactory::getUser();
-		$task = $mainframe->input->get('task');
+		$doc = Joomla\CMS\Factory::getDocument();
+		$user = Joomla\CMS\Factory::getUser();
+		$task = $mainframe->input->get('view');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
 		$this->Itemid = $Itemid;
 		$model = $this->getModel();
-		$sort_url = 'index.php?option=com_jvarcade&task=' . $task;
+		$sort_url = 'index.php?option=com_jvarcade&view=' . $task;
 		$subfolders = 1;
 		
 		// Table ordering
@@ -65,8 +65,8 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 					$highscores[$score['gameid']] = $this->games_model->getHighestScore($score['gameid'], $score['reverse_score']);
 					$highscores[$score['gameid']]['score'] =  round($highscores[$score['gameid']]['score'], 2);
 					if (!isset($highscores[$score['gameid']]['userid']) || !(int)$highscores[$score['gameid']]['userid']) {
-						$highscores[$score['gameid']]['username'] = $this->config->guest_name;
-					} elseif(!(int)$this->config->show_usernames) {
+						$highscores[$score['gameid']]['username'] = $this->config->get('guest_name');
+					} elseif(!(int)$this->config->get('show_usernames')) {
 						$highscores[$score['gameid']]['username'] = $highscores[$score['gameid']]['name'];
 					}
 				}
@@ -75,7 +75,7 @@ class jvarcadeViewLatestscores extends JViewLegacy {
 		$this->highscores = $highscores;
 		
 		$pathway->addItem($title);
-		$doc->setTitle(($this->config->title ? $this->config->title . ' - ' : '') . $title);
+		$doc->setTitle(($this->config->get('title') ? $this->config->get('title') . ' - ' : '') . $title);
 		
 		$this->scores = $scores;
 		$this->tabletitle = $title;

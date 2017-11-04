@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -13,7 +13,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('JVA_VERSION', '2.14');
+define('JVA_VERSION', '2.15');
 
 // File system paths
 @define('JVA_CSS_INCPATH', JPATH_ROOT . '/components/com_jvarcade/css/');
@@ -25,11 +25,11 @@ define('JVA_VERSION', '2.14');
 @define('JVA_GAMES_INCPATH', JPATH_ROOT . '/images/jvarcade/games/');
 
 // Url paths
-@define('JVA_CSS_SITEPATH', JUri::root() . 'components/com_jvarcade/css/');
-@define('JVA_IMAGES_SITEPATH', JUri::root() . 'images/jvarcade/images/');
-@define('JVA_GAMES_SITEPATH', JUri::root() . 'images/jvarcade/games/');
+@define('JVA_CSS_SITEPATH', Joomla\CMS\Uri\Uri::root() . 'components/com_jvarcade/css/');
+@define('JVA_IMAGES_SITEPATH', Joomla\CMS\Uri\Uri::root() . 'images/jvarcade/images/');
+@define('JVA_GAMES_SITEPATH', Joomla\CMS\Uri\Uri::root() . 'images/jvarcade/games/');
 
 
-$JVersion = new JVersion();
+$JVersion = new Joomla\CMS\Version();
 $version = $JVersion->getShortVersion();
 @define('JVA_JOOMLA_VERSION', $version);

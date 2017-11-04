@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -16,14 +16,14 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 jimport('joomla.html.pagination');
 
-class jvarcadeViewContests extends JViewLegacy {
+class jvarcadeViewContests extends Joomla\CMS\MVC\View\HtmlView {
 	
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication();
+		$mainframe = Joomla\CMS\Factory::getApplication();
 		$pathway = $mainframe->getPathway();
-		$doc = JFactory::getDocument();
-		$task = $mainframe->input->get('task');
+		$doc = Joomla\CMS\Factory::getDocument();
+		$task = $mainframe->input->get('view');
 		$this->task = $task;
 		$Itemid = $mainframe->input->get('Itemid');
 		$this->Itemid = $Itemid;
@@ -61,7 +61,7 @@ class jvarcadeViewContests extends JViewLegacy {
 		$this->tabletitle = $title;
 		$this->sort_url = $sort_url;
 
-		$user = JFactory::getUser();
+		$user = Joomla\CMS\Factory::getUser();
 		$this->user = $user;
 		
 		parent::display($tpl);

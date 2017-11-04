@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 <div id="puarcade_wrapper">
 	
 	<?php include_once(JVA_TEMPLATES_INCPATH . 'menu.php'); 
-	echo JHtml::_('bootstrap.carousel', 'jvaHome');
+	echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.carousel', 'jvaHome');
 	?>
 	
 	<div id="jvaHome" class="carousel slide"><!-- class of slide for animation -->
@@ -28,12 +28,12 @@ defined('_JEXEC') or die('Restricted access');
 		 <div class="pua_folder">
 			<div class="pua_folder_description">
 				<div class="pua_folder_description_left">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
+					<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . ($folder['imagename'] ? 'folders/' . $folder['imagename'] : 'cpanel/folder.png') ; ?>" border="0" alt="" />
 					</a> 
 				</div>
 				<div class="pua_folder_description_right">
-					<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&task=folder&id=' . $folder['id']); ?>">
+					<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 						<b><?php echo stripslashes($folder['name']); ?></b>
 					</a>
 					<br />
@@ -46,21 +46,21 @@ defined('_JEXEC') or die('Restricted access');
 			<?php foreach ($folder['games'] as $game) : ?>
 				<?php $alt = htmlspecialchars(stripslashes($game['title'])); ?>
 				<div class="pua_folder_games">
-				<?php $game_url = JRoute::_('index.php?option=com_jvarcade&view=game&id=' . $game['id'], false) ?>
+				<?php $game_url = Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=game&id=' . $game['id'], false) ?>
 					<a href="<?php echo $game_url; ?>">
-						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->truncate_title); ?>
+						<?php echo jvaHelper::truncate(stripslashes($game['title']), (int)$this->config->get('truncate_title')); ?>
 					</a>
 					<a href="<?php echo $game_url; ?>">
 						<img src="<?php echo JVA_IMAGES_SITEPATH . 'games/' . $game['imagename']; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" />
 					</a>
 				
-				<?php if ($this->config->showscoresinfolders == 1) : ?>
+				<?php if ($this->config->get('showscoresinfolders') == 1) : ?>
 					
 				<?php if (array_key_exists('highscore', $game)) : ?>
 				<?php if (count($game['highscore']) && (int)$game['highscore']['score']) : ?>
 						<h4><?php echo JText::_('COM_JVARCADE_HIGH_SCORE') ?> : <?php echo $game['highscore']['score'] ?></h4>
 						<h4><?php echo $game['highscore']['username'] ?></h4>
-						<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
+						<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=scores&id=' . $game['id']) ?>">[<?php echo JText::_('COM_JVARCADE_ALL_SCORES')?>]</a>
 				<?php else : ?>
 						<h4><?php echo JText::_('COM_JVARCADE_NO_SCORES') ?></h4>
 				<?php endif; ?>
@@ -76,7 +76,7 @@ defined('_JEXEC') or die('Restricted access');
 			<div class="pu_AllGames">
 				<?php if (is_array($this->games_count) && count($this->games_count) && isset($this->games_count[$folder['id']])) : ?>
 				<br/>
-				<a href="<?php echo JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
+				<a href="<?php echo Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $folder['id']); ?>">
 					<?php echo JText::sprintf('COM_JVARCADE_SEE_ALL_GAMES_IN_FOLDER', $this->games_count[$folder['id']]['count']); ?>
 				</a>
 				&raquo;&nbsp;
@@ -88,7 +88,7 @@ defined('_JEXEC') or die('Restricted access');
 			<div class="pu_AllGames">
 					<span style="margin-left: 0.5em;padding-left: 0.75em;"><?php echo JText::_('COM_JVARCADE_SUBFOLDERS'); ?></span>
 					<?php $tmp = array();foreach ($this->all_folders[$folder['id']] as $subfolder) : ?>
-						<?php $tmp[] = '<a href="' . JRoute::_('index.php?option=com_jvarcade&view=folder&id=' . $subfolder['id']) . '">' . $subfolder['name'] . '</a>'; ?>
+						<?php $tmp[] = '<a href="' . Joomla\CMS\Router\Route::_('index.php?option=com_jvarcade&view=folder&id=' . $subfolder['id']) . '">' . $subfolder['name'] . '</a>'; ?>
 					<?php endforeach; ?>
 					<?php echo implode(', ', $tmp); ?>
 			</div>

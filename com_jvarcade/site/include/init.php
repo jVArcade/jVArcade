@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -29,21 +29,20 @@ define('COM_JVARCADE_TIME_FORMAT', $config->get('time_format'));
 define('COM_JVARCADE_TIMEZONE', $conf->getTimezone());
 
 // Javascript includes and declarations
-$document = JFactory::getDocument();
+$document = Joomla\CMS\Factory::getDocument();
 
 
-$jsconstants = 'var JVA_HOST_NAME = \'' . JURI::base() . '\';' . "\n";
-$jsconstants .= 'var JVA_AJAX_URL = \'' . JURI::base() . '\';' . "\n";
+$jsconstants = 'var JVA_HOST_NAME = \'' . Joomla\CMS\Uri\Uri::base() . '\';' . "\n";
+$jsconstants .= 'var JVA_AJAX_URL = \'' . Joomla\CMS\Uri\Uri::base() . '\';' . "\n";
 $jsconstants .= 'var JVA_AJAX_RATING_URL = JVA_HOST_NAME + \'index.php?option=com_jvarcade&task=rategame&format=raw&gid=\';' . "\n";
 $jsconstants .= 'var JVA_MAIN_URL = JVA_HOST_NAME + \'index.php\';' . "\n";
 $document->addScriptDeclaration($jsconstants);
-JHtml::_('jquery.framework');
-JHtml::script('com_jvarcade/jquery.jva.js', false, true);
+Joomla\CMS\HTML\HTMLHelper::_('jquery.framework');
+Joomla\CMS\HTML\HTMLHelper::_('script', 'com_jvarcade/jquery.jva.js', array('version' => 'auto', 'relative' => true));
 
 // Load the puarcade plugins
 $dispatcher = JDispatcher::getInstance();
-JPluginHelper::importPlugin('puarcade', null, true, $dispatcher);
-JPluginHelper::importPlugin('jvarcade', null, true, $dispatcher);
+Joomla\CMS\Plugin\PluginHelper::importPlugin('jvarcade', null, true, $dispatcher);
 
 // Load styles
 $css = (strlen($config->get('template')) && $config->get('template') && file_exists(JVA_CSS_INCPATH . $config->get('template') . '.css')) ? $config->get('template') : 'default' ;

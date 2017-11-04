@@ -1,11 +1,11 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.14
- * @date		2016-03-12
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 
@@ -13,12 +13,12 @@
 // no direct access
 defined('_JEXEC') or die;
 
-class jvarcadeViewGametags extends JViewLegacy {
+class jvarcadeViewGametags extends Joomla\CMS\MVC\View\HtmlView {
 
 	function display($tpl = null) {
 		
-		$mainframe = JFactory::getApplication();
-		$user = JFactory::getUser();
+		$mainframe = Joomla\CMS\Factory::getApplication();
+		$user = Joomla\CMS\Factory::getUser();
 		$this->user = $user;
 		
 		$model = $this->getModel();

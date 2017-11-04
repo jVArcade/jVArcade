@@ -29,6 +29,7 @@
 			showtime="true"
 			singleheader="true"
 			filltable="true"
+			filter="server_utc"
 			default="NOW"
 			/>
 		<field
@@ -40,6 +41,7 @@
 			showtime="true"
 			singleheader="true"
 			filltable="true"
+			filter="server_utc"
 			/>
 		<field
 			name="islimitedtoslots"
