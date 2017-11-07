@@ -208,7 +208,7 @@ class JvaFileHandler extends JEvent {
     
     function onJvaContestDelete($context, $table) {
         
-        $query = "DELETE FROM #__jvarcade_contestgame WHERE " . $this->dbo->quoteName('id') . " = " . $table->id;
+        $query = "DELETE FROM #__jvarcade_contestgame WHERE " . $this->dbo->quoteName('contestid') . " = " . $table->id;
         $this->dbo->setQuery($query);
         
         if ($this->dbo->execute()) {
