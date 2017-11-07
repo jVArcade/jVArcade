@@ -17,15 +17,14 @@ jimport('joomla.filesystem.file');
 jimport('joomla.archive.archive');
 		
 class com_jvarcadeInstallerScript {			
-		function preflight($type, $parent) {
-
-			
+		
+    function preflight($type, $parent) {
+	
 		}//End Preflight
 		
 		
 		function install($parent) {
 			$app = Joomla\CMS\Factory::getApplication();
-			$install = '<div style="align:left;">';
 			require_once JPATH_ROOT . '/components/com_jvarcade/include/define.php';
 			$backendPath = JPATH_ROOT . '/administrator/components/com_jvarcade/';
 			$frontendPath = JPATH_ROOT . '/components/com_jvarcade/';
@@ -46,31 +45,12 @@ class com_jvarcadeInstallerScript {
                     		
 						}
 						if ($error) {
-							Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
+						    $app->enqueueMessage('<i class="icon-remove"></i>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_FAILED'), 'error');
 						} else {
-							$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') .'<br />';
+						    $app->enqueueMessage('<i class="icon-ok"></i>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_DEFAULT_OK') );
 						}
-        	} else {
-			
-					$alters = array();
-					//if (count($alters)) {
-						foreach ($alters as $query) {
-							$db->setQuery($query);
-						try {
-        					$db->execute();
-        				} catch (RuntimeException $e) {
-        					$ec1 = $e->getCode();
-        				}
-						}
-					//}
-					if($ec1 == 1091) {
-					
-        			$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_COLUMNS_OK') .'<br />';
-					}
-        		//}
-        			
-        		
-			}
+        	}
+        
 		// Create /arcade/gamedata directory. This prevents menu item with alias arcade being created which breaks gamedata rewrite rules
 		
 		if (!JFolder::exists(JPATH_ROOT . '/arcade')) {
@@ -94,21 +74,22 @@ class com_jvarcadeInstallerScript {
 				}
 			}
 			if ($mvres === true) {
-				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_OK') .'<br />';
+				$app->enqueueMessage('<i class="icon-ok"></i>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_OK'));
 			} else {
-				$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'red_x.png" align="absmiddle"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_FAILED') .'<br />';
+			    $app->enqueueMessage('<i class="icon-remove"></i>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_MOVEFOLDERS_FAILED'), 'error');
 			}
 		} elseif (JFolder::exists(JPATH_ROOT . '/images/jvarcade')) {
 			JFile::copy(dirname(__FILE__) . '/site/images/tick.png', JPATH_ROOT . '/images/jvarcade/images/tick.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/games2.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/games2.png');
-			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/rss.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/rss.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/cpanel/menu-contests.png', JPATH_ROOT . '/images/jvarcade/images/cpanel/menu-contests.png');
 			JFile::copy(dirname(__FILE__) . '/site/images/contentrating/gamewarning.png', JPATH_ROOT . '/images/jvarcade/images/contentrating/gamewarning.png');
+			
+			$app->enqueueMessage('<i class="icon-ok"></i>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_FILECOPY'));
 		}
 		
 		// (RE)CREATE THE CATCH FILES IN THE JOOMLA ROOT
 		
-		$install .= '<img src="'. JVA_IMAGES_SITEPATH. 'tick.png"/>' . JText::_('COM_JVARCADE_INSTALLER_UPGRADE_FILECOPY') .'<br />';
+		
 		$copyfiles = array(
 			JPATH_ROOT . '/arcade/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
 			JPATH_ROOT . '/arcade/gamedata/index.html' => '<html><body bgcolor="#FFFFFF"></body></html>',
@@ -121,8 +102,6 @@ class com_jvarcadeInstallerScript {
 			file_put_contents($filename, $content);
 		}
 		
-		echo $install;
-		echo "</div><br /><br /><br />";
 		
 		$plugin_installer = new Joomla\CMS\Installer\Installer;
 		$file_origin = JPATH_ADMINISTRATOR.'/components/com_jvarcade/install/plugins/plg_system_jvarcade';
@@ -201,11 +180,90 @@ class com_jvarcadeInstallerScript {
 	
 	
 	function postflight ($type, $parent) {
+	    
+	    //Remove old files no longer needed due to code overhaul
+	    $controllerPath = JPATH_ROOT . '/administrator/components/com_jvarcade/controllers/';
+	    $modelPath = JPATH_ROOT . '/administrator/components/com_jvarcade/models/';
+	    $viewPath = JPATH_ROOT . '/administrator/components/com_jvarcade/views/';
+		$oldfiles = array(
+		    JPATH_ADMINISTRATOR . '/manifests/packages/pkg_jvarcade.xml', JPATH_ROOT . '/tmp/jva-version-compare.txt', JPATH_ROOT . '/crossdomain.xml',
+		    $controllerPath . 'content_ratings.php', $controllerPath . 'edit_contentrating.php', $controllerPath . 'edit_contest.php', $controllerPath . 'edit_folder.php',
+		    $controllerPath . 'edit_game.php', $controllerPath . 'manage_folders.php', $controllerPath . 'manage_games.php', $controllerPath . 'manage_scores.php',
+		    $modelPath . '/forms/filter_manage_games.xml', $modelPath . '/forms/filter_manage_scores.xml', $modelPath . 'content_ratings.php', $modelPath . 'edit_contentrating.php',
+		    $modelPath . 'edit_contest.php', $modelPath . 'edit_folder.php', $modelPath . 'edit_game.php', $modelPath . 'manage_folders.php', $modelPath . 'manage_games.php',
+		    $modelPath . 'manage_scores.php',
+		);
 		
+		foreach ($oldfiles as $file) {
+		    if(JFile::exists($file)) @JFile::delete($file);
+		}
 		
+		$oldfolders = array(
+		    JPATH_ADMINISTRATOR . '/manifests/packages/jvarcade', $viewPath . 'content_ratings', $viewPath . 'edit_contentrating', $viewPath . 'edit_contest',
+		    $viewPath . 'edit_folder', $viewPath . 'edit_game', $viewPath . 'manage_folders', $viewPath . 'manage_games', $viewPath . 'manage_scores', $viewPath . 'rss',
+		    $viewPath . 'settings',
+		    
+		);
 		
+		foreach ($oldfolders as $folder) {
+		  if(JFolder::exists($folder)) @JFolder::delete($folder);
+		}
+		//Migrate settings from old #__jvarcade_settings table to component paramaters in #__extensions table
+		$db = Joomla\CMS\Factory::getDBO();
+		$table = '#__jvarcade_settings';
+		try {
+		      $db->setQuery('SELECT COALESCE(COUNT(*), 0) FROM ' . $db->quoteName($table));
+		      $records_exist = @$db->loadResult();
+		      if ((int)$records_exist) {
+		    
+		          $query = $db->getQuery(true);
+		          $query->delete('#__jvarcade_settings')->where('optname = load_jquery');
+		          $db->execute();
+		    
+		          $query = $db->getQuery(true);
+		          $query->select(array('optname', 'value'))
+		          ->from($table);
+		          $db->setQuery($query);
+		          $res = $db->loadObjectList();
+		          $obj = new stdClass();
+		       if (count($res)) {
+		        foreach ($res as $row) {
+		            $optname = $row->optname;
+		            $obj->$optname = $row->value;
+		        }
+		       }
+		       $obj->TagPerms = ["1","2","3","4","5","6","7","8","9"];
+		       $obj->DloadPerms = ["1","2","3","4","5","6","7","8","9"];
+		       $obj->profile_scores = "5";
+		       $obj->profile_faves = "5";
+		       $globals = json_encode($obj);
+		   
+		      //Remove #__jvarcade_settings table if it exists
+		      $db->dropTable('#__jvarcade_settings', true);
+		      } 
+		      
+		} catch (Exception $e) {//Set default settings for new installation
+		    $globals = '{"date_format":"Y-m-d","time_format":"H:i:s","guest_name":"jVArcadeGuest",'
+                          . '"installed_charset":"UTF-8","table_max":"100","allow_gview":"1",'
+                          . '"allow_gplay":"1","allow_gsave":"1","leaderboard":"1","faves":"1",'
+                          . '"display_onlysingleurl":"1","tagcloud":"1","TagPerms":["1","9","6","7","2","3","4","5","8"],'
+                          . '"TagLimit":"0","updatelb":"15","max_faves":"10","contentrating":"1","game_modal":"0",'
+                          . '"enable_dload":"1","DloadPerms":["1","9","6","7","2","3","4","5","8"],"title":"jVArcade",'
+                          . '"template":"default","scoreundergame":"1","foldergames":"1","rate":"1","showstats":"1",'
+                          . '"showscoresinfolders":"1","homepage_view":"default","homepage_order":"1","homepage_order_dir":"1",'
+                          . '"foldercols":"1","GamesPerPage":"2","display_max":"20","bookmarks":"1","specialfolders":"1","report":"1",'
+                          . '"roundcorners":"1","randgamecount":"3","truncate_title":"50","alias_folder":"","alias_popular":"",'
+                          . '"alias_newest":"","alias_contests":"","alias_leaderboard":"","alias_favourite":"","alias_random":"",'
+                          . '"show_usernames":"1","comments":"0","scorelink":"0","show_avatar":"1","communitybuilder_itemid":"7",'
+                          . '"aup_itemid":"8","profile_scores":"5","profile_faves":"5"}';
+		}
 		
-		
+		$query = $db->getQuery(true);
+		$query->update($db->quoteName('#__extensions'));
+		$query->set($db->quoteName('params') . ' = ' . $db->quote($globals));
+		$query->where($db->quoteName('element') . ' = ' . $db->quote('com_jvarcade'));
+		$db->setQuery($query);
+		$db->execute();
 	}//end postflight function
 
 

@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_folders` (
   `description` varchar(255) DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `parentid` int(11) NOT NULL DEFAULT '0',
-  `viewpermissions` text NOT NULL DEFAULT '0',
+  `viewpermissions` text DEFAULT NULL,
   `imagename` varchar(255) NOT NULL DEFAULT 'folder.gif',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
@@ -149,17 +149,4 @@ CREATE TABLE IF NOT EXISTS `#__jvarcade_tags` (
   `count` int(11) NOT NULL DEFAULT '0',
   `gameid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-CREATE TABLE IF NOT EXISTS `#__jvarcade_achievements` ( 
- 	`id` int(11) NOT NULL AUTO_INCREMENT, 
- 	`userid` int(11) NOT NULL,
-	`gameid` int(11) NOT NULL,
- 	`gametitle` varchar(255) NOT NULL, 
- 	`title` varchar(255) NOT NULL, 
- 	`description` mediumtext NOT NULL, 
- 	`icon_url` varchar(1000) NOT NULL,
-	`points` int(11) NOT NULL,
- 	PRIMARY KEY (`id`), 
- 	UNIQUE KEY (`userid`, `title`) 
- ) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
+) ENGINE=MyISAM CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'; 
