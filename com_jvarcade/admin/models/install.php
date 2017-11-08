@@ -148,13 +148,16 @@ class jvarcadeModelInstall extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 				}
 			}
 		}
-		
+		if(!count($errormsg)) {
+		    //Trigger new game event
+		    $this->dispatcher->trigger('onPUANewGame', array($config['title'], $config['description'], $config['newimagename'], (int)$folderid));
+		}
 		// GENERAL CLEANUP
 		if ($pkg['packagefile'] && is_file($pkg['packagefile'])) JFile::delete($pkg['packagefile']);
 		if ($pkg['extractdir'] && is_dir($package['extractdir'])) JFolder::delete($pkg['extractdir']);
 		
-		// Redirect, show messages and trigger event
-		$this->dispatcher->trigger('onPUANewGame', array($config['title'], $config['description'], $config['newimagename'], (int)$folderid));
+		// Redirect, show messages
+		
 		$msg = (count($errormsg) ? implode('<br />', $errormsg) : JText::sprintf('COM_JVARCADE_UPLOADARCHIVE_SUCCESS'));
 		$msg_type = count($errormsg) ? 'error' : 'message';
 		$this->app->enqueueMessage($msg, $msg_type);

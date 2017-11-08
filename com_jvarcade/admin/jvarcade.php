@@ -21,6 +21,10 @@ require_once (dirname(__FILE__) . '/model.php');
 require_once (JPATH_ROOT . '/components/com_jvarcade/include/define.php');
 require_once (JVA_HELPERS_INCPATH . 'helper.php');
 
+// Load the puarcade plugins
+$dispatcher = JDispatcher::getInstance();
+Joomla\CMS\Plugin\PluginHelper::importPlugin('jvarcade', null, true, $dispatcher);
+
 $model =  new jvarcadeModelAdminCommon();
 $config = $model->getConf();
 $tz_obj = $model->getAdminTimezone();
