@@ -32,7 +32,7 @@ class jvarcadeModelInstall extends Joomla\CMS\MVC\Model\BaseDatabaseModel {
 		
 		if (!$pkg) {
 			$this->app->enqueueMessage(JText::_('COM_JVARCADE_UPLOADARCHIVE_NOPACKAGE'), 'error');
-			$this->app->redirect('index.php?option=com_jvarcade&task=game_upload');
+			$this->app->redirect('index.php?option=com_jvarcade&view=game_upload');
 			jexit();
 		}
 		
