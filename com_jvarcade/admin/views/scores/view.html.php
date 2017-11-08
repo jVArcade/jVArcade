@@ -19,6 +19,7 @@ class jvarcadeViewScores extends Joomla\CMS\MVC\View\HtmlView {
 	
 		$app = Joomla\CMS\Factory::getApplication();
 		
+		
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
 		$this->state = $this->get('State');
@@ -33,6 +34,10 @@ class jvarcadeViewScores extends Joomla\CMS\MVC\View\HtmlView {
 		    throw new Exception(implode("\n", $errors), 500);
 		}
 		
+		$model = new jvarcadeModelAdminCommon();
+		$this->config = $model->getConf();
+		$this->guest_name = $this->config->get('guest_name');
+		dump($this->guest_name);
 		$this->addToolBar();
 
 		$this->addSidebar('scores');

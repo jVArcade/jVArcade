@@ -56,7 +56,7 @@ $listDirn = $this->escape($this->filter_order_Dir);
 					<tr class="<?php echo "row$i"; ?>">
 						<td style="text-align: left;"><?php echo $checked; ?></td>
 						<td style="text-align: left;"><?php echo $row->title; ?></td>
-						<td style="text-align: left;"><?php echo $row->username; ?></td>
+						<td style="text-align: left;"><?php echo (!$row->username ? $this->guest_name : $row->username); ?></td>
 						<td style="text-align: left;"><?php echo $row->score; ?></td>
 						<td style="text-align: left;"><a target="_blank" href="<?php echo $url; ?>"><?php echo $row->ip; ?></a></td>
 						<td style="text-align: left;"><?php echo jvaHelper::formatDate($row->date); ?></td>
