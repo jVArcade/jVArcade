@@ -243,7 +243,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php 
 				$embed = ob_get_contents(); 
 				ob_end_clean();
-				if ($this->config->get('window') == 1) {
+				if ($this->config->get('game_modal') == 1) {
 					echo Joomla\CMS\HTML\HTMLHelper::_('bootstrap.modal', $modalId); ?>
 					<style>
 					div .modal {

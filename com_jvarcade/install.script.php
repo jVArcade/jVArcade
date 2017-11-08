@@ -217,10 +217,6 @@ class com_jvarcadeInstallerScript {
 		      if ((int)$records_exist) {
 		    
 		          $query = $db->getQuery(true);
-		          $query->delete('#__jvarcade_settings')->where(array('optname = load_jquery', 'optname = window', 'optname = test_popup'));
-		          $db->execute();
-		    
-		          $query = $db->getQuery(true);
 		          $query->select(array('optname', 'value'))
 		          ->from($table);
 		          $db->setQuery($query);
