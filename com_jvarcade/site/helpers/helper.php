@@ -103,7 +103,8 @@ class jvaHelper {
 		$archivename = JPath::clean($archivename);
 
 		// do the unpacking of the archive
-		$result = Joomla\Archive\Archive::extract($archivename, $extractdir);
+		$result = new Joomla\Archive\Archive();
+		$result->extract($archivename, $extractdir);
 
 		if ( $result === false ) {
 			return false;

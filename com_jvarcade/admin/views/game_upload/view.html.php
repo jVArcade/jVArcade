@@ -23,7 +23,7 @@ class jvarcadeViewGame_upload extends Joomla\CMS\MVC\View\HtmlView {
 		$config = Joomla\CMS\Factory::getConfig();
 		$model = $this->getModel();
 		$app = Joomla\CMS\Factory::getApplication();
-		$this->task = $app->input->getCmd('task', 'game_upload');
+		$this->task = $app->input->getCmd('view', 'game_upload');
 		$published = 1;
 		$this->published = $published;
 		
