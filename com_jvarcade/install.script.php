@@ -229,8 +229,8 @@ class com_jvarcadeInstallerScript {
 		        }
 		       }
 		       $obj->game_modal = "0";
-		       $obj->TagPerms = ["1","2","3","4","5","6","7","8","9"];
-		       $obj->DloadPerms = ["1","2","3","4","5","6","7","8","9"];
+		       $obj->TagPerms = explode(',', $obj->TagPerms);
+		       $obj->DloadPerms = explode(',', $obj->DloadPerms);
 		       $obj->profile_scores = "5";
 		       $obj->profile_faves = "5";
 		       $globals = json_encode($obj);
