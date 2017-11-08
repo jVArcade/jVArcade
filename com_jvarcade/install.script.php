@@ -217,7 +217,7 @@ class com_jvarcadeInstallerScript {
 		      if ((int)$records_exist) {
 		    
 		          $query = $db->getQuery(true);
-		          $query->delete('#__jvarcade_settings')->where('optname = load_jquery');
+		          $query->delete('#__jvarcade_settings')->where(array('optname = load_jquery', 'optname = window', 'optname = test_popup'));
 		          $db->execute();
 		    
 		          $query = $db->getQuery(true);
@@ -232,6 +232,7 @@ class com_jvarcadeInstallerScript {
 		            $obj->$optname = $row->value;
 		        }
 		       }
+		       $obj->game_modal = "0";
 		       $obj->TagPerms = ["1","2","3","4","5","6","7","8","9"];
 		       $obj->DloadPerms = ["1","2","3","4","5","6","7","8","9"];
 		       $obj->profile_scores = "5";
