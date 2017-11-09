@@ -1,12 +1,11 @@
 <?php 
 /**
- * CComment plugin for jVArcade component
  * @package		jVArcade
- * @version		2.11
- * @date		2014-05-04
- * @copyright		Copyright (C) 2007 - 2014 jVitals Digital Technologies Inc. All rights reserved.
+ * @version		2.15
+ * @date		1-11-2017
+ * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvitals.com
+ * @link		http://jvarcade.com
  */
 
 class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
@@ -71,7 +70,7 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 	{
 		$input = JFactory::getApplication()->input;
 		$option = $input->getCmd('option', '');
-		$view = $input->getCmd('task', '');
+		$view = $input->getCmd('view', '');
 		$id = $input->get('id', 0);
 	
 		return ($option == 'com_jvarcade' && $view == 'game' && $id !=0
@@ -108,7 +107,7 @@ class ccommentComponentJvarcadePlugin extends ccommentComponentPlugin {
 		{
 			$add = "#!/ccomment-comment=$commentId";
 		}
-		$url = JUri::root() . "index.php?option=com_jvarcade&task=game&id=$contentId";
+		$url = JUri::root() . "index.php?option=com_jvarcade&view=game&id=$contentId";
 		$url .= $add;
 		$url = JRoute::_($url, $xhtml);
 	
