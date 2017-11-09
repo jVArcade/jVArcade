@@ -41,7 +41,10 @@ class jvarcadeToolbarHelper {
 		JText::_('COM_JVARCADE_CONTESTS'), 'index.php?option=com_jvarcade&view=contests', $vName == 'contests');
 		
 		JHtmlSidebar::addEntry(
-		JText::_('COM_JVARCADE_SUPPORT'), 'http://jvarcade.com/forum/jvarcade-support', $vName == 'support');
+		    JText::_('COM_JVARCADE_SETTINGS'), 'index.php?option=com_config&view=component&component=com_jvarcade');
+		
+		JHtmlSidebar::addEntry(
+		JText::_('COM_JVARCADE_SUPPORT'), 'http://jvarcade.com/forum/jvarcade-support');
 	
 	}
 	
