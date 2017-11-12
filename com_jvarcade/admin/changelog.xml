@@ -4,7 +4,7 @@
     <date>1-11-2017</date>
     <description><![CDATA[ Major Release ]]></description>
     <list>
-      <item type="new"><![CDATA[ jVArcade has a new home http://jvarcade.com ]]></item>
+      <item type="new"><![CDATA[ jVArcade has a new home at <a href="http://jvarcade.com" target="_blank">jVArcade.com</a> ]]></item>
       <item type="new"><![CDATA[ Major backend code overhaul ]]></item>
 	  <item type="bugfix"><![CDATA[ Backend plugin events fix ]]></item>
     </list>
