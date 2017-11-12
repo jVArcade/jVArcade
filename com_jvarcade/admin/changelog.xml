@@ -5,8 +5,12 @@
     <description><![CDATA[ Major Release ]]></description>
     <list>
       <item type="new"><![CDATA[ jVArcade has a new home at <a href="http://jvarcade.com" target="_blank">jVArcade.com</a> ]]></item>
-      <item type="new"><![CDATA[ Major backend code overhaul ]]></item>
+      <item type="new"><![CDATA[ Backend overhaul - now uses Joomla core functions for all forms and lists  ]]></item>
+      <item type="upgrade"><![CDATA[ Component updates now handled by Joomla Updates ]]></item>
+	  <item type="ui"><![CDATA[ Player profile layout improvement ]]></item>
 	  <item type="bugfix"><![CDATA[ Backend plugin events fix ]]></item>
+	  <item type="bugfix"><![CDATA[ Fixed infinite hang when entering component administration ]]></item>
+	  <item type="bugfix"><![CDATA[ Removed game feed page due to gamersafe.com closing down ]]></item>
     </list>
   </version>
     <version number="2.14">
