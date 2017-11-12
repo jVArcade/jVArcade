@@ -37,7 +37,7 @@ class jvarcadeViewScores extends Joomla\CMS\MVC\View\HtmlView {
 		$model = new jvarcadeModelAdminCommon();
 		$this->config = $model->getConf();
 		$this->guest_name = $this->config->get('guest_name');
-		dump($this->guest_name);
+
 		$this->addToolBar();
 
 		$this->addSidebar('scores');
