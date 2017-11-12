@@ -73,9 +73,6 @@ $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_CONTEST_DESC_RECALCULATELEADERBOAR
 $jsconstants .= 'var COM_JVARCADE_MAINTENANCE_MIGRATION_FAILURE = \'' . JText::_('COM_JVARCADE_MAINTENANCE_MIGRATION_FAILURE') . '\';' . "\n";
 $document->addScriptDeclaration($jsconstants);
 
-// check for new version 
-jvaHelper::checkForNewVersion();
-
 
 $controller = Joomla\CMS\MVC\Controller\BaseController::getInstance('jvarcade');
 $controller->execute(Joomla\CMS\Factory::getApplication()->input->get('task'));
