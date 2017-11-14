@@ -8,7 +8,7 @@
 	<author>jvarcade.com</author>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>admin@jvarcade.com</authorEmail>
-	<authorUrl>http://www.jvarcade.com</authorUrl>
+	<authorUrl>https://jvarcade.com</authorUrl>
 	<description>A Joomla Arcade Component</description>
 	<scriptfile>install.script.php</scriptfile>
 	<install>
@@ -29,7 +29,7 @@
 		</schemas>
 	</update>
 	 <updateservers>
-    	<server type="extension" name="jVArcade Updates">http://jvarcade.com/updates/jvarcade.xml</server>
+    	<server type="extension" name="jVArcade Updates">https://jvarcade.com/updates/jvarcade.xml</server>
  	</updateservers>
 	<files folder="site">
 		<filename>index.html</filename>

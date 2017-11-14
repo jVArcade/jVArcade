@@ -1,11 +1,9 @@
 <?php
 /**
  * @package		jVArcade
- * @version		2.15
- * @date		1-11-2017
  * @copyright   Copyright (C) 2017 jVArcade.com
  * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPLv3 or later
- * @link		http://jvarcade.com
+ * @link		https://jvarcade.com
  */
 
 
@@ -91,7 +89,7 @@ class jvarcadeViewCpanel extends Joomla\CMS\MVC\View\HtmlView {
 				'label' => JText::_('COM_JVARCADE_CONTESTS')
 			),
 			'SUPPORT' => array(
-				'link' => 'http://jvarcade.com/forum/jvarcade-support',
+				'link' => 'https://jvarcade.com/forum/jvarcade-support',
 				'icon' => 'user_48.png',
 				'label' => JText::_('COM_JVARCADE_SUPPORT'),
 				'target' => '_blank'
